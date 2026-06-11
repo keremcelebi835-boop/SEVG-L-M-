@@ -132,6 +132,25 @@
             line-height: 1.6;
         }
 
+        /* Zaman Kapsülü Butonları */
+        .capsule-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin-top: 5px;
+        }
+        
+        .capsule-btn {
+            background: linear-gradient(45deg, #4d004d, #800080);
+            color: #ffe6ff;
+            border: 1px solid #ff3366;
+            padding: 12px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
         .btn-group {
             display: flex;
             flex-direction: column;
@@ -182,6 +201,53 @@
             border-radius: 10px;
             cursor: pointer;
             transition: all 0.3s ease;
+        }
+
+        /* Aşk Kuponları Alanı */
+        .coupon-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-top: 10px;
+        }
+        
+        .coupon-card {
+            background: rgba(255, 51, 102, 0.1);
+            border: 2px dashed #ff3366;
+            border-radius: 12px;
+            padding: 12px;
+            text-align: left;
+            position: relative;
+        }
+        
+        .coupon-title {
+            font-weight: bold;
+            color: #ff99bb;
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+        
+        .coupon-desc {
+            font-size: 0.85rem;
+            color: #ddd;
+            margin-bottom: 10px;
+        }
+        
+        .use-coupon-btn {
+            background: #ff3366;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .use-coupon-btn:disabled {
+            background: #444;
+            color: #888;
+            cursor: not-allowed;
         }
 
         /* Dilek Listesi */
@@ -263,10 +329,11 @@
             object-fit: cover;
         }
 
+        /* Geliştirilmiş Oyun Alanı */
         #game-area {
             width: 100%;
-            height: 250px;
-            background: rgba(0, 0, 0, 0.3);
+            height: 270px;
+            background: rgba(0, 0, 0, 0.4);
             border-radius: 12px;
             margin-top: 15px;
             position: relative;
@@ -276,14 +343,25 @@
 
         .falling-heart {
             position: absolute;
-            font-size: 28px;
+            font-size: 30px;
             cursor: pointer;
+            user-select: none;
             animation: fall linear forwards;
         }
 
         @keyframes fall {
-            0% { top: -40px; }
-            100% { top: 260px; }
+            0% { top: -45px; }
+            100% { top: 280px; }
+        }
+
+        .game-stats-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.95rem;
+            margin: 8px 0;
+            padding: 0 5px;
+            font-weight: bold;
         }
 
         .modal {
@@ -306,6 +384,7 @@
             width: 100%;
             text-align: center;
             box-shadow: 0 0 25px rgba(255, 51, 102, 0.5);
+            white-space: pre-line;
         }
 
         .modal-text {
@@ -352,6 +431,15 @@
         </div>
 
         <div class="card-box">
+            <div class="box-title">⏳ Geleceğe Notlar (Zaman Kapsülü)</div>
+            <div class="capsule-grid">
+                <button class="capsule-btn" onclick="openCapsule('uni')">🎓 Üniversitenin İlk Günü Aç</button>
+                <button class="capsule-btn" onclick="openCapsule('home')">🔑 Ortak Eve Çıktığımız Gün Aç</button>
+                <button class="capsule-btn" onclick="openCapsule('sad')">💖 Modun Çok Düştüğünde Aç</button>
+            </div>
+        </div>
+
+        <div class="card-box">
             <div class="box-title">🧠 Bugün Nasıl Hissediyorsun?</div>
             <div class="mood-container">
                 <button class="mood-btn" onclick="setMood('happy')">Mutlu 😊</button>
@@ -372,10 +460,49 @@
             <button class="btn" onclick="openModal('letter')">💌 Sürpriz Mektup</button>
         </div>
 
+        <div class="card-box" style="border: 2px dashed #ff3366;">
+            <div class="box-title" style="margin:0;">🎮 Aşkımı Yakala Oyunu</div>
+            
+            <div style="font-size: 1rem; margin-top: 5px; color: #ff99bb; font-weight: bold;">
+                Mevcut Kupon Hakkın: <span id="coupon-count">0</span> 🎫
+            </div>
+            
+            <div class="game-stats-container">
+                <div style="color: #ff3366;">Can: <span id="game-lives">❤️❤️❤️</span></div>
+                <div style="color: #ffff99;">Kademe: <span id="game-level">1</span></div>
+                <div style="color: #99ff99;">Skor: <span id="score">0</span> / 20</div>
+            </div>
+
+            <button id="start-game-btn" class="btn" style="padding: 8px 20px; font-size: 0.9rem; margin: 10px auto 0 auto; width: auto;" onclick="startGame()">Oyunu Başlat 🕹️</button>
+            <div id="game-area"></div>
+        </div>
+
+        <div class="card-box" style="border: 1px solid #ff007f;">
+            <div class="box-title">🎟️ Aşk Kuponları Merkezi</div>
+            <p style="font-size: 0.8rem; color: #bbb; margin-bottom: 10px;">Oyunu her kazandığında kademen artar ve 1 kupon hakkı kazanırsın!</p>
+            
+            <div class="coupon-grid">
+                <div class="coupon-card">
+                    <div class="coupon-title">🍳 Özel Yemek Kuponu</div>
+                    <div class="coupon-desc">Kerem'in ellerinden en sevdiğin yemeği veya tatlıyı yaptırma hakkı!</div>
+                    <button class="use-coupon-btn" id="cp-1" onclick="useCoupon('cp-1', 'Özel Yemek Kuponu 🍳')">Kuponu Kullan (1 Hak)</button>
+                </div>
+                <div class="coupon-card">
+                    <div class="coupon-title">🤗 Küsme Karşıtı Anında Sarılma</div>
+                    <div class="coupon-desc">Tartışmalarda anında her şeyi unutup sıkıca sarılma ve barışma garantisi!</div>
+                    <button class="use-coupon-btn" id="cp-2" onclick="useCoupon('cp-2', 'Anında Sarılma Kuponu 🤗')">Kuponu Kullan (1 Hak)</button>
+                </div>
+                <div class="coupon-card">
+                    <div class="coupon-title">🎬 Sinema & Abur Cubur Gecesi</div>
+                    <div class="coupon-desc">İzlenecek filmi ve tüm abur cuburları tamamen senin seçme hakkın!</div>
+                    <button class="use-coupon-btn" id="cp-3" onclick="useCoupon('cp-3', 'Sinema Gecesi Kuponu 🎬')">Kuponu Kullan (1 Hak)</button>
+                </div>
+            </div>
+        </div>
+
         <div class="card-box">
             <div class="box-title">📌 Birlikte Yapacaklarımız</div>
             <div class="bucket-list">
-                
                 <div class="bucket-category">🚀 Geleceğe Doğru Büyük Adımlar</div>
                 <label class="bucket-item"><input type="checkbox" onchange="handleCheck(this)"> 🎓 Aynı üniversiteye gitmek / birlikte mezun olmak</label>
                 <label class="bucket-item"><input type="checkbox" onchange="handleCheck(this)"> 🔑 Sadece ikimize ait ortak bir eve çıkmak</label>
@@ -391,17 +518,8 @@
                 <div class="bucket-category">🍿 Eğlence & Macera</div>
                 <label class="bucket-item"><input type="checkbox" onchange="handleCheck(this)"> Gece boyu en sevdiğimiz film maratonunu yapmak</label>
                 <label class="bucket-item"><input type="checkbox" onchange="handleCheck(this)"> Yıldızların altında kamp kurup ateş yakmak</label>
-                <label class="bucket-item"><input type="checkbox" onchange="handleCheck(this)"> Lunaparkta çocuk gibi eğlenmek</label>
+                <label class="bucket-item"><input type="checkbox" onchange="handleCheck(this)"> Lunaparkta child gibi eğlenmek</label>
                 <label class="bucket-item"><input type="checkbox" onchange="handleCheck(this)"> Birlikte hiç bilmediğimiz bir şehri keşfetmek</label>
-                
-                <div class="bucket-category">🍳 Biz Bize Mutfak</div>
-                <label class="bucket-item"><input type="checkbox" onchange="handleCheck(this)"> Mutfağı tamamen dağıtarak birlikte pasta yapmak</label>
-                <label class="bucket-item"><input type="checkbox" onchange="handleCheck(this)"> Pazar sabahı birbirimize kahvaltı hazırlamak</label>
-                
-                <div class="bucket-category">💖 Geleceğe Not</div>
-                <label class="bucket-item"><input type="checkbox" onchange="handleCheck(this)"> Sadece ikimizin bildiği bir zaman kapsülü gömmek</label>
-                <label class="bucket-item"><input type="checkbox" onchange="handleCheck(this)"> Birlikte ilk konserimize bilet almak</label>
-                <label class="bucket-item"><input type="checkbox" onchange="handleCheck(this)"> Yıllar sonra bu siteye bakıp gülümsemek</label>
             </div>
         </div>
 
@@ -416,13 +534,6 @@
             <div class="photo-card"><img src="foto7.jpg" alt="Anı 7"></div>
             <div class="photo-card"><img src="foto8.jpg" alt="Anı 8"></div>
         </div>
-
-        <div class="card-box" style="border: 2px dashed #ff3366;">
-            <div class="box-title" style="margin:0;">🎮 Aşkımı Yakala Oyunu</div>
-            <div style="font-size: 1rem; margin: 10px 0;" id="score-board">Skor: <span id="score">0</span> / 20</div>
-            <button id="start-game-btn" class="btn" style="padding: 8px 20px; font-size: 0.9rem; margin: 0 auto; width: auto;" onclick="startGame()">Oyunu Başlat 🕹️</button>
-            <div id="game-area"></div>
-        </div>
     </div>
 
     <div id="appModal" class="modal">
@@ -436,6 +547,23 @@
 
     <script>
         let loginDone = false;
+        let couponRights = parseInt(localStorage.getItem('couponRights')) || 0;
+        let currentLevel = parseInt(localStorage.getItem('currentLevel')) || 1;
+        
+        let score = 0;
+        let lives = 3;
+        let gameInterval;
+        let isGameRunning = false;
+
+        function updateCouponUI() {
+            document.getElementById('coupon-count').innerText = couponRights;
+            document.getElementById('game-level').innerText = currentLevel;
+            const buttons = document.querySelectorAll('.use-coupon-btn');
+            buttons.forEach(btn => {
+                if(couponRights > 0) btn.removeAttribute('disabled');
+                else btn.setAttribute('disabled', 'true');
+            });
+        }
 
         function checkPassword() {
             const input = document.getElementById("password-input").value;
@@ -443,20 +571,37 @@
                 document.getElementById("login-screen").style.display = "none";
                 document.getElementById("main-content").style.display = "block";
                 loginDone = true;
+                updateCouponUI();
                 
-                // Şifreyi girince müziği otomatik başlatmayı dene (Tarayıcı izin verirse)
                 const audio = document.getElementById("bg-audio");
                 audio.play().then(() => {
                     document.getElementById("music-btn").innerText = "🎵 Şarkıyı Kapat";
-                }).catch(e => console.log("Otomatik oynatma engellendi, butona basılması gerekiyor."));
+                }).catch(e => console.log("Otomatik oynatma engellendi."));
 
-                // Giriş yaptıktan 10 saniye sonra ekrana dev mektup gelsin
                 setTimeout(() => {
                     if(loginDone) openModal('surpriseLetter');
                 }, 10000);
-
             } else {
                 alert("Küçük bir hata yaptın sevgilim, tekrar dene! 💖");
+            }
+        }
+
+        function openCapsule(type) {
+            if(type === 'uni') {
+                alert("📌 Şşşt! Henüz doğru zaman değil sevgilim. Üniversitenin o heyecanlı ilk günü geldiğinde bu kilidi birlikte açacağız! 🎓✨");
+            } else if(type === 'home') {
+                alert("🔑 Sabret her şeyim... Sadece ikimize ait o ortak evin anahtarını çevirdiğimiz gün bu mektubun kilidi de açılacak! 🏡💞");
+            } else if(type === 'sad') {
+                openModal('custom', "💖 Canımın içi, eğer şu an modun düştüyse veya moralin bozuksa bil ki ben her zaman, her ne olursa olsun senin yanındayım. Sen dünyadaki en güçlü ve en özel insansın. Derin bir nefes al, yüzündeki o harika gülümsemeyi hatırla ve bana mesaj at, tüm yorgunluğunu unutturmaya hazırım. Seni çok seviyorum...");
+            }
+        }
+
+        function useCoupon(id, name) {
+            if(couponRights > 0) {
+                couponRights--;
+                localStorage.setItem('couponRights', couponRights);
+                updateCouponUI();
+                openModal('custom', `🎫 TEBRİKLER! \n\n"${name}" başarıyla aktifleştirildi! Şimdi bu ekranın ekran görüntüsünü alıp Kerem'e atarak hakkını hemen talep edebilirsin sevgilim! 💖🔥`);
             }
         }
 
@@ -482,11 +627,8 @@
 
         function handleCheck(checkbox) {
             const parentLabel = checkbox.parentElement;
-            if (checkbox.checked) {
-                parentLabel.classList.add("checked-item");
-            } else {
-                parentLabel.classList.remove("checked-item");
-            }
+            if (checkbox.checked) parentLabel.classList.add("checked-item");
+            else parentLabel.classList.remove("checked-item");
         }
 
         const baslangic = ["Çünkü sen ", "Çünkü bana ", "Çünkü seninle ", "Çünkü kalbin ", "Çünkü her bakışın ", "Çünkü gülüşün ", "Çünkü sesin "];
@@ -501,40 +643,39 @@
         }
 
         const letterMessage = "Hayatımın en güzel günü, seninle başladığım o gün. 21 Ekim'den beri kalbimin ritmini değiştiren, her günüme neşe katan iyi ki varsın. Seninle geçen her saniye, geleceğe dair kurduğum en güzel hayalim oldu. Seni çok seviyorum sevgilim...";
-        const gameWinMessage = "🎉 TEBRİKLER SEVGİLİM! 🎉\n\nBütün kalplerimi başarıyla yakaladın! Tıpkı gerçek hayatta benim kalbimi sımsıkı yakalayıp hiç bırakmadığın gibi... Sen benim bu hayattaki en büyük ödülümsün. Seni sonsuza kadar çok seveceğim! 💖";
-        const surpriseLetterMessage = "💖 BİRDEN BELİREN SÜRPRİZ MEKTUP 💖\n\nSeni tanımadan önce eksikmişim gibi hissediyordum Elif. Sanki hayatımdaki tüm yapboz parçaları sen gelince yerini buldu. Aynı üniversiteye gittiğimiz, el ele mezun olduğumuz, sabahları seninle aynı evde uyanıp kedimizi ve köpeğimizi birlikte beslediğimiz o günleri göreceğimize tüm kalbimle inanıyorum. Sen benim sadece bugünüm değil, tüm geleceğimsin. İyi ki hayatımdasın, seni çok seviyorum...";
+        const surpriseLetterMessage = "💖 BİRDEN BELİREN SÜRPRİZ MEKTUP 💖\n\nSeni tanımadan önce eksikmişim gibi hissediyordum Elif. Sanki hayatımdaki tüm yapboz parçaları sen gelince yerini buldu. Aynı üniversiteye gittiğimiz, el ele mezun olduğumuz, sabahları seninle aynı evde uyanıp kedimizi ve köpeğimizi birlikte beslediğimiz o günleri görecegimize tüm kalbimle inanıyorum. Sen benim sadece bugünüm değil, tüm geleceğimsin. İyi ki hayatımdasın, seni çok seviyorum...";
 
         function openModal(type, customText) {
             const modal = document.getElementById("appModal");
             const textContent = document.getElementById("modal-text-content");
             if(type === 'letter') textContent.innerText = letterMessage;
-            else if(type === 'gameWin') textContent.innerText = gameWinMessage;
             else if(type === 'surpriseLetter') textContent.innerText = surpriseLetterMessage;
-            else if(type === 'reason') textContent.innerText = customText;
+            else if(type === 'reason' || type === 'custom') textContent.innerText = customText;
             modal.style.display = "flex";
         }
         function closeModal() { document.getElementById("appModal").style.display = "none"; }
 
-        // Yeni Müzik Kontrol Fonksiyonu
         function toggleMusic() {
             const audio = document.getElementById("bg-audio");
             const btn = document.getElementById("music-btn");
-            if (audio.paused) {
-                audio.play();
-                btn.innerText = "🎵 Şarkıyı Kapat";
-            } else {
-                audio.pause();
-                btn.innerText = "🎵 Şarkıyı Aç";
-            }
+            if (audio.paused) { audio.play(); btn.innerText = "🎵 Şarkıyı Kapat"; }
+            else { audio.pause(); btn.innerText = "🎵 Şarkıyı Aç"; }
         }
 
-        let score = 0, gameInterval, isGameRunning = false;
+        /* YENİ GELİŞMİŞ OYUN MOTORU */
         function startGame() {
-            if(isGameRunning) return; score = 0;
+            if(isGameRunning) return;
+            score = 0;
+            lives = 3;
             document.getElementById("score").innerText = score;
+            document.getElementById("game-lives").innerText = "❤️❤️❤️";
             document.getElementById("game-area").innerHTML = "";
             document.getElementById("start-game-btn").innerText = "Yeniden Başlat 🔄";
-            isGameRunning = true; gameInterval = setInterval(spawnFallingHeart, 800);
+            isGameRunning = true;
+            
+            // Kademe arttıkça kalplerin gelme sıklığı da hızlanıyor (Max hız sınır: 350ms)
+            let spawnSpeed = Math.max(800 - (currentLevel * 70), 350);
+            gameInterval = setInterval(spawnFallingHeart, spawnSpeed);
         }
 
         function spawnFallingHeart() {
@@ -545,22 +686,72 @@
             const heartTypes = ["❤️", "💖", "💝", "💕"];
             heart.innerHTML = heartTypes[Math.floor(Math.random() * heartTypes.length)];
             heart.style.left = Math.random() * (gameArea.clientWidth - 35) + "px";
-            const speed = Math.random() * 2 + 2;
+            
+            // HIZ HESAPLAMA: Kademeye göre kalpler daha hızlı düşüyor (Max sınır: 1 saniyede düşüş)
+            let baseSpeed = Math.random() * 2 + 2; // Normalde 2-4 saniye arası
+            let speed = Math.max(baseSpeed - (currentLevel * 0.3), 1.0);
             heart.style.animationDuration = speed + "s";
-            heart.onclick = () => {
-                if(!isGameRunning) return; score++;
-                document.getElementById("score").innerText = score; heart.remove();
-                if(score >= 20) endGame(true);
+            
+            // Kalp tıklandığında skor artar
+            heart.onclick = (e) => {
+                e.stopPropagation(); // Diğer tetikleyicileri engelle
+                if(!isGameRunning) return;
+                score++;
+                document.getElementById("score").innerText = score;
+                heart.remove();
+                
+                if(score >= 20) {
+                    endGame(true);
+                }
             };
+
             gameArea.appendChild(heart);
-            setTimeout(() => { if(heart.parentNode === gameArea) heart.remove(); }, speed * 1000);
+
+            // Kalp yakalanamayıp en alta ulaştığında (Can Azaltma Mekanizması)
+            setTimeout(() => {
+                if(heart.parentNode === gameArea) {
+                    heart.remove();
+                    if(isGameRunning) {
+                        lives--;
+                        updateLivesUI();
+                        if(lives <= 0) {
+                            endGame(false);
+                        }
+                    }
+                }
+            }, speed * 1000);
+        }
+
+        function updateLivesUI() {
+            let heartString = "";
+            for(let i=0; i<3; i++) {
+                if(i < lives) heartString += "❤️";
+                else heartString += "🖤";
+            }
+            document.getElementById("game-lives").innerText = heartString;
         }
 
         function endGame(isWin) {
-            isGameRunning = false; clearInterval(gameInterval);
+            isGameRunning = false;
+            clearInterval(gameInterval);
             document.getElementById("game-area").innerHTML = "";
             document.getElementById("start-game-btn").innerText = "Tekrar Oyna 🎮";
-            if(isWin) openModal('gameWin');
+            
+            if(isWin) {
+                couponRights++;
+                currentLevel++; // Kademe artışı!
+                localStorage.setItem('couponRights', couponRights);
+                localStorage.setItem('currentLevel', currentLevel);
+                updateCouponUI();
+                
+                openModal('custom', `🎉 TEBRİKLER SEVGİLİM! 🎉\n\nBütün kalpleri kaçırmadan yakaladın ve +1 Aşk Kuponu kazandın! 🎫\n\n🔥 Müthiş Başarı: Oyun şimdi daha da hızlandı ve KADEME ${currentLevel} oldun! Bakalım bir sonrakini de kazanabilecek misin? Seni çok seviyorum! 💖`);
+            } else {
+                currentLevel = 1; // Kaybedince kademe 1'e sıfırlanıyor
+                localStorage.setItem('currentLevel', currentLevel);
+                updateCouponUI();
+                
+                openModal('custom', `😢 OYUN BİTTİ SEVGİLİM! 😢\n\n3 kalbi kaçırdığın için canların tükendi. Kalpler çok hızlıydı değil mi?\n\n🔄 Kademem sıfırlandı ve tekrar 1. seviyeye döndün. Kendini toparla ve hırs yap sevgilim, kupon kazanmak o kadar kolay değil! 😉❤️`);
+            }
         }
 
         function createHeart() {
