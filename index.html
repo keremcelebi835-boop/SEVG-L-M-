@@ -1,206 +1,295 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<title>Elif ❤️ Kerem</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elif & Kerem</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-<style>
-body {
-    margin:0;
-    font-family: Arial;
-    background: radial-gradient(circle,#2a002f,#0a0010);
-    color:white;
-    overflow-x:hidden;
-}
+        body {
+            background: linear-gradient(135deg, #1a001a, #330033);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+            padding-bottom: 50px;
+        }
 
-/* LOGIN */
-#login {
-    position:fixed;
-    width:100%;
-    height:100vh;
-    background:#0a0010;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-}
-input {
-    padding:10px;
-    border-radius:10px;
-    border:none;
-    text-align:center;
-}
-button {
-    margin-top:10px;
-    padding:10px 20px;
-    border:none;
-    border-radius:20px;
-    background:#ff4fd8;
-    color:white;
-    cursor:pointer;
-}
+        /* Arka Plan Kalp Animasyonu */
+        .heart-bg {
+            position: fixed;
+            top: -10vh;
+            font-size: 20px;
+            color: rgba(255, 51, 102, 0.6);
+            z-index: 0;
+            animation: float 8s linear infinite;
+            pointer-events: none;
+        }
 
-/* MAIN */
-header {
-    text-align:center;
-    padding:30px;
-}
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
 
-h1 { color:#ff4fd8; }
+        .container {
+            width: 100%;
+            max-width: 500px;
+            padding: 20px;
+            text-align: center;
+            z-index: 1;
+        }
 
-.countdown {
-    font-size:20px;
-    color:#ffd1f7;
-}
+        h1 {
+            font-size: 2.5rem;
+            color: #ff3366;
+            text-shadow: 0 0 15px rgba(255, 51, 102, 0.7);
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
 
-/* GALLERY */
-.gallery {
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(100px,1fr));
-    gap:10px;
-    padding:20px;
-}
+        /* Sayaç Alanı */
+        .counter-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 51, 102, 0.3);
+            border-radius: 15px;
+            padding: 15px;
+            margin: 25px 0;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
 
-.gallery img {
-    width:100%;
-    border-radius:10px;
-    cursor:pointer;
-}
+        .counter-title {
+            font-size: 0.9rem;
+            color: #ff99bb;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
 
-/* LIGHTBOX */
-#lightbox {
-    position:fixed;
-    top:0;left:0;
-    width:100%;height:100%;
-    background:rgba(0,0,0,0.9);
-    display:none;
-    justify-content:center;
-    align-items:center;
-}
-#lightbox img {
-    max-width:90%;
-    max-height:80%;
-}
+        #timer {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #fff;
+            line-height: 1.6;
+        }
 
-/* HEART */
-.heart {
-    position:fixed;
-    top:-10px;
-    color:pink;
-    animation:fall 5s linear infinite;
-}
-@keyframes fall {
-    to { transform:translateY(100vh); opacity:0; }
-}
+        /* Butonlar */
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 35px;
+        }
 
-/* LETTER */
-#letter {
-    display:none;
-    text-align:center;
-    padding:20px;
-}
-</style>
+        .btn {
+            background: linear-gradient(45deg, #ff3366, #ff007f);
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 0, 127, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Fotoğraf Galerisi (8 Fotoğraf) */
+        .gallery-title {
+            font-size: 1.3rem;
+            color: #ff99bb;
+            margin-bottom: 15px;
+            text-align: left;
+            padding-left: 5px;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .photo-card {
+            background: #2a2a2a;
+            border-radius: 12px;
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Mektup Pop-up (Açılır Kutu) */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 10;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #2a002a, #1a001a);
+            border: 2px solid #ff3366;
+            padding: 25px;
+            border-radius: 20px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 0 25px rgba(255, 51, 102, 0.5);
+            animation: zoomIn 0.3s ease;
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.7); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #ffe6ee;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .close-btn {
+            background: #ff3366;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* Gizli Müzik Kutusu */
+        #music-container {
+            display: none;
+        }
+    </style>
 </head>
-
 <body>
 
-<!-- LOGIN -->
-<div id="login">
-    <h2>Şifreyi Gir 💖</h2>
-    <input type="password" id="pass">
-    <button onclick="enter()">Giriş</button>
-</div>
+    <div class="container">
+        <h1>Elif 💖 Kerem</h1>
 
-<!-- MAIN -->
-<div id="site" style="display:none;">
+        <div class="counter-box">
+            <div class="counter-title">Aşkımızın Başlangıcından Beri</div>
+            <div id="timer">Yükleniyor...</div>
+        </div>
 
-<header>
-    <h1>Elif ❤️ Kerem</h1>
-    <div class="countdown" id="countdown"></div>
-</header>
+        <div class="btn-group">
+            <button class="btn" onclick="toggleMusic()">🎵 Şarkıyı Aç / Kapat</button>
+            <button class="btn" onclick="openModal()">💌 Sürpriz Mektup</button>
+        </div>
 
-<div style="text-align:center;">
-    <button onclick="openMusic()">🎵 Şarkıyı Aç</button>
-</div>
+        <div class="gallery-title">Anılarımız ✨</div>
+        <div class="gallery">
+            <div class="photo-card"><img src="foto1.jpg" alt="Anı 1"></div>
+            <div class="photo-card"><img src="foto2.jpg" alt="Anı 2"></div>
+            <div class="photo-card"><img src="foto3.jpg" alt="Anı 3"></div>
+            <div class="photo-card"><img src="foto4.jpg" alt="Anı 4"></div>
+            <div class="photo-card"><img src="foto5.jpg" alt="Anı 5"></div>
+            <div class="photo-card"><img src="foto6.jpg" alt="Anı 6"></div>
+            <div class="photo-card"><img src="foto7.jpg" alt="Anı 7"></div>
+            <div class="photo-card"><img src="foto8.jpg" alt="Anı 8"></div>
+        </div>
+    </div>
 
-<div style="text-align:center;margin-top:10px;">
-    <button onclick="openLetter()">💌 Sürpriz Mektup</button>
-</div>
+    <div id="letterModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-text">
+                "Hayatımın en güzel günü, seninle başladığım o gün. 21 Ekim'den beri kalbimin ritmini değiştiren, her günüme neşe katan iyi ki varsın. Seninle geçen her saniye, geleceğe dair kurduğum en güzel hayalim oldu. Seni çok seviyorum sevgilim..."
+            </div>
+            <button class="close-btn" onclick="closeModal()">Kapat 💖</button>
+        </div>
+    </div>
 
-<div id="letter">
-    <h3>💖 Sana küçük bir şey...</h3>
-    <p>Bu sayfa sadece bir site değil, bir anı.</p>
-</div>
+    <div id="music-container">
+        <iframe id="youtube-player" width="100" height="100" src="https://www.youtube.com/embed/z3S7pbeLwGk?enablejsapi=1&loop=1&playlist=z3S7pbeLwGk" allow="autoplay"></iframe>
+    </div>
 
-<!-- GALLERY -->
-<div class="gallery">
-    <img src="https://picsum.photos/200/200?1">
-    <img src="https://picsum.photos/200/200?2">
-    <img src="https://picsum.photos/200/200?3">
-    <img src="https://picsum.photos/200/200?4">
-</div>
+    <script>
+        // Saniye saniye ileri sayan sayaç (21 Ekim 2025)
+        const startDate = new Date("2025-10-21T00:00:00").getTime();
 
-<!-- LIGHTBOX -->
-<div id="lightbox" onclick="closeLB()">
-    <img id="lbimg">
-</div>
+        function updateTimer() {
+            const now = new Date().getTime();
+            const difference = now - startDate;
 
-</div>
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
-<script>
-// LOGIN
-function enter(){
-    let pass=document.getElementById("pass").value;
-    if(pass==="ELIF"){
-        document.getElementById("login").style.display="none";
-        document.getElementById("site").style.display="block";
-    }else{
-        alert("Yanlış şifre 💔");
-    }
-}
+            document.getElementById("timer").innerHTML = 
+                `${days} Gün ${hours} Saat<br>${minutes} Dakika ${seconds} Saniye`;
+        }
+        setInterval(updateTimer, 1000);
+        updateTimer();
 
-// COUNTDOWN
-let target=new Date("2025-10-21").getTime();
-setInterval(()=>{
-    let now=new Date().getTime();
-    let diff=target-now;
-    let days=Math.floor(diff/(1000*60*60*24));
-    document.getElementById("countdown").innerHTML=
-    "21 Ekim'e: "+days+" gün";
-},1000);
+        // Mektup Fonksiyonları
+        function openModal() { document.getElementById("letterModal").style.display = "flex"; }
+        function closeModal() { document.getElementById("letterModal").style.display = "none"; }
 
-// HEARTS
-setInterval(()=>{
-    let h=document.createElement("div");
-    h.className="heart";
-    h.innerHTML="❤️";
-    h.style.left=Math.random()*100+"vw";
-    document.body.appendChild(h);
-    setTimeout(()=>h.remove(),5000);
-},300);
+        // Müzik Aç/Kapat Fonksiyonu
+        let musicPlaying = false;
+        function toggleMusic() {
+            const player = document.getElementById("youtube-player");
+            if (!musicPlaying) {
+                player.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+                musicPlaying = true;
+            } else {
+                player.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+                musicPlaying = false;
+            }
+        }
 
-// MUSIC
-function openMusic(){
-    window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
-}
-
-// LETTER
-function openLetter(){
-    document.getElementById("letter").style.display="block";
-}
-
-// LIGHTBOX
-document.querySelectorAll(".gallery img").forEach(img=>{
-    img.onclick=()=>{
-        document.getElementById("lightbox").style.display="flex";
-        document.getElementById("lbimg").src=img.src;
-    }
-});
-function closeLB(){
-    document.getElementById("lightbox").style.display="none";
-}
-</script>
-
+        // Yağan Kalpler Oluşturma
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.classList.add("heart-bg");
+            heart.innerHTML = "❤️";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = Math.random() * 3 + 5 + "s";
+            heart.style.fontSize = Math.random() * 15 + 15 + "px";
+            document.body.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 8000);
+        }
+        setInterval(createHeart, 400);
+    </script>
 </body>
 </html>
