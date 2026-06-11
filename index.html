@@ -22,6 +22,7 @@
             overflow-x: hidden;
             position: relative;
             padding-bottom: 50px;
+            transition: background 0.5s ease;
         }
 
         /* Şifre Giriş Ekranı */
@@ -91,7 +92,7 @@
             padding: 20px;
             text-align: center;
             z-index: 1;
-            display: none; /* Şifre girilene kadar gizli */
+            display: none;
         }
 
         h1 {
@@ -105,22 +106,23 @@
             gap: 10px;
         }
 
-        .counter-box {
+        .card-box {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 51, 102, 0.3);
             border-radius: 15px;
             padding: 15px;
-            margin: 25px 0;
+            margin: 20px 0;
             backdrop-filter: blur(10px);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
 
-        .counter-title {
+        .box-title {
             font-size: 0.9rem;
             color: #ff99bb;
             text-transform: uppercase;
             letter-spacing: 2px;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+            font-weight: bold;
         }
 
         #timer {
@@ -133,8 +135,8 @@
         .btn-group {
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            margin-bottom: 35px;
+            gap: 12px;
+            margin-bottom: 25px;
         }
 
         .btn {
@@ -162,11 +164,66 @@
             padding-left: 5px;
         }
 
+        /* Ruh Hali Butonları */
+        .mood-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .mood-btn {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 10px 5px;
+            font-size: 0.85rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        /* Dilek Listesi */
+        .bucket-list {
+            text-align: left;
+            padding: 5px 10px;
+        }
+
+        .bucket-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+            cursor: pointer;
+        }
+
+        .bucket-item input {
+            accent-color: #ff3366;
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Aşk Kavanozu Bölümü */
+        .jar-area {
+            font-size: 4rem;
+            cursor: pointer;
+            margin: 15px 0;
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+            100% { transform: scale(1); }
+        }
+
         .gallery {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 12px;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
 
         .photo-card {
@@ -175,7 +232,6 @@
             aspect-ratio: 1 / 1;
             overflow: hidden;
             border: 2px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
         }
 
         .photo-card img {
@@ -184,20 +240,9 @@
             object-fit: cover;
         }
 
-        /* Kalp Yakalama Oyunu Alanı */
-        .game-box {
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px dashed #ff3366;
-            border-radius: 20px;
-            padding: 20px 10px;
-            margin-top: 20px;
-            position: relative;
-            backdrop-filter: blur(5px);
-        }
-
         #game-area {
             width: 100%;
-            height: 300px;
+            height: 250px;
             background: rgba(0, 0, 0, 0.3);
             border-radius: 12px;
             margin-top: 15px;
@@ -210,22 +255,14 @@
             position: absolute;
             font-size: 28px;
             cursor: pointer;
-            user-select: none;
             animation: fall linear forwards;
         }
 
         @keyframes fall {
             0% { top: -40px; }
-            100% { top: 310px; }
+            100% { top: 260px; }
         }
 
-        #score-board {
-            font-size: 1.1rem;
-            color: #ffe6ee;
-            font-weight: bold;
-        }
-
-        /* Mektup ve Tebrik Modalı */
         .modal {
             display: none;
             position: fixed;
@@ -288,14 +325,40 @@
     <div class="container" id="main-content">
         <h1>Elif 💖 Kerem</h1>
 
-        <div class="counter-box">
-            <div class="counter-title">Aşkımızın Başlangıcından Beri</div>
+        <div class="card-box">
+            <div class="box-title">Aşkımızın Başlangıcından Beri</div>
             <div id="timer">Yükleniyor...</div>
+        </div>
+
+        <div class="card-box">
+            <div class="box-title">🧠 Bugün Nasıl Hissediyorsun?</div>
+            <div class="mood-container">
+                <button class="mood-btn" onclick="setMood('happy')">Mutlu 😊</button>
+                <button class="mood-btn" onclick="setMood('tired')">Yorgun 😴</button>
+                <button class="mood-btn" onclick="setMood('miss')">Özlemiş 🥺</button>
+                <button class="mood-btn" onclick="setMood('love')">Aşık 🥰</button>
+            </div>
+        </div>
+
+        <div class="card-box">
+            <div class="box-title">🫙 Seni Sevmemin 1000 Sebebi</div>
+            <div class="jar-area" onclick="getLoveReason()">🫙💖</div>
+            <p style="font-size: 0.85rem; color: #aaa;">Kavanoza dokun ve yeni bir sebep gör!</p>
         </div>
 
         <div class="btn-group">
             <button class="btn" onclick="toggleMusic()">🎵 Şarkıyı Aç / Kapat</button>
             <button class="btn" onclick="openModal('letter')">💌 Sürpriz Mektup</button>
+        </div>
+
+        <div class="card-box">
+            <div class="box-title">📌 Birlikte Yapacaklarımız</div>
+            <div class="bucket-list">
+                <label class="bucket-item"><input type="checkbox"> 🌅 Birlikte gün batımını izlemek</label>
+                <label class="bucket-item"><input type="checkbox"> 🗺️ Hiç bilmediğimiz bir şehri keşfetmek</label>
+                <label class="bucket-item"><input type="checkbox"> 🍿 Gece boyu film maratonu yapmak</label>
+                <label class="bucket-item"><input type="checkbox"> 🏕️ Yıldızların altında kamp kurmak</label>
+            </div>
         </div>
 
         <div class="section-title">Anılarımız ✨</div>
@@ -310,11 +373,10 @@
             <div class="photo-card"><img src="foto8.jpg" alt="Anı 8"></div>
         </div>
 
-        <div class="game-box">
-            <div class="section-title" style="text-align: center; padding: 0;">🎮 Aşkımı Yakala Oyunu</div>
-            <p style="font-size: 0.85rem; color: #ccc; margin-bottom: 5px;">Düşen kalpleri yakalayarak 20 puana ulaş sevgilim!</p>
-            <div id="score-board">Skor: <span id="score">0</span> / 20</div>
-            <button id="start-game-btn" class="btn" style="padding: 8px 20px; font-size: 0.9rem; margin: 10px auto 0; width: auto;" onclick="startGame()">Oyunu Başlat 🕹️</button>
+        <div class="card-box" style="border: 2px dashed #ff3366;">
+            <div class="box-title" style="margin:0;">🎮 Aşkımı Yakala Oyunu</div>
+            <div style="font-size: 1rem; margin: 10px 0;" id="score-board">Skor: <span id="score">0</span> / 20</div>
+            <button id="start-game-btn" class="btn" style="padding: 8px 20px; font-size: 0.9rem; margin: 0 auto; width: auto;" onclick="startGame()">Oyunu Başlat 🕹️</button>
             <div id="game-area"></div>
         </div>
     </div>
@@ -331,7 +393,6 @@
     </div>
 
     <script>
-        // Şifre Kontrolü
         function checkPassword() {
             const input = document.getElementById("password-input").value;
             if (input === "21102025") {
@@ -342,7 +403,6 @@
             }
         }
 
-        // Sayaç
         const startDate = new Date("2025-10-21T00:00:00").getTime();
         function updateTimer() {
             const now = new Date().getTime();
@@ -353,65 +413,56 @@
             const seconds = Math.floor((difference % (1000 * 60)) / 1000);
             document.getElementById("timer").innerHTML = `${days} Gün ${hours} Saat<br>${minutes} Dakika ${seconds} Saniye`;
         }
-        setInterval(updateTimer, 1000);
-        updateTimer();
+        setInterval(updateTimer, 1000); updateTimer();
 
-        // Modal Yönetimi
+        // Mood Ayarlayıcı
+        function setMood(mood) {
+            const b = document.body;
+            if(mood === 'happy') { b.style.background = "linear-gradient(135deg, #331a00, #663300)"; alert("Mutlu olmana çok sevindim her şeyim, yüzün hep gülsün! 😊💖"); }
+            if(mood === 'tired') { b.style.background = "linear-gradient(135deg, #001a33, #003366)"; alert("Çok yorulmuşsun kıyamam sana, tüm yorgunluğunu almaya hazırım dinlen sevgilim... 😴❤️"); }
+            if(mood === 'miss') { b.style.background = "linear-gradient(135deg, #1a0033, #330066)"; alert("Ben de seni çok ama çok özledim, kalbim her an seninle atıyor sevgilim.. 🥺💞"); }
+            if(mood === 'love') { b.style.background = "linear-gradient(135deg, #33001a, #660033)"; alert("Ben sana her gün, her saniye daha çok aşık oluyorum iyi ki varsın! 🥰💕"); }
+        }
+
+        // 1000 Sebep Motoru
+        const baslangic = ["Çünkü sen ", "Çünkü bana ", "Çünkü seninle ", "Çünkü kalbin ", "Çünkü her bakışın ", "Çünkü gülüşün ", "Çünkü sesin "];
+        const orta = ["dünyadaki en güzel huzuru ", "hayatımın en anlamlı anlarını ", "tarif edilemez bir mutluluğu ", "saf ve tertemiz sevgiyi ", "geleceğe dair en güzel umutları ", "içimi ısıtan o harika sıcaklığı "];
+        const son = ["veriyorsun sevgilim. 💖", "hissettiriyor bana. 💞", "yaşatıyorsun her an. 🥰", "hatırlatıyor iyi ki varsın. 💕", "getiriyor dünyama. 💝"];
+
+        function getLoveReason() {
+            const b = baslangic[Math.floor(Math.random() * baslangic.length)];
+            const o = orta[Math.floor(Math.random() * orta.length)];
+            const s = son[Math.floor(Math.random() * son.length)];
+            openModal('reason', b + o + s);
+        }
+
         const letterMessage = "Hayatımın en güzel günü, seninle başladığım o gün. 21 Ekim'den beri kalbimin ritmini değiştiren, her günüme neşe katan iyi ki varsın. Seninle geçen her saniye, geleceğe dair kurduğum en güzel hayalim oldu. Seni çok seviyorum sevgilim...";
         const gameWinMessage = "🎉 TEBRİKLER SEVGİLİM! 🎉\n\nBütün kalplerimi başarıyla yakaladın! Tıpkı gerçek hayatta benim kalbimi sımsıkı yakalayıp hiç bırakmadığın gibi... Sen benim bu hayattaki en büyük ödülümsün. Seni sonsuza kadar çok seveceğim! 💖";
 
-        function openModal(type) {
+        function openModal(type, customText) {
             const modal = document.getElementById("appModal");
             const textContent = document.getElementById("modal-text-content");
-            if(type === 'letter') {
-                textContent.innerText = letterMessage;
-            } else if(type === 'gameWin') {
-                textContent.innerText = gameWinMessage;
-            }
+            if(type === 'letter') textContent.innerText = letterMessage;
+            else if(type === 'gameWin') textContent.innerText = gameWinMessage;
+            else if(type === 'reason') textContent.innerText = customText;
             modal.style.display = "flex";
         }
         function closeModal() { document.getElementById("appModal").style.display = "none"; }
 
-        // Müzik Kontrolü
         let musicPlaying = false;
         function toggleMusic() {
             const player = document.getElementById("youtube-player");
-            if (!musicPlaying) {
-                player.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-                musicPlaying = true;
-            } else {
-                player.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
-                musicPlaying = false;
-            }
+            if (!musicPlaying) { player.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*'); musicPlaying = true; }
+            else { player.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*'); musicPlaying = false; }
         }
 
-        // Arka Plan Süzülen Kalpler
-        function createHeart() {
-            const heart = document.createElement("div");
-            heart.classList.add("heart-bg");
-            heart.innerHTML = "❤️";
-            heart.style.left = Math.random() * 100 + "vw";
-            heart.style.animationDuration = Math.random() * 3 + 5 + "s";
-            heart.style.fontSize = Math.random() * 15 + 15 + "px";
-            document.body.appendChild(heart);
-            setTimeout(() => { heart.remove(); }, 8000);
-        }
-        setInterval(createHeart, 500);
-
-        // --- KALP YAKALAMA OYUNU LOGIC ---
-        let score = 0;
-        let gameInterval;
-        let isGameRunning = false;
-
+        let score = 0, gameInterval, isGameRunning = false;
         function startGame() {
-            if(isGameRunning) return;
-            score = 0;
+            if(isGameRunning) return; score = 0;
             document.getElementById("score").innerText = score;
             document.getElementById("game-area").innerHTML = "";
             document.getElementById("start-game-btn").innerText = "Yeniden Başlat 🔄";
-            isGameRunning = true;
-            
-            gameInterval = setInterval(spawnFallingHeart, 800);
+            isGameRunning = true; gameInterval = setInterval(spawnFallingHeart, 800);
         }
 
         function spawnFallingHeart() {
@@ -419,52 +470,26 @@
             const gameArea = document.getElementById("game-area");
             const heart = document.createElement("div");
             heart.classList.add("falling-heart");
-            
             const heartTypes = ["❤️", "💖", "💝", "💕"];
             heart.innerHTML = heartTypes[Math.floor(Math.random() * heartTypes.length)];
-            
-            // Rastgele genişlik (0 ile oyun alanı genişliği - 30px arası)
-            const areaWidth = gameArea.clientWidth;
-            heart.style.left = Math.random() * (areaWidth - 35) + "px";
-            
-            // Rastgele hız (2 ila 4 saniye arası düşüş)
+            heart.style.left = Math.random() * (gameArea.clientWidth - 35) + "px";
             const speed = Math.random() * 2 + 2;
             heart.style.animationDuration = speed + "s";
-            
-            // Kalbe tıklandığında skor artsın
             heart.onclick = () => {
-                if(!isGameRunning) return;
-                score++;
-                document.getElementById("score").innerText = score;
-                heart.remove();
-                
-                // Kazanma Kontrolü
-                if(score >= 20) {
-                    endGame(true);
-                }
+                if(!isGameRunning) return; score++;
+                document.getElementById("score").innerText = score; heart.remove();
+                if(score >= 20) endGame(true);
             };
-            
             gameArea.appendChild(heart);
-            
-            // Düşen kalp alanı terk edince silinsin
-            setTimeout(() => {
-                if(heart.parentNode === gameArea) {
-                    heart.remove();
-                }
-            }, speed * 1000);
+            setTimeout(() => { if(heart.parentNode === gameArea) heart.remove(); }, speed * 1000);
         }
 
         function endGame(isWin) {
-            isGameRunning = false;
-            clearInterval(gameInterval);
+            isGameRunning = false; clearInterval(gameInterval);
             document.getElementById("game-area").innerHTML = "";
             document.getElementById("start-game-btn").innerText = "Tekrar Oyna 🎮";
-            
-            if(isWin) {
-                openModal('gameWin');
-            }
+            if(isWin) openModal('gameWin');
         }
     </script>
 </body>
 </html>
-
