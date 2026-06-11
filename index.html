@@ -189,6 +189,20 @@
             padding: 5px 10px;
         }
 
+        .bucket-category {
+            font-size: 0.85rem;
+            color: #ff99bb;
+            margin: 15px 0 8px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid rgba(255, 51, 102, 0.2);
+            padding-bottom: 3px;
+        }
+
+        .bucket-category:first-child {
+            margin-top: 5px;
+        }
+
         .bucket-item {
             display: flex;
             align-items: center;
@@ -196,6 +210,7 @@
             margin-bottom: 12px;
             font-size: 0.95rem;
             cursor: pointer;
+            user-select: none;
         }
 
         .bucket-item input {
@@ -354,10 +369,33 @@
         <div class="card-box">
             <div class="box-title">📌 Birlikte Yapacaklarımız</div>
             <div class="bucket-list">
-                <label class="bucket-item"><input type="checkbox"> 🌅 Birlikte gün batımını izlemek</label>
-                <label class="bucket-item"><input type="checkbox"> 🗺️ Hiç bilmediğimiz bir şehri keşfetmek</label>
-                <label class="bucket-item"><input type="checkbox"> 🍿 Gece boyu film maratonu yapmak</label>
-                <label class="bucket-item"><input type="checkbox"> 🏕️ Yıldızların altında kamp kurmak</label>
+                
+                <div class="bucket-category">🚀 Geleceğe Doğru Büyük Adımlar</div>
+                <label class="bucket-item"><input type="checkbox"> 🎓 Aynı üniversiteye gitmek / birlikte mezun olmak</label>
+                <label class="bucket-item"><input type="checkbox"> 🔑 Sadece ikimize ait ortak bir eve çıkmak</label>
+                <label class="bucket-item"><input type="checkbox"> 🐈 Evimizi neşelendirecek tatlı bir kedi sahiplenmek</label>
+                <label class="bucket-item"><input type="checkbox"> 🦮 Birlikte yürüyüşlere çıkaracağımız bir köpek almak</label>
+                <label class="bucket-item"><input type="checkbox"> 💍 Hayatımızı birleştirmek, sonsuza dek evlenmek</label>
+
+                <div class="bucket-category">🌅 Küçük Romantik Anlar</div>
+                <label class="bucket-item"><input type="checkbox"> Birlikte gün batımını izlemek</label>
+                <label class="bucket-item"><input type="checkbox"> Sahilde sabaha kadar sohbet etmek</label>
+                <label class="bucket-item"><input type="checkbox"> Yağmurlu bir günde aynı kulaklıkla şarkı dinlemek</label>
+                
+                <div class="bucket-category">🍿 Eğlence & Macera</div>
+                <label class="bucket-item"><input type="checkbox"> Gece boyu en sevdiğimiz film maratonunu yapmak</label>
+                <label class="bucket-item"><input type="checkbox"> Yıldızların altında kamp kurup ateş yakmak</label>
+                <label class="bucket-item"><input type="checkbox"> Lunaparkta çocuk gibi eğlenmek</label>
+                <label class="bucket-item"><input type="checkbox"> Birlikte hiç bilmediğimiz bir şehri keşfetmek</label>
+                
+                <div class="bucket-category">🍳 Biz Bize Mutfak</div>
+                <label class="bucket-item"><input type="checkbox"> Mutfağı tamamen dağıtarak birlikte pasta yapmak</label>
+                <label class="bucket-item"><input type="checkbox"> Pazar sabahı birbirimize kahvaltı hazırlamak</label>
+                
+                <div class="bucket-category">💖 Geleceğe Not</div>
+                <label class="bucket-item"><input type="checkbox"> Sadece ikimizin bildiği bir zaman kapsülü gömmek</label>
+                <label class="bucket-item"><input type="checkbox"> Birlikte ilk konserimize bilet almak</label>
+                <label class="bucket-item"><input type="checkbox"> Yıllar sonra bu siteye bakıp gülümsemek</label>
             </div>
         </div>
 
@@ -415,7 +453,6 @@
         }
         setInterval(updateTimer, 1000); updateTimer();
 
-        // Mood Ayarlayıcı
         function setMood(mood) {
             const b = document.body;
             if(mood === 'happy') { b.style.background = "linear-gradient(135deg, #331a00, #663300)"; alert("Mutlu olmana çok sevindim her şeyim, yüzün hep gülsün! 😊💖"); }
@@ -424,7 +461,6 @@
             if(mood === 'love') { b.style.background = "linear-gradient(135deg, #33001a, #660033)"; alert("Ben sana her gün, her saniye daha çok aşık oluyorum iyi ki varsın! 🥰💕"); }
         }
 
-        // 1000 Sebep Motoru
         const baslangic = ["Çünkü sen ", "Çünkü bana ", "Çünkü seninle ", "Çünkü kalbin ", "Çünkü her bakışın ", "Çünkü gülüşün ", "Çünkü sesin "];
         const orta = ["dünyadaki en güzel huzuru ", "hayatımın en anlamlı anlarını ", "tarif edilemez bir mutluluğu ", "saf ve tertemiz sevgiyi ", "geleceğe dair en güzel umutları ", "içimi ısıtan o harika sıcaklığı "];
         const son = ["veriyorsun sevgilim. 💖", "hissettiriyor bana. 💞", "yaşatıyorsun her an. 🥰", "hatırlatıyor iyi ki varsın. 💕", "getiriyor dünyama. 💝"];
@@ -493,3 +529,4 @@
     </script>
 </body>
 </html>
+
