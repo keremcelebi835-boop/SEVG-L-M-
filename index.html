@@ -217,7 +217,6 @@
             transition: all 0.3s ease;
         }
 
-        /* Aşk Kuponları Alanı */
         .coupon-grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -264,7 +263,6 @@
             cursor: not-allowed;
         }
 
-        /* Dilek Listesi */
         .bucket-list {
             text-align: left;
             padding: 5px 10px;
@@ -307,7 +305,6 @@
             color: rgba(255, 255, 255, 0.4);
         }
 
-        /* Aşk Kavanozu Bölümü */
         .jar-area {
             font-size: 4rem;
             cursor: pointer;
@@ -570,12 +567,11 @@
         </div>
     </div>
 
-    <audio id="bg-audio" src="sarki.mp3" loop></audio>
+    <audio id="bg-audio" src="sarki.mp3" loop preload="auto"></audio>
 
     <script>
         let loginDone = false;
         
-        // HAFIZADAN VERİLERİ ÇEKME (Yoksa varsayılan değerler atanır)
         let couponRights = parseInt(localStorage.getItem('couponRights')) || 0;
         let currentLevel = parseInt(localStorage.getItem('currentLevel')) || 1;
         let currentTargetHearts = parseInt(localStorage.getItem('currentTargetHearts')) || 1; 
@@ -592,10 +588,10 @@
         ];
 
         const encouragementMessages = [
-            "Uf küçük bir kaza oldu sevgilim! Ama unutma, benim kalbimi de tek seferde yakalamamıştın, denemeye devam et! 💖",
+            "Uf küçük bir kaza oldu sevgilim! Aber unutma, benim kalbimi de tek seferde yakalamamıştın, denemeye devam et! 💖",
             "Canlar bitti ama Kerem'in sana olan aşkı asla bitmez! Derin bir nefes al ve bu kademeyi darmadağın et sevgilim! ✨",
             "Kalpler biraz hızlı kaçtı galiba? Sorun değil aşkım, senin o güzel parmaklarının hızına hiçbir şey yetişemez, tekrar dene! 🔥",
-            "Pes etmek benim güzel sevgilime hiç yakışmaz! Kademeni korudun, şimdi hırs yapma ve o kupanları toplama zamanı! 🥰",
+            "Pes etmek benim güzel sevgilime hiç yakışmaz! Kademeni korudun, şimdi hırs yapma ve o kuponları toplama zamanı! 🥰",
             "Kerem'in bir tanecik oyun canavarı Elif'i burada takılamaz! Kalbini ferah tut, bir sonraki turda bu rekoru kırıyorsun! 🏆"
         ];
 
@@ -606,7 +602,6 @@
             else return currentTarget + 5; 
         }
 
-        // ARAYÜZ GÜNCELLEME VE BUTON KONTROLLERİ
         function updateCouponUI() {
             document.getElementById('coupon-count').innerText = couponRights;
             document.getElementById('game-level').innerText = currentLevel;
@@ -627,7 +622,6 @@
             checkAndSet('cp-mega', 1000);
         }
 
-        // DİLEK LİSTESİ HAFIZA MOTORU
         function loadBucketList() {
             const savedList = JSON.parse(localStorage.getItem('bucketListState')) || {};
             for (let i = 1; i <= 5; i++) {
@@ -646,7 +640,6 @@
             if (checkbox.checked) parentLabel.classList.add("checked-item");
             else parentLabel.classList.remove("checked-item");
             
-            // Mevcut durumu hafızaya kaydet
             const savedList = JSON.parse(localStorage.getItem('bucketListState')) || {};
             savedList[checkbox.id] = checkbox.checked;
             localStorage.setItem('bucketListState', JSON.stringify(savedList));
@@ -670,12 +663,16 @@
                 document.getElementById("main-content").style.display = "block";
                 loginDone = true;
                 
-                // Sayfa açıldığında hafızadaki tüm verileri yükle
                 updateCouponUI();
                 loadBucketList();
                 
+                // Müzik çalma kilitlenme hatası burada çözüldü
                 const audio = document.getElementById("bg-audio");
-                audio.play().catch(e => console.log("Müzik başlatılamadı."));
+                audio.play().then(() => {
+                    document.getElementById("music-btn").innerText = "🎵 Şarkıyı Kapat";
+                }).catch(e => {
+                    console.log("Kullanıcı etkileşimi bekleniyor, şarkı hazır.");
+                });
             } else {
                 alert("Küçük bir hata yaptın sevgilim, tekrar dene! 💖");
             }
@@ -690,7 +687,7 @@
         function useCoupon(cost, name) {
             if(couponRights >= cost) {
                 couponRights -= cost;
-                localStorage.setItem('couponRights', couponRights); // Yeni kupon hakkını hafızaya yaz
+                localStorage.setItem('couponRights', couponRights); 
                 updateCouponUI();
                 openModal('custom', `🎫 TEBRİKLER! \n\n"${name}" başarıyla aktifleştirildi! 💖`);
             }
@@ -719,7 +716,14 @@
 
         function toggleMusic() {
             const audio = document.getElementById("bg-audio");
-            if (audio.paused) audio.play(); else audio.pause();
+            const btn = document.getElementById("music-btn");
+            if (audio.paused) {
+                audio.play();
+                btn.innerText = "🎵 Şarkıyı Kapat";
+            } else {
+                audio.pause();
+                btn.innerText = "🎵 Şarkıyı Aç";
+            }
         }
 
         function startGame() {
@@ -827,7 +831,7 @@
             document.body.appendChild(heart);
             setTimeout(() => { heart.remove(); }, 8000);
         }
-        setInterval(createHeart, 600); // Yoğunluk azaltılarak cihaz performansı optimize edildi
+        setInterval(createHeart, 600);
     </script>
 </body>
 </html>
