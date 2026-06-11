@@ -74,7 +74,7 @@
             position: fixed;
             top: -10vh;
             font-size: 20px;
-            color: rgba(255, 51, 102, 0.6);
+            color: rgba(255, 51, 102, 0.4);
             z-index: 0;
             animation: float 8s linear infinite;
             pointer-events: none;
@@ -154,7 +154,7 @@
             gap: 10px;
         }
 
-        .gallery-title {
+        .section-title {
             font-size: 1.3rem;
             color: #ff99bb;
             margin-bottom: 15px;
@@ -166,7 +166,7 @@
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 12px;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
 
         .photo-card {
@@ -184,6 +184,48 @@
             object-fit: cover;
         }
 
+        /* Kalp Yakalama Oyunu Alanı */
+        .game-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px dashed #ff3366;
+            border-radius: 20px;
+            padding: 20px 10px;
+            margin-top: 20px;
+            position: relative;
+            backdrop-filter: blur(5px);
+        }
+
+        #game-area {
+            width: 100%;
+            height: 300px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            margin-top: 15px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .falling-heart {
+            position: absolute;
+            font-size: 28px;
+            cursor: pointer;
+            user-select: none;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            0% { top: -40px; }
+            100% { top: 310px; }
+        }
+
+        #score-board {
+            font-size: 1.1rem;
+            color: #ffe6ee;
+            font-weight: bold;
+        }
+
+        /* Mektup ve Tebrik Modalı */
         .modal {
             display: none;
             position: fixed;
@@ -253,10 +295,10 @@
 
         <div class="btn-group">
             <button class="btn" onclick="toggleMusic()">🎵 Şarkıyı Aç / Kapat</button>
-            <button class="btn" onclick="openModal()">💌 Sürpriz Mektup</button>
+            <button class="btn" onclick="openModal('letter')">💌 Sürpriz Mektup</button>
         </div>
 
-        <div class="gallery-title">Anılarımız ✨</div>
+        <div class="section-title">Anılarımız ✨</div>
         <div class="gallery">
             <div class="photo-card"><img src="foto1.jpg" alt="Anı 1"></div>
             <div class="photo-card"><img src="foto2.jpg" alt="Anı 2"></div>
@@ -267,13 +309,19 @@
             <div class="photo-card"><img src="foto7.jpg" alt="Anı 7"></div>
             <div class="photo-card"><img src="foto8.jpg" alt="Anı 8"></div>
         </div>
+
+        <div class="game-box">
+            <div class="section-title" style="text-align: center; padding: 0;">🎮 Aşkımı Yakala Oyunu</div>
+            <p style="font-size: 0.85rem; color: #ccc; margin-bottom: 5px;">Düşen kalpleri yakalayarak 20 puana ulaş sevgilim!</p>
+            <div id="score-board">Skor: <span id="score">0</span> / 20</div>
+            <button id="start-game-btn" class="btn" style="padding: 8px 20px; font-size: 0.9rem; margin: 10px auto 0; width: auto;" onclick="startGame()">Oyunu Başlat 🕹️</button>
+            <div id="game-area"></div>
+        </div>
     </div>
 
-    <div id="letterModal" class="modal">
+    <div id="appModal" class="modal">
         <div class="modal-content">
-            <div class="modal-text">
-                "Hayatımın en güzel günü, seninle başladığım o gün. 21 Ekim'den beri kalbimin ritmini değiştiren, her günüme neşe katan iyi ki varsın. Seninle geçen her saniye, geleceğe dair kurduğum en güzel hayalim oldu. Seni çok seviyorum sevgilim..."
-            </div>
+            <div id="modal-text-content" class="modal-text"></div>
             <button class="close-btn" onclick="closeModal()">Kapat 💖</button>
         </div>
     </div>
@@ -308,9 +356,23 @@
         setInterval(updateTimer, 1000);
         updateTimer();
 
-        function openModal() { document.getElementById("letterModal").style.display = "flex"; }
-        function closeModal() { document.getElementById("letterModal").style.display = "none"; }
+        // Modal Yönetimi
+        const letterMessage = "Hayatımın en güzel günü, seninle başladığım o gün. 21 Ekim'den beri kalbimin ritmini değiştiren, her günüme neşe katan iyi ki varsın. Seninle geçen her saniye, geleceğe dair kurduğum en güzel hayalim oldu. Seni çok seviyorum sevgilim...";
+        const gameWinMessage = "🎉 TEBRİKLER SEVGİLİM! 🎉\n\nBütün kalplerimi başarıyla yakaladın! Tıpkı gerçek hayatta benim kalbimi sımsıkı yakalayıp hiç bırakmadığın gibi... Sen benim bu hayattaki en büyük ödülümsün. Seni sonsuza kadar çok seveceğim! 💖";
 
+        function openModal(type) {
+            const modal = document.getElementById("appModal");
+            const textContent = document.getElementById("modal-text-content");
+            if(type === 'letter') {
+                textContent.innerText = letterMessage;
+            } else if(type === 'gameWin') {
+                textContent.innerText = gameWinMessage;
+            }
+            modal.style.display = "flex";
+        }
+        function closeModal() { document.getElementById("appModal").style.display = "none"; }
+
+        // Müzik Kontrolü
         let musicPlaying = false;
         function toggleMusic() {
             const player = document.getElementById("youtube-player");
@@ -323,6 +385,7 @@
             }
         }
 
+        // Arka Plan Süzülen Kalpler
         function createHeart() {
             const heart = document.createElement("div");
             heart.classList.add("heart-bg");
@@ -333,7 +396,74 @@
             document.body.appendChild(heart);
             setTimeout(() => { heart.remove(); }, 8000);
         }
-        setInterval(createHeart, 400);
+        setInterval(createHeart, 500);
+
+        // --- KALP YAKALAMA OYUNU LOGIC ---
+        let score = 0;
+        let gameInterval;
+        let isGameRunning = false;
+
+        function startGame() {
+            if(isGameRunning) return;
+            score = 0;
+            document.getElementById("score").innerText = score;
+            document.getElementById("game-area").innerHTML = "";
+            document.getElementById("start-game-btn").innerText = "Yeniden Başlat 🔄";
+            isGameRunning = true;
+            
+            gameInterval = setInterval(spawnFallingHeart, 800);
+        }
+
+        function spawnFallingHeart() {
+            if(!isGameRunning) return;
+            const gameArea = document.getElementById("game-area");
+            const heart = document.createElement("div");
+            heart.classList.add("falling-heart");
+            
+            const heartTypes = ["❤️", "💖", "💝", "💕"];
+            heart.innerHTML = heartTypes[Math.floor(Math.random() * heartTypes.length)];
+            
+            // Rastgele genişlik (0 ile oyun alanı genişliği - 30px arası)
+            const areaWidth = gameArea.clientWidth;
+            heart.style.left = Math.random() * (areaWidth - 35) + "px";
+            
+            // Rastgele hız (2 ila 4 saniye arası düşüş)
+            const speed = Math.random() * 2 + 2;
+            heart.style.animationDuration = speed + "s";
+            
+            // Kalbe tıklandığında skor artsın
+            heart.onclick = () => {
+                if(!isGameRunning) return;
+                score++;
+                document.getElementById("score").innerText = score;
+                heart.remove();
+                
+                // Kazanma Kontrolü
+                if(score >= 20) {
+                    endGame(true);
+                }
+            };
+            
+            gameArea.appendChild(heart);
+            
+            // Düşen kalp alanı terk edince silinsin
+            setTimeout(() => {
+                if(heart.parentNode === gameArea) {
+                    heart.remove();
+                }
+            }, speed * 1000);
+        }
+
+        function endGame(isWin) {
+            isGameRunning = false;
+            clearInterval(gameInterval);
+            document.getElementById("game-area").innerHTML = "";
+            document.getElementById("start-game-btn").innerText = "Tekrar Oyna 🎮";
+            
+            if(isWin) {
+                openModal('gameWin');
+            }
+        }
     </script>
 </body>
 </html>
