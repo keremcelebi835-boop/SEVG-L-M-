@@ -154,6 +154,7 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
+            z-index: 5;
         }
 
         .section-title {
@@ -183,7 +184,7 @@
             transition: all 0.3s ease;
         }
 
-        /* Dilek Listesi */
+        /* Dilek Listesi Sabitlendi */
         .bucket-list {
             text-align: left;
             padding: 5px 10px;
@@ -211,12 +212,19 @@
             font-size: 0.95rem;
             cursor: pointer;
             user-select: none;
+            padding: 4px 0;
         }
 
         .bucket-item input {
             accent-color: #ff3366;
             width: 18px;
             height: 18px;
+            cursor: pointer;
+        }
+
+        .bucket-item.checked-item {
+            text-decoration: line-through;
+            color: rgba(255, 255, 255, 0.4);
         }
 
         /* Aşk Kavanozu Bölümü */
@@ -283,7 +291,7 @@
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.85);
-            z-index: 10;
+            z-index: 200;
             justify-content: center;
             align-items: center;
             padding: 20px;
@@ -371,31 +379,31 @@
             <div class="bucket-list">
                 
                 <div class="bucket-category">🚀 Geleceğe Doğru Büyük Adımlar</div>
-                <label class="bucket-item"><input type="checkbox"> 🎓 Aynı üniversiteye gitmek / birlikte mezun olmak</label>
-                <label class="bucket-item"><input type="checkbox"> 🔑 Sadece ikimize ait ortak bir eve çıkmak</label>
-                <label class="bucket-item"><input type="checkbox"> 🐈 Evimizi neşelendirecek tatlı bir kedi sahiplenmek</label>
-                <label class="bucket-item"><input type="checkbox"> 🦮 Birlikte yürüyüşlere çıkaracağımız bir köpek almak</label>
-                <label class="bucket-item"><input type="checkbox"> 💍 Hayatımızı birleştirmek, sonsuza dek evlenmek</label>
+                <label class="bucket-item"><input type="checkbox" onchange="handleCheck(this)"> 🎓 Aynı üniversiteye gitmek / birlikte mezun olmak</label>
+                <label class="bucket-item"><input type="checkbox" onchange="handleCheck(this)"> 🔑 Sadece ikimize ait ortak bir eve çıkmak</label>
+                <label class="bucket-item"><input type="checkbox" onchange="handleCheck(this)"> 🐈 Evimizi neşelendirecek tatlı bir kedi sahiplenmek</label>
+                <label class="bucket-item"><input type="checkbox" onchange="handleCheck(this)"> 🦮 Birlikte yürüyüşlere çıkaracağımız bir köpek almak</label>
+                <label class="bucket-item"><input type="checkbox" onchange="handleCheck(this)"> 💍 Hayatımızı birleştirmek, sonsuza dek evlenmek</label>
 
                 <div class="bucket-category">🌅 Küçük Romantik Anlar</div>
-                <label class="bucket-item"><input type="checkbox"> Birlikte gün batımını izlemek</label>
-                <label class="bucket-item"><input type="checkbox"> Sahilde sabaha kadar sohbet etmek</label>
-                <label class="bucket-item"><input type="checkbox"> Yağmurlu bir günde aynı kulaklıkla şarkı dinlemek</label>
+                <label class="bucket-item"><input type="checkbox" onchange="handleCheck(this)"> Birlikte gün batımını izlemek</label>
+                <label class="bucket-item"><input type="checkbox" onchange="handleCheck(this)"> Sahilde sabaha kadar sohbet etmek</label>
+                <label class="bucket-item"><input type="checkbox" onchange="handleCheck(this)"> Yağmurlu bir günde aynı kulaklıkla şarkı dinlemek</label>
                 
                 <div class="bucket-category">🍿 Eğlence & Macera</div>
-                <label class="bucket-item"><input type="checkbox"> Gece boyu en sevdiğimiz film maratonunu yapmak</label>
-                <label class="bucket-item"><input type="checkbox"> Yıldızların altında kamp kurup ateş yakmak</label>
-                <label class="bucket-item"><input type="checkbox"> Lunaparkta çocuk gibi eğlenmek</label>
-                <label class="bucket-item"><input type="checkbox"> Birlikte hiç bilmediğimiz bir şehri keşfetmek</label>
+                <label class="bucket-item"><input type="checkbox" onchange="handleCheck(this)"> Gece boyu en sevdiğimiz film maratonunu yapmak</label>
+                <label class="bucket-item"><input type="checkbox" onchange="handleCheck(this)"> Yıldızların altında kamp kurup ateş yakmak</label>
+                <label class="bucket-item"><input type="checkbox" onchange="handleCheck(this)"> Lunaparkta çocuk gibi eğlenmek</label>
+                <label class="bucket-item"><input type="checkbox" onchange="handleCheck(this)"> Birlikte hiç bilmediğimiz bir şehri keşfetmek</label>
                 
                 <div class="bucket-category">🍳 Biz Bize Mutfak</div>
-                <label class="bucket-item"><input type="checkbox"> Mutfağı tamamen dağıtarak birlikte pasta yapmak</label>
-                <label class="bucket-item"><input type="checkbox"> Pazar sabahı birbirimize kahvaltı hazırlamak</label>
+                <label class="bucket-item"><input type="checkbox" onchange="handleCheck(this)"> Mutfağı tamamen dağıtarak birlikte pasta yapmak</label>
+                <label class="bucket-item"><input type="checkbox" onchange="handleCheck(this)"> Pazar sabahı birbirimize kahvaltı hazırlamak</label>
                 
                 <div class="bucket-category">💖 Geleceğe Not</div>
-                <label class="bucket-item"><input type="checkbox"> Sadece ikimizin bildiği bir zaman kapsülü gömmek</label>
-                <label class="bucket-item"><input type="checkbox"> Birlikte ilk konserimize bilet almak</label>
-                <label class="bucket-item"><input type="checkbox"> Yıllar sonra bu siteye bakıp gülümsemek</label>
+                <label class="bucket-item"><input type="checkbox" onchange="changeBackgroundAnimation()"> Sadece ikimizin bildiği bir zaman kapsülü gömmek</label>
+                <label class="bucket-item"><input type="checkbox" onchange="handleCheck(this)"> Birlikte ilk konserimize bilet almak</label>
+                <label class="bucket-item"><input type="checkbox" onchange="handleCheck(this)"> Yıllar sonra bu siteye bakıp gülümsemek</label>
             </div>
         </div>
 
@@ -431,11 +439,20 @@
     </div>
 
     <script>
+        let loginDone = false;
+
         function checkPassword() {
             const input = document.getElementById("password-input").value;
             if (input === "21102025") {
                 document.getElementById("login-screen").style.display = "none";
                 document.getElementById("main-content").style.display = "block";
+                loginDone = true;
+                
+                // Ani Sürpriz: Giriş yaptıktan 10 saniye sonra ekrana dev mektup gelsin!
+                setTimeout(() => {
+                    if(loginDone) openModal('surpriseLetter');
+                }, 10000);
+
             } else {
                 alert("Küçük bir hata yaptın sevgilim, tekrar dene! 💖");
             }
@@ -461,6 +478,16 @@
             if(mood === 'love') { b.style.background = "linear-gradient(135deg, #33001a, #660033)"; alert("Ben sana her gün, her saniye daha çok aşık oluyorum iyi ki varsın! 🥰💕"); }
         }
 
+        // Dilek listesi tıklama fonksiyonu (Hata Çözücü)
+        function handleCheck(checkbox) {
+            const parentLabel = checkbox.parentElement;
+            if (checkbox.checked) {
+                parentLabel.classList.add("checked-item");
+            } else {
+                parentLabel.classList.remove("checked-item");
+            }
+        }
+
         const baslangic = ["Çünkü sen ", "Çünkü bana ", "Çünkü seninle ", "Çünkü kalbin ", "Çünkü her bakışın ", "Çünkü gülüşün ", "Çünkü sesin "];
         const orta = ["dünyadaki en güzel huzuru ", "hayatımın en anlamlı anlarını ", "tarif edilemez bir mutluluğu ", "saf ve tertemiz sevgiyi ", "geleceğe dair en güzel umutları ", "içimi ısıtan o harika sıcaklığı "];
         const son = ["veriyorsun sevgilim. 💖", "hissettiriyor bana. 💞", "yaşatıyorsun her an. 🥰", "hatırlatıyor iyi ki varsın. 💕", "getiriyor dünyama. 💝"];
@@ -474,12 +501,14 @@
 
         const letterMessage = "Hayatımın en güzel günü, seninle başladığım o gün. 21 Ekim'den beri kalbimin ritmini değiştiren, her günüme neşe katan iyi ki varsın. Seninle geçen her saniye, geleceğe dair kurduğum en güzel hayalim oldu. Seni çok seviyorum sevgilim...";
         const gameWinMessage = "🎉 TEBRİKLER SEVGİLİM! 🎉\n\nBütün kalplerimi başarıyla yakaladın! Tıpkı gerçek hayatta benim kalbimi sımsıkı yakalayıp hiç bırakmadığın gibi... Sen benim bu hayattaki en büyük ödülümsün. Seni sonsuza kadar çok seveceğim! 💖";
+        const surpriseLetterMessage = "💖 BİRDEN BELİREN SÜRPRİZ MEKTUP 💖\n\nSeni tanımadan önce eksikmişim gibi hissediyordum Elif. Sanki hayatımdaki tüm yapboz parçaları sen gelince yerini buldu. Aynı üniversiteye gittiğimiz, el ele mezun olduğumuz, sabahları seninle aynı evde uyanıp kedimizi ve köpeğimizi birlikte beslediğimiz o günleri göreceğimize tüm kalbimle inanıyorum. Sen benim sadece bugünüm değil, tüm geleceğimsin. İyi ki hayatımdasın, seni çok seviyorum...";
 
         function openModal(type, customText) {
             const modal = document.getElementById("appModal");
             const textContent = document.getElementById("modal-text-content");
             if(type === 'letter') textContent.innerText = letterMessage;
             else if(type === 'gameWin') textContent.innerText = gameWinMessage;
+            else if(type === 'surpriseLetter') textContent.innerText = surpriseLetterMessage;
             else if(type === 'reason') textContent.innerText = customText;
             modal.style.display = "flex";
         }
@@ -526,6 +555,18 @@
             document.getElementById("start-game-btn").innerText = "Tekrar Oyna 🎮";
             if(isWin) openModal('gameWin');
         }
+
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.classList.add("heart-bg");
+            heart.innerHTML = "❤️";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = Math.random() * 3 + 5 + "s";
+            heart.style.fontSize = Math.random() * 15 + 15 + "px";
+            document.body.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 8000);
+        }
+        setInterval(createHeart, 500);
     </script>
 </body>
 </html>
