@@ -22,7 +22,14 @@
             overflow-x: hidden;
             position: relative;
             padding-bottom: 50px;
+            transition: background 0.8s ease;
         }
+
+        /* Ruh Hali Temaları */
+        body.theme-happy { background: linear-gradient(135deg, #4a00e0, #8e2de2); }
+        body.theme-tired { background: linear-gradient(135deg, #2c3e50, #3498db); }
+        body.theme-miss { background: linear-gradient(135deg, #d63031, #e17055); }
+        body.theme-love { background: linear-gradient(135deg, #6c5ce7, #ff7675); }
 
         /* Şifre Giriş Ekranı */
         #login-screen {
@@ -581,10 +588,26 @@
         let gameInterval;
         let isGameRunning = false;
 
+        // Yenilenen Rastgele Moral Notları
         const sadMessages = [
             "Canımın içi, sen dünyadaki her şeyden daha değerlisin. Derin bir nefes al, ben her zaman yanındayım.",
             "Güzel yüzün sakın asılmasın sevgilim, senin o tatlı gülüşün benim dünyamı aydınlatıyor.",
-            "Şu an neye canın sıkıldıysa geçecek söz veriyorum. Seni kocaman kucaklıyorum sevgilim."
+            "Şu an neye canın sıkıldıysa geçecek söz veriyorum. Seni kocaman kucaklıyorum sevgilim.",
+            "Unutma ki senin her halinle mükemmel bir kalbin var. Modunu düşüren her neyse birlikte aşacağız.",
+            "Dünyanın en tatlı sevgilisi şu an biraz üzgün mü? Hemen o güzel gözlerini kapat ve sana sımsıkı sarıldığımı hayal et."
+        ];
+
+        // Yenilenen 1000 Sevgi Sebebi Havuzu
+        const loveReasons = [
+            "Gözlerinin içindeki o benzersiz ışık içimi tamamen erittiği için.",
+            "Gülüşünle en karanlık ve en zor günlerimi bile bir anda bayram yerine çevirebildiğin için.",
+            "Sadece sesini duyduğumda bile kalbimin ritmini tamamen değiştirmeyi başarabildiğin için.",
+            "Bana dünyadaki en özel ve en şanslı insan olduğumu her an hissettirdiğin için.",
+            "Geleceğe dair kurduğum her güzel hayalin tam merkezinde sen olduğun için.",
+            "Karakterin, temiz kalbin ve bana kattığın o güzel enerjin için.",
+            "Elini tuttuğumda dünyadaki tüm karmaşanın bir anda yok olup gittiğini hissettirdiğin için.",
+            "Seninle geçirilen en sade, en sıradan dakikaların bile benim için birer ömre bedel olması yüzünden.",
+            "Farkında olmadan yaptığın o minik, aşırı tatlı jestlerinle beni kendine tekrar tekrar aşık ettiğin için."
         ];
 
         const encouragementMessages = [
@@ -622,10 +645,8 @@
             checkAndSet('cp-mega', 1000);
         }
 
-        // TAMAMEN GÜVENLİ HALE GETİRİLEN LİSTE YÜKLEME MOTORU
         function loadBucketList() {
             const savedList = JSON.parse(localStorage.getItem('bucketListState')) || {};
-            // Sabit 5 maddeyi de kaybolma ihtimaline karşı her durumda kontrol eder
             for (let i = 1; i <= 5; i++) {
                 const checkbox = document.getElementById(`todo-${i}`);
                 if (checkbox) {
@@ -648,7 +669,6 @@
                 parentLabel.classList.remove("checked-item");
             }
             
-            // Tüm maddelerin güncel halini anlık yedekler
             const savedList = JSON.parse(localStorage.getItem('bucketListState')) || {};
             savedList[checkbox.id] = checkbox.checked;
             localStorage.setItem('bucketListState', JSON.stringify(savedList));
@@ -687,9 +707,12 @@
         }
 
         function openCapsule(type) {
-            const randomIndex = Math.floor(Math.random() * sadMessages.length);
-            if(type === 'sad') openModal('custom', `💖 MORAL NOTU 💖\n\n"${sadMessages[randomIndex]}"`);
-            else alert("Kilitli sevgilim!");
+            if(type === 'sad') {
+                const randomIndex = Math.floor(Math.random() * sadMessages.length);
+                openModal('custom', `💖 MORAL NOTU 💖\n\n"${sadMessages[randomIndex]}"`);
+            } else {
+                alert("Kilitli sevgilim!");
+            }
         }
 
         function useCoupon(cost, name) {
@@ -710,8 +733,34 @@
         }
         setInterval(updateTimer, 1000); updateTimer();
 
-        function setMood(mood) { alert("Ruh halin güncellendi sevgilim!"); }
-        function getLoveReason() { openModal('reason', "Çünkü sen hayatımın en anlamlı anlarını hissettiriyor her an sevgilim. 💞"); }
+        // Ruh Hali Değişimi, Mesajlar ve Tema Entegrasyonu (DÜZELTİLDİ)
+        function setMood(mood) { 
+            // Tüm temaları temizle
+            document.body.classList.remove('theme-happy', 'theme-tired', 'theme-miss', 'theme-love');
+            
+            let message = "";
+            if (mood === 'happy') {
+                document.body.classList.add('theme-happy');
+                message = "Senin mutlu olduğunu bilmek benim de günümü harika yapıyor sevgilim! Bu neşeni kutlayalım! 🎉🌟";
+            } else if (mood === 'tired') {
+                document.body.classList.add('theme-tired');
+                message = "Çok yorucu bir gün müydü aşkım? Dinlenmeyi hak ettin, kafanı dinle ben hep buradayım. 💤🛋️";
+            } else if (mood === 'miss') {
+                document.body.classList.add('theme-miss');
+                message = "Ben de seni çok ama çok özledim sevgilim. Mesafeler bizim sevgimize engel olamaz! 🥺❤️";
+            } else if (mood === 'love') {
+                document.body.classList.add('theme-love');
+                message = "Aşkımız göklere sığmıyor! Seni deliler gibi çok seviyorum bir tanem! 🥰✨";
+            }
+            
+            openModal('custom', `🧠 RUH HALİ GÜNCELLENDİ\n\n${message}`);
+        }
+
+        // Dinamik 1000 Sebep Fonksiyonu (DÜZELTİLDİ)
+        function getLoveReason() { 
+            const randomIndex = Math.floor(Math.random() * loveReasons.length);
+            openModal('reason', `🫙 GÜNÜN SEBEBİ 🫙\n\n"${loveReasons[randomIndex]}"`); 
+        }
 
         function openModal(type, customText) {
             const modal = document.getElementById("appModal");
@@ -843,4 +892,3 @@
     </script>
 </body>
 </html>
-
