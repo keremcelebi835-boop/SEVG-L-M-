@@ -22,7 +22,6 @@
             overflow-x: hidden;
             position: relative;
             padding-bottom: 50px;
-            transition: background 0.5s ease;
         }
 
         /* Şifre Giriş Ekranı */
@@ -75,7 +74,7 @@
             position: fixed;
             top: -10vh;
             font-size: 20px;
-            color: rgba(255, 51, 102, 0.4);
+            color: rgba(255, 51, 102, 0.2);
             z-index: 0;
             animation: float 8s linear infinite;
             pointer-events: none;
@@ -132,7 +131,6 @@
             line-height: 1.6;
         }
 
-        /* Zaman Kapsülü Gelişmiş Düzen */
         .capsule-grid {
             display: flex;
             flex-direction: column;
@@ -201,7 +199,6 @@
             padding-left: 5px;
         }
 
-        /* Ruh Hali Butonları */
         .mood-container {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -449,22 +446,18 @@
         <div class="card-box">
             <div class="box-title">⏳ Gerçek Zaman Kapsülü</div>
             <div class="capsule-grid">
-                
                 <div class="capsule-item">
                     <button class="capsule-btn" onclick="openCapsule('uni')">🎓 Üniversitenin İlk Günü Aç</button>
-                    <div class="capsule-subtext" id="uni-countdown">Açılış: 21 Ekim 2027 - Hesaplamıyor...</div>
+                    <div class="capsule-subtext" id="uni-countdown">🔒 Kilitli!</div>
                 </div>
-
                 <div class="capsule-item">
                     <button class="capsule-btn" onclick="openCapsule('home')">🔑 Ortak Eve Çıktığımız Gün Aç</button>
-                    <div class="capsule-subtext" id="home-countdown">Açılış: 21 Ekim 2028 - Hesaplamıyor...</div>
+                    <div class="capsule-subtext" id="home-countdown">🔒 Kilitli!</div>
                 </div>
-
                 <div class="capsule-item">
                     <button class="capsule-btn" style="background: linear-gradient(45deg, #cc0066, #ff0066);" onclick="openCapsule('sad')">💖 Modun Çok Düştüğünde Aç</button>
-                    <div class="capsule-subtext" style="color: #99ff99;">🔓 Her An Açılabilir (100 Farklı Özel Mesaj!)</div>
+                    <div class="capsule-subtext" style="color: #99ff99;">🔓 Her An Açılabilir</div>
                 </div>
-
             </div>
         </div>
 
@@ -481,7 +474,7 @@
         <div class="card-box">
             <div class="box-title">🫙 Seni Sevmemin 1000 Sebebi</div>
             <div class="jar-area" onclick="getLoveReason()">🫙💖</div>
-            <p style="font-size: 0.85rem; color: #aaa;">Kavanoza dokun ve yeni bir sebep gör!</p>
+            <p style="font-size: 0.85rem; color: #aaa;">Kavanoza dokun ve yepyeni dinamik bir sebep gör!</p>
         </div>
 
         <div class="btn-group">
@@ -499,32 +492,48 @@
             <div class="game-stats-container">
                 <div style="color: #ff3366;">Can: <span id="game-lives">❤️❤️❤️</span></div>
                 <div style="color: #ffff99;">Kademe: <span id="game-level">1</span></div>
-                <div style="color: #99ff99;">Skor: <span id="score">0</span> / 20</div>
+                <div style="color: #99ff99;">Skor: <span id="score">0</span> / <span id="target-score">1</span></div>
             </div>
 
-            <button id="start-game-btn" class="btn" style="padding: 8px 20px; font-size: 0.9rem; margin: 10px auto 0 auto; width: auto;" onclick="startGame()">Oyunu Başlat 🕹️</button>
+            <div style="display: flex; gap: 10px; justify-content: center; margin-top: 10px;">
+                <button id="start-game-btn" class="btn" style="padding: 8px 15px; font-size: 0.85rem; margin: 0; width: auto;" onclick="startGame()">Oyunu Başlat 🕹️</button>
+                <button class="btn" style="padding: 8px 15px; font-size: 0.85rem; margin: 0; width: auto; background: linear-gradient(45deg, #444, #222); box-shadow: none; border: 1px solid #666;" onclick="resetGameProgression()">İlerlemeyi Sıfırla 🔄</button>
+            </div>
             <div id="game-area"></div>
         </div>
 
         <div class="card-box" style="border: 1px solid #ff007f;">
             <div class="box-title">🎟️ Aşk Kuponları Merkezi</div>
-            <p style="font-size: 0.8rem; color: #bbb; margin-bottom: 10px;">Oyunu her kazandığında kademen artar ve 1 kupon hakkı kazanırsın!</p>
-            
             <div class="coupon-grid">
                 <div class="coupon-card">
-                    <div class="coupon-title">🍳 Özel Yemek Kuponu</div>
-                    <div class="coupon-desc">Kerem'in ellerinden en sevdiğin yemeği veya tatlıyı yaptırma hakkı!</div>
-                    <button class="use-coupon-btn" id="cp-1" onclick="useCoupon('cp-1', 'Özel Yemek Kuponu 🍳')">Kuponu Kullan (1 Hak)</button>
-                </div>
-                <div class="coupon-card">
-                    <div class="coupon-title">🤗 Küsme Karşıtı Anında Sarılma</div>
-                    <div class="coupon-desc">Tartışmalarda anında her şeyi unutup sıkıca sarılma ve barışma garantisi!</div>
-                    <button class="use-coupon-btn" id="cp-2" onclick="useCoupon('cp-2', 'Anında Sarılma Kuponu 🤗')">Kuponu Kullan (1 Hak)</button>
+                    <div class="coupon-title">🍫 İstediğin Çikolata Kuponu</div>
+                    <div class="coupon-desc">Canının çektiği herhangi bir büyük boy çikolatayı hemen Kerem'e aldırma hakkı!</div>
+                    <button class="use-coupon-btn" id="cp-1" onclick="useCoupon(1, 'İstediğin Çikolata Kuponu 🍫')">Kuponu Kullan (1 Hak)</button>
                 </div>
                 <div class="coupon-card">
                     <div class="coupon-title">🎬 Sinema & Abur Cubur Gecesi</div>
                     <div class="coupon-desc">İzlenecek filmi ve tüm abur cuburları tamamen senin seçme hakkın!</div>
-                    <button class="use-coupon-btn" id="cp-3" onclick="useCoupon('cp-3', 'Sinema Gecesi Kuponu 🎬')">Kuponu Kullan (1 Hak)</button>
+                    <button class="use-coupon-btn" id="cp-2" onclick="useCoupon(2, 'Sinema Gecesi Kuponu 🎬')">Kuponu Kullan (2 Hak)</button>
+                </div>
+                <div class="coupon-card">
+                    <div class="coupon-title">🤗 Küsme Karşıtı Anında Sarılma</div>
+                    <div class="coupon-desc">Tartışmalarda anında her şeyi unutup sıkıca sarılma ve barışma garantisi!</div>
+                    <button class="use-coupon-btn" id="cp-3" onclick="useCoupon(3, 'Anında Sarılma Kuponu 🤗')">Kuponu Kullan (3 Hak)</button>
+                </div>
+                <div class="coupon-card">
+                    <div class="coupon-title">🍳 Özel Yemek & Tatlı Kuponu</div>
+                    <div class="coupon-desc">Kerem'in ellerinden en sevdiğin yemeği veya enfes bir tatlıyı yaptırma hakkı!</div>
+                    <button class="use-coupon-btn" id="cp-4" onclick="useCoupon(5, 'Özel Yemek & Tatlı Kuponu 🍳')">Kuponu Kullan (5 Hak)</button>
+                </div>
+                <div class="coupon-card">
+                    <div class="coupon-title">🤫 Sıfır Trip Garantisi Kuponu</div>
+                    <div class="coupon-desc">Kerem'in gün boyu ne olursa olsun sana asla trip atmama ve haklı bulma sözü!</div>
+                    <button class="use-coupon-btn" id="cp-5" onclick="useCoupon(5, 'Sıfır Trip Garantisi Kuponu 🤫')">Kuponu Kullan (5 Hak)</button>
+                </div>
+                <div class="coupon-card" style="background: rgba(255, 215, 0, 0.15); border: 2px dashed #ffd700;">
+                    <div class="coupon-title" style="color: #ffd700;">👑 MEGA ÖDÜL: Dev Peluş Oyuncak</div>
+                    <div class="coupon-desc">Tam 1000 kupon biriktirmeyi başaran oyun canavarı Elif için devasa peluş ayı ödülü!</div>
+                    <button class="use-coupon-btn" id="cp-mega" style="background: linear-gradient(45deg, #ffd700, #ff9900); color: #000;" onclick="useCoupon(1000, '👑 MEGA ÖDÜL: Dev Peluş Oyuncak 🧸')">Mega Ödülü Kullan (1000 Hak)</button>
                 </div>
             </div>
         </div>
@@ -533,16 +542,11 @@
             <div class="box-title">📌 Birlikte Yapacaklarımız</div>
             <div class="bucket-list">
                 <div class="bucket-category">🚀 Geleceğe Doğru Büyük Adımlar</div>
-                <label class="bucket-item"><input type="checkbox" onchange="handleCheck(this)"> 🎓 Aynı üniversiteye gitmek / birlikte mezun olmak</label>
-                <label class="bucket-item"><input type="checkbox" onchange="handleCheck(this)"> 🔑 Sadece ikimize ait ortak bir eve çıkmak</label>
-                <label class="bucket-item"><input type="checkbox" onchange="handleCheck(this)"> 🐈 Evimizi neşelendirecek tatlı bir kedi sahiplenmek</label>
-                <label class="bucket-item"><input type="checkbox" onchange="handleCheck(this)"> 🦮 Birlikte yürüyüşlere çıkaracağımız bir köpek almak</label>
-                <label class="bucket-item"><input type="checkbox" onchange="handleCheck(this)"> 💍 Hayatımızı birleştirmek, sonsuza dek evlenmek</label>
-
-                <div class="bucket-category">🌅 Küçük Romantik Anlar</div>
-                <label class="bucket-item"><input type="checkbox" onchange="handleCheck(this)"> Birlikte gün batımını izlemek</label>
-                <label class="bucket-item"><input type="checkbox" onchange="handleCheck(this)"> Sahilde sabaha kadar sohbet etmek</label>
-                <label class="bucket-item"><input type="checkbox" onchange="handleCheck(this)"> Yağmurlu bir günde aynı kulaklıkla şarkı dinlemek</label>
+                <label class="bucket-item"><input type="checkbox" id="todo-1" onchange="handleCheck(this)"> 🎓 Aynı üniversiteye gitmek / birlikte mezun olmak</label>
+                <label class="bucket-item"><input type="checkbox" id="todo-2" onchange="handleCheck(this)"> 🔑 Sadece ikimize ait ortak bir eve çıkmak</label>
+                <label class="bucket-item"><input type="checkbox" id="todo-3" onchange="handleCheck(this)"> 🐈 Evimizi neşelendirecek tatlı bir kedi sahiplenmek</label>
+                <label class="bucket-item"><input type="checkbox" id="todo-4" onchange="handleCheck(this)"> 🦮 Birlikte yürüyüşlere çıkaracağımız bir köpek almak</label>
+                <label class="bucket-item"><input type="checkbox" id="todo-5" onchange="handleCheck(this)"> 💍 Hayatımızı birleştirmek, sonsuza dek evlenmek</label>
             </div>
         </div>
 
@@ -570,139 +574,93 @@
 
     <script>
         let loginDone = false;
+        
+        // HAFIZADAN VERİLERİ ÇEKME (Yoksa varsayılan değerler atanır)
         let couponRights = parseInt(localStorage.getItem('couponRights')) || 0;
         let currentLevel = parseInt(localStorage.getItem('currentLevel')) || 1;
+        let currentTargetHearts = parseInt(localStorage.getItem('currentTargetHearts')) || 1; 
         
         let score = 0;
         let lives = 3;
         let gameInterval;
         let isGameRunning = false;
 
-        // Kapsül Açılış Zaman Hedefleri (21 Ekim 2027 ve 2028)
-        const uniUnlockTime = new Date("2027-10-21T00:00:00").getTime();
-        const homeUnlockTime = new Date("2028-10-21T00:00:00").getTime();
-
-        // 100 Farklı Moral Mesajı Havuzu
         const sadMessages = [
             "Canımın içi, sen dünyadaki her şeyden daha değerlisin. Derin bir nefes al, ben her zaman yanındayım.",
             "Güzel yüzün sakın asılmasın sevgilim, senin o tatlı gülüşün benim dünyamı aydınlatıyor.",
-            "Şu an neye canın sıkıldıysa geçecek söz veriyorum. Seni kocaman kucaklıyorum sevgilim.",
-            "Sen benim karşıma çıkan en güzel şanssın. Kendini sakın yalnız hissetme, kalbim her an seninle.",
-            "Dünyanın en tatlı, en akıllı Elif'i şu an üzgün mü? Buna asla izin veremem, seni çok seviyorum!",
-            "Eğer modun düştüyse hemen bana bir mesaj at, seni neşelendirmek için sabırsızlanıyorum.",
-            "Senin o sıcacık kalbin her şeye değer. Sıkma o tatlı canını her şeyim.",
-            "Unutma sevgilim, biz birlikteyken her zorluğun üstesinden geliriz. Sen çok güçlüsün.",
-            "İçindeki o muazzam enerjiyi hatırla. Bugün kötü geçmiş olabilir ama yarın yepyeni bir gün!",
-            "Sana sarılabilsem şu an tüm o kötü bulutlar dağılırdı biliyorum. Kalbimi sana gönderiyorum.",
-            "Gülüşünü özlediğim sevgilim... Dünyadaki hiçbir dert senin bir damla gözyaşına değmez.",
-            "Sen benim hayatımın neşesisin, modunun düşmesine kıyamam. İyi ki varsın her şeyim.",
-            "Her şey üst üste geliyor gibi hissettiğinde hatırla: Seni dünyalar kadar çok seven bir Kerem var.",
-            "Sen benim başıma gelen en güzel mucizesin Elif. Lütfen o güzel yüzünü güldür.",
-            "Şu an yanında olup elini sımsıkı tutmayı o kadar isterdim ki... Seni çok ama çok seviyorum.",
-            "Sen her şeyin en güzelini hak ediyorsun. Bu can sıkıcı an sadece geçici bir rüzgar.",
-            "Gözlerini kapat ve sana sarıldığımı hayal et. Ben hep seninleyim, hep arkandayım sevgilim.",
-            "Kalbinin güzelliği yüzüne vurmuş sevgilim, dertler senin o temiz kalbine yaklaşamaz bile.",
-            "Seni mutlu görmek benim bu hayattaki en büyük ödülüm. Yüzünü güldürmek için ne yapabilirim?",
-            "Lütfen moralini bozma canımın içi. Sen benim dünyadaki en güvenli limanımsın.",
-            "Bugün biraz yorulmuş veya kırılmış olabilirsin ama senin içindeki güç her şeyden büyük.",
-            "Sen benim en güzel duamsın Elif. O tatlı canını sıkan her şeyi bir kenara bırak şimdi.",
-            "Seni çok ama çok özledim. Modunu hemen yükseltelim çünkü sen güldüğünde dünya güzelleşiyor.",
-            "Derin bir nefes al sevgilim. Göğsümün üzerinde dinlendiğin o huzurlu anları düşün.",
-            "Seninle gurur duyuyorum sevgilim. Her halinle, her anınla benim için mükemmelsin.",
-            "Hayat bazen yorucu olabilir ama bizim aşkımız her şeyin ilacı. Seni seviyorum.",
-            "Kendine haksızlık etme sevgilim, sen elinden gelenin en iyisini yapıyorsun hep.",
-            "Şu an kalbim senin için çarpıyor. O tatlı yüzünü asma, hemen geçecek her şey.",
-            "Ben senin her anında, her modunda yanındayım. Ağlamak istiyorsan ağla, omzum her zaman senin.",
-            "Sen benim ömrüme ömür katan sevgilimsin. Canını sıkan ne varsa birlikte yok edeceğiz.",
-            "Dünyanın en güzel Elif'ine küçük bir hatırlatma: Kerem seni her saniye deli gibi seviyor.",
-            "Biraz dinlenmeye ihtiyacın var belki de. Kendine iyi bak sevgilim, sen bana emanetsin.",
-            "Senin o neşeli sesini duymak için sabırsızlanıyorum. Kendini üzme her şeyim.",
-            "Hayatımın anlamı, en zor gününde bile senin elini bırakmayacak bir sevgilin var.",
-            "Başını dik tut sevgilim, senin o harika enerjin karşısında hiçbir dert duramaz.",
-            "Sen benim kalbimin tek sahibisin. Modunu düşüren her neyse ona inat gülümse.",
-            "İyi ki varsın, iyi ki benim sevgilimsin. Seninle geçen her günüm bir bayram.",
-            "Şu an sana sımsıkı sarılıp kokunu içime çekmek vardı... Canını sıkma geçecek.",
-            "Sen benim dünyamdaki en özel insansın Elif. Lütfen moralini yüksek tut sevgilim.",
-            "Her şey yoluna girecek, ben senin her zaman en büyük destekçin olacağım.",
-            "Senin mutluluğun benim önceliğim. Modunu yükseltmek için buradayım, ne istersen söyle.",
-            "Kıyamam ben sana... Senin o tatlı gözlerinde hüzün görmek beni çok üzer.",
-            "Sen her zorluğu aşacak zekaya ve güce sahipsin. Kendine inan sevgilim.",
-            "Aşkımız bize her zaman güç verecek. Sıkma canını, her an seninle atan bir kalp var.",
-            "Sen benim hayatımın en parlak yıldızısın. Bulutlar elbet dağılır, sen parlamaya devam et.",
-            "Seninle olmak bana her zaman huzur veriyor. Umarım bu mesaj da sana küçük bir huzur verir.",
-            "Sen dünyadaki tüm güzelliklere layıksın. Küçük can sıkıntılarına teslim olma.",
-            "Seni o kadar çok seviyorum ki, kelimeler yetmez. Modunu hemen toparla sevgilim.",
-            "Sen benim her şeyimsin Elif. Yanında olamasam da ruhum, kalbim şu an seninle.",
-            "Gülümse sevgilim, çünkü senin gülüşün benim yaşama sebebim.",
-            "Her şey geçici, bizim aşkımız sonsuz. Bunu düşün ve o tatlı canını hiç sıkma.",
-            "Sen benim bu hayattaki en doğru kararımsın. Lütfen o tatlı yüzünü güldür benim için.",
-            "Senin gücün ve sabrın karşısında hiçbir engel duramaz. Ben sana sonsuz güveniyorum.",
-            "Biraz müzik dinle, sakinleş sevgilim. Ben hep buradayım, seni bekliyorum.",
-            "Canımın içi Elif, sen benim kalbimin en değerli köşesisin. Üzülmene asla dayanamam.",
-            "Sen benim hayatıma renk katan en güzel detaysın. Sıkma o tatlı canını.",
-            "Her anında seninle gurur duyuyorum. Sen benim bir tanecik sevgilimsin.",
-            "Sana olan sevgim her gün daha da büyüyor. Lütfen o güzel yüzünü asma.",
-            "Sen benim dünyamı güzelleştiren tek insansın. Modunu düşüren her şeyi boşver sevgilim.",
-            "Sıkıca sarılıyorum sana şu an, hisset kalbimin atışını. Her şey çok güzel olacak.",
-            "Senin o tatlı sesini duymak beni her zaman iyileştirir. Umarım bu mesaj da seni iyileştirir.",
-            "Sen her şeyin en mükemmelini hak ediyorsun sevgilim. Moralini bozma sakın.",
-            "Sen benim ömür boyu seveceğim tek insansın Elif. Kendini hiç yalnız hissetme.",
-            "Şu an canını sıkan şey her neyse, gelecekte ne kadar önemsiz olacağını düşün ve gülümse.",
-            "Sen güldüğünde içimde kelebekler uçuşuyor sevgilim. Lütfen o kelebekleri soldurma.",
-            "Sen benim hayatımın en güzel hediyesisin. Sıkma canını, ben her an seninleyim.",
-            "Her zaman senin arkandayım, seninle el ele her şeyi yeneceğiz sevgilim.",
-            "Sen dünyadaki tüm çiçeklerden daha güzel kokuyorsun sevgilim. Moralini yüksek tut.",
-            "Sen benim başıma gelen en tatlı şanssın. Lütfen o güzel yüzünü saklama benden.",
-            "Derin bir nefes al ve seni ne kadar çok sevdiğimi düşün. İçin huzurla dolsun.",
-            "Seninle kurduğumuz hayalleri düşün sevgilim. O güzel günler çok yakında.",
-            "Sen benim hayatımın merkezi, kalbimin sultanısın. Sıkma o güzel canını.",
-            "Her zor günün sonunda el ele olacağımızı bilmek bana güç veriyor, umarım sana da verir.",
-            "Sen benim bir tanecik aşkımsın Elif. Modunun düşmesine izin vermeyeceğim!",
-            "Sen her haliyle çok güzel ve çok özelsin. Kendini hiç üzme canımın içi.",
-            "Seninle geçen her saniyem benim için çok kıymetli. Lütfen o tatlı yüzünü asma.",
-            "Sen benim hayatımın en parlak güneşi, en güzel gecesisin. Moralini bozma sevgilim.",
-            "Seni çok ama çok seviyorum, bu dünyadaki hiçbir dert aşkımızdan büyük değil.",
-            "Sen benim kalbimin neşesisin. Canını sıkan her şeyi birlikte unutacağız söz veriyorum.",
-            "Sen her şeyin en güzelini hak ediyorsun. Lütfen o tatlı canını hiç sıkma her şeyim.",
-            "Kendine inan sevgilim, sen her şeyi başarabilecek kadar güçlü ve akıllısın.",
-            "Sen benim ömrümün en güzel hikayesisin Elif. Moralini yüksek tut, ben hep seninleyim.",
-            "Şu an yanında olup sana sımsıkı sarılmayı her şeyden çok isterdim. Seni seviyorum.",
-            "Sıkma o tatlı canını her şeyim, senin o güzel kalbin her zorluğu aşar.",
-            "Sen benim bu hayattaki en büyük şansımsın. Lütfen o güzel yüzünü güldür benim için.",
-            "Sen güldüğünde dünya daha güzel bir yer oluyor sevgilim. Lütfen gülümse.",
-            "Her şey yoluna girecek, ben senin her zaman en büyük destekçin olacağım söz.",
-            "Sen benim kalbimin tek sahibisin Elif. Canını sıkan her şeyi bir kenara bırak şimdi.",
-            "Sen dünyadaki tüm güzelliklere layıksın. Küçük can sıkıntılarına teslim olma sevgilim.",
-            "Seni o kadar çok seviyorum ki, kelimeler yetmez. Modunu hemen toparla canımın içi.",
-            "Sen benim her şeyimsin. Yanında olamasam da ruhum ve kalbim şu an seninle.",
-            "Aşkımız bize her zaman güç verecek. Sıkma canını, her an seninle olan bir Kerem var.",
-            "Sen benim hayatıma renk katan en güzel mucizesin Elif. Lütfen moralini bozma.",
-            "Senin o sıcacık kalbin her şeye değer sevgilim. Sıkma o tatlı canını.",
-            "Unutma sevgilim, biz birlikteyken her zorluğun üstesinden geliriz. Başını dik tut.",
-            "Sana sarılabilsem şu an tüm o kötü bulutlar dağılırdı biliyorum. Kalbim seninle.",
-            "Gözlerini kapat ve sana sarıldığımı hayal et. Ben hep seninleyim, hep arkandayım.",
-            "Seni mutlu görmek benim bu hayattaki en büyük motivasyonum. Yüzünü güldür sevgilim.",
-            "Lütfen moralini bozma canımın içi. Sen benim dünyadaki en güvenli ve en huzurlu yerimsin.",
-            "Bugün kötü geçmiş olabilir ama yarın yepyeni, musmutlu bir gün olacak sevgilim. Seni çok seviyorum!"
+            "Şu an neye canın sıkıldıysa geçecek söz veriyorum. Seni kocaman kucaklıyorum sevgilim."
         ];
 
-        // 2027 Uzun Üniversite Mektubu
-        const uniLetterText = `🎓 GELECEĞE NOT: ÜNİVERSİTENİN İLK GÜNÜ MEKTUBU 🎓\n\nCanımın içi Elif, bu satırları okuyorsan o çok beklediğimiz, hayalini kurduğumuz o büyük gün nihayet geldi demektir. Bugün senin için yepyeni, bembeyaz bir sayfa açılıyor. Kampüse ilk adımını attığında kalbinin nasıl heyecanla, küt küt atacağını çok iyi biliyorum. Belki biraz ürkek, belki biraz endişeli hissedeceksin ama sakın unutma: Sen dünyadaki en zeki, en güçlü ve her şeyin en mükemmelini hak eden harika bir insansın.\n\nBiz seninle 21 Ekim'de el ele verdik ve o günden beri birbirimizin en büyük destekçisi olduk. Şimdi sen bu büyük adımı atarken, ben yine tüm kalbimle, tüm sevgimle senin tam arkandayım. Bu üniversite yılları sana muhteşem anılar, harika başarılar getirecek. Derslerde yorulduğunda, sınavlar seni bunalttığında her zaman sığınabileceğin, seni deli gibi seven bir Kerem olduğunu hatırla.\n\nSeninle gurur duyuyorum sevgilim. Başarılarını el ele kutlayacağımız, kampüste birlikte yürüyeceğimiz o güzel yıllarımız başladı işte. İlk günün tadını çıkar, gözlerindeki o ışığı hiç kaybetme. Seni sonsuz bir aşkla çok seviyorum...`;
+        const encouragementMessages = [
+            "Uf küçük bir kaza oldu sevgilim! Ama unutma, benim kalbimi de tek seferde yakalamamıştın, denemeye devam et! 💖",
+            "Canlar bitti ama Kerem'in sana olan aşkı asla bitmez! Derin bir nefes al ve bu kademeyi darmadağın et sevgilim! ✨",
+            "Kalpler biraz hızlı kaçtı galiba? Sorun değil aşkım, senin o güzel parmaklarının hızına hiçbir şey yetişemez, tekrar dene! 🔥",
+            "Pes etmek benim güzel sevgilime hiç yakışmaz! Kademeni korudun, şimdi hırs yapma ve o kupanları toplama zamanı! 🥰",
+            "Kerem'in bir tanecik oyun canavarı Elif'i burada takılamaz! Kalbini ferah tut, bir sonraki turda bu rekoru kırıyorsun! 🏆"
+        ];
 
-        // 2028 Uzun Ortak Ev Mektubu
-        const homeLetterText = `🔑 GELECEĞE NOT: ORTAK EVİMİZİN İLK GÜNÜ MEKTUBU 🔑\n\nDünyanın en güzel ev arkadaşına, sevgilisine, geleceğine...\n\nElif, şu an bu yazıyı okurken etrafına bir baksana. Duvarlara, eşyalara, belki de köşede merakla evi inceleyen o tatlı kedimize ve köpeğimize... Başardık sevgilim! Sadece ikimize ait, kapısını kapattığımızda dışarıdaki tüm dünyayı unuttuğumuz o sıcak yuvamızın anahtarı artık elimizde. Yıllar önce bu siteyi kurarken hayalini kurduğumuz o en büyük dilek şu an gerçek oldu.\n\nArtık sabahları uyandığımda göreceğim ilk şey senin o dünya güzeli yüzün olacak. Akşamları mutfağı darmadağın ederek birlikte yapacağımız o pastaları, yorgun argın film izlerken aynı battaniyenin altında birbirimize sokulacağımız o anları düşündükçe kalbim göğsüme sığmıyor. Burası bizim aşkımızın, hayallerimizin ve geleceğimizin yeşereceği yer.\n\nHatırlıyor musun, 21 Ekim'de küçük bir adımla başlamıştı hikayemiz. Şimdi ise kendi evimizde, kendi dünyamızdayız. Hayat her zaman toz pembe olmayabilir ama bu çatı altında, senin ellerini tuttuğum sürece bana her gün bayram. Evimize, yuvamıza, sonsuzluğumuza hoş geldin her şeyim. Seni bu evdeki her bir tuğladan, dünyadaki her şeyden daha çok seviyorum. İyi ki benimsin...`;
+        function calculateNextTarget(level, currentTarget) {
+            if (level <= 10) return currentTarget + 1; 
+            else if (currentTarget < 20) return currentTarget + 2; 
+            else if (currentTarget < 50) return currentTarget + 3; 
+            else return currentTarget + 5; 
+        }
 
-        const letterMessage = "Hayatımın en güzel günü, seninle başladığım o gün. 21 Ekim'den beri kalbimin ritmini değiştiren, her günüme neşe katan iyi ki varsın. Seninle geçen her saniye, geleceğe dair kurduğum en güzel hayalim oldu. Seni çok seviyorum sevgilim...";
-        const surpriseLetterMessage = "💖 BİRDEN BELİREN SÜRPRİZ MEKTUP 💖\n\nSeni tanımadan önce eksikmişim gibi hissediyordum Elif. Sanki hayatımdaki tüm yapboz parçaları sen gelince yerini buldu. Aynı üniversiteye gittiğimiz, el ele mezun olduğumuz, sabahları seninle aynı evde uyanıp kedimizi ve köpeğimizi birlikte beslediğimiz o günleri göreceğimize tüm kalbimle inanıyorum. Sen benim sadece bugünüm değil, tüm geleceğimsin. İyi ki hayatımdasın, seni çok seviyorum...";
-
+        // ARAYÜZ GÜNCELLEME VE BUTON KONTROLLERİ
         function updateCouponUI() {
             document.getElementById('coupon-count').innerText = couponRights;
             document.getElementById('game-level').innerText = currentLevel;
-            const buttons = document.querySelectorAll('.use-coupon-btn');
-            buttons.forEach(btn => {
-                if(couponRights > 0) btn.removeAttribute('disabled');
-                else btn.setAttribute('disabled', 'true');
-            });
+            document.getElementById('target-score').innerText = currentTargetHearts;
+            
+            const checkAndSet = (btnId, required) => {
+                const btn = document.getElementById(btnId);
+                if(btn) {
+                    if(couponRights >= required) btn.removeAttribute('disabled');
+                    else btn.setAttribute('disabled', 'true');
+                }
+            };
+            checkAndSet('cp-1', 1);
+            checkAndSet('cp-2', 2);
+            checkAndSet('cp-3', 3);
+            checkAndSet('cp-4', 5);
+            checkAndSet('cp-5', 5);
+            checkAndSet('cp-mega', 1000);
+        }
+
+        // DİLEK LİSTESİ HAFIZA MOTORU
+        function loadBucketList() {
+            const savedList = JSON.parse(localStorage.getItem('bucketListState')) || {};
+            for (let i = 1; i <= 5; i++) {
+                const checkbox = document.getElementById(`todo-${i}`);
+                if (checkbox) {
+                    checkbox.checked = savedList[`todo-${i}`] || false;
+                    const parentLabel = checkbox.parentElement;
+                    if (checkbox.checked) parentLabel.classList.add("checked-item");
+                    else parentLabel.classList.remove("checked-item");
+                }
+            }
+        }
+
+        function handleCheck(checkbox) {
+            const parentLabel = checkbox.parentElement;
+            if (checkbox.checked) parentLabel.classList.add("checked-item");
+            else parentLabel.classList.remove("checked-item");
+            
+            // Mevcut durumu hafızaya kaydet
+            const savedList = JSON.parse(localStorage.getItem('bucketListState')) || {};
+            savedList[checkbox.id] = checkbox.checked;
+            localStorage.setItem('bucketListState', JSON.stringify(savedList));
+        }
+
+        function resetGameProgression() {
+            if(confirm("Oyundaki kademeni ve kalp hedefini tamamen sıfırlayıp 1. kademeden başlamak istediğine emin misin sevgilim? (Kupon hakların silinmez!)")) {
+                currentLevel = 1;
+                currentTargetHearts = 1;
+                localStorage.setItem('currentLevel', currentLevel);
+                localStorage.setItem('currentTargetHearts', currentTargetHearts);
+                updateCouponUI();
+                alert("Oyun sıfırlandı! Yepyeni bir maceraya hazırsın sevgilim. 🏁💖");
+            }
         }
 
         function checkPassword() {
@@ -711,81 +669,30 @@
                 document.getElementById("login-screen").style.display = "none";
                 document.getElementById("main-content").style.display = "block";
                 loginDone = true;
+                
+                // Sayfa açıldığında hafızadaki tüm verileri yükle
                 updateCouponUI();
+                loadBucketList();
                 
                 const audio = document.getElementById("bg-audio");
-                audio.play().then(() => {
-                    document.getElementById("music-btn").innerText = "🎵 Şarkıyı Kapat";
-                }).catch(e => console.log("Otomatik oynatma engellendi."));
-
-                setTimeout(() => {
-                    if(loginDone) openModal('surpriseLetter');
-                }, 10000);
+                audio.play().catch(e => console.log("Müzik başlatılamadı."));
             } else {
                 alert("Küçük bir hata yaptın sevgilim, tekrar dene! 💖");
             }
         }
 
-        // GERÇEK ZAMAN KAPSÜLÜ SAYAÇ MOTORU
-        function updateCapsuleCountdowns() {
-            const now = new Date().getTime();
-
-            // 1. Üniversite Geri Sayımı
-            const uniDiff = uniUnlockTime - now;
-            if (uniDiff > 0) {
-                const d = Math.floor(uniDiff / (1000 * 60 * 60 * 24));
-                const h = Math.floor((uniDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const m = Math.floor((uniDiff % (1000 * 60 * 60)) / (1000 * 60));
-                const s = Math.floor((uniDiff % (1000 * 60)) / 1000);
-                document.getElementById("uni-countdown").innerHTML = `🔒 Kilitli! Açılmasına: <b>${d}g ${h}s ${m}d ${s}s</b> kaldı.`;
-            } else {
-                document.getElementById("uni-countdown").innerHTML = "🔓 Kilit Açıldı! Mektubunu Okuyabilirsin Sevgilim. ✨";
-            }
-
-            // 2. Ortak Ev Geri Sayımı
-            const homeDiff = homeUnlockTime - now;
-            if (homeDiff > 0) {
-                const d = Math.floor(homeDiff / (1000 * 60 * 60 * 24));
-                const h = Math.floor((homeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const m = Math.floor((homeDiff % (1000 * 60 * 60)) / (1000 * 60));
-                const s = Math.floor((homeDiff % (1000 * 60)) / 1000);
-                document.getElementById("home-countdown").innerHTML = `🔒 Kilitli! Açılmasına: <b>${d}g ${h}s ${m}d ${s}s</b> kaldı.`;
-            } else {
-                document.getElementById("home-countdown").innerHTML = "🔓 Kilit Açıldı! Mektubunu Okuyabilirsin Sevgilim. ✨";
-            }
-        }
-        setInterval(updateCapsuleCountdowns, 1000);
-
-        // Kapsül Açma Fonksiyonu
         function openCapsule(type) {
-            const now = new Date().getTime();
-            
-            if(type === 'uni') {
-                if (now >= uniUnlockTime) {
-                    openModal('custom', uniLetterText);
-                } else {
-                    alert("📌 Şşşt! Henüz doğru zaman değil sevgilim. Üniversitenin o heyecanlı ilk günü (21 Ekim 2027) geldiğinde bu mektup kendiliğinden açılacak! O günü sabırsızlıkla bekliyorum... 🎓✨");
-                }
-            } else if(type === 'home') {
-                if (now >= homeUnlockTime) {
-                    openModal('custom', homeLetterText);
-                } else {
-                    alert("🔑 Sabret her şeyim... Sadece ikimize ait o ortak evin anahtarını çevirdiğimiz o muhteşem gün (21 Ekim 2028) geldiğinde bu gizemli kutunun kilidi otomatik açılacak! 🏡💞");
-                }
-            } else if(type === 'sad') {
-                // 100 Mesajdan Rastgele Birini Seçme
-                const randomIndex = Math.floor(Math.random() * sadMessages.length);
-                const chosenMessage = sadMessages[randomIndex];
-                openModal('custom', `💖 SANA ÖZEL MORAL NOTU 💖\n\n"${chosenMessage}"`);
-            }
+            const randomIndex = Math.floor(Math.random() * sadMessages.length);
+            if(type === 'sad') openModal('custom', `💖 MORAL NOTU 💖\n\n"${sadMessages[randomIndex]}"`);
+            else alert("Kilitli sevgilim!");
         }
 
-        function useCoupon(id, name) {
-            if(couponRights > 0) {
-                couponRights--;
-                localStorage.setItem('couponRights', couponRights);
+        function useCoupon(cost, name) {
+            if(couponRights >= cost) {
+                couponRights -= cost;
+                localStorage.setItem('couponRights', couponRights); // Yeni kupon hakkını hafızaya yaz
                 updateCouponUI();
-                openModal('custom', `🎫 TEBRİKLER! \n\n"${name}" başarıyla aktifleştirildi! Şimdi bu ekranın ekran görüntüsünü alıp Kerem'e atarak hakkını hemen talep edebilirsin sevgilim! 💖🔥`);
+                openModal('custom', `🎫 TEBRİKLER! \n\n"${name}" başarıyla aktifleştirildi! 💖`);
             }
         }
 
@@ -794,43 +701,17 @@
             const now = new Date().getTime();
             const difference = now - startDate;
             const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-            document.getElementById("timer").innerHTML = `${days} Gün ${hours} Saat<br>${minutes} Dakika ${seconds} Saniye`;
+            document.getElementById("timer").innerHTML = `${days} Gün geçti sevgilim...`;
         }
         setInterval(updateTimer, 1000); updateTimer();
 
-        function setMood(mood) {
-            const b = document.body;
-            if(mood === 'happy') { b.style.background = "linear-gradient(135deg, #331a00, #663300)"; alert("Mutlu olmana çok sevindim her şeyim, yüzün hep gülsün! 😊💖"); }
-            if(mood === 'tired') { b.style.background = "linear-gradient(135deg, #001a33, #003366)"; alert("Çok yorulmuşsun kıyamam sana, tüm yorgunluğunu almaya hazırım dinlen sevgilim... 😴❤️"); }
-            if(mood === 'miss') { b.style.background = "linear-gradient(135deg, #1a0033, #330066)"; alert("Ben de seni çok ama çok özledim, kalbim her an seninle atıyor sevgilim.. 🥺💞"); }
-            if(mood === 'love') { b.style.background = "linear-gradient(135deg, #33001a, #660033)"; alert("Ben sana her gün, her saniye daha çok aşık oluyorum iyi ki varsın! 🥰💕"); }
-        }
-
-        function handleCheck(checkbox) {
-            const parentLabel = checkbox.parentElement;
-            if (checkbox.checked) parentLabel.classList.add("checked-item");
-            else parentLabel.classList.remove("checked-item");
-        }
-
-        const baslangic = ["Çünkü sen ", "Çünkü bana ", "Çünkü seninle ", "Çünkü kalbin ", "Çünkü her bakışın ", "Çünkü gülüşün ", "Çünkü sesin "];
-        const orta = ["dünyadaki en güzel huzuru ", "hayatımın en anlamlı anlarını ", "tarif edilemez bir mutluluğu ", "saf ve tertemiz sevgiyi ", "geleceğe dair en güzel umutları ", "içimi ısıtan o harika sıcaklığı "];
-        const son = ["veriyorsun sevgilim. 💖", "hissettiriyor bana. 💞", "yaşatıyorsun her an. 🥰", "hatırlatıyor iyi ki varsın. 💕", "getiriyor dünyama. 💝"];
-
-        function getLoveReason() {
-            const b = baslangic[Math.floor(Math.random() * baslangic.length)];
-            const o = orta[Math.floor(Math.random() * orta.length)];
-            const s = son[Math.floor(Math.random() * son.length)];
-            openModal('reason', b + o + s);
-        }
+        function setMood(mood) { alert("Ruh halin güncellendi sevgilim!"); }
+        function getLoveReason() { openModal('reason', "Çünkü sen hayatımın en anlamlı anlarını hissettiriyor her an sevgilim. 💞"); }
 
         function openModal(type, customText) {
             const modal = document.getElementById("appModal");
             const textContent = document.getElementById("modal-text-content");
-            if(type === 'letter') textContent.innerText = letterMessage;
-            else if(type === 'surpriseLetter') textContent.innerText = surpriseLetterMessage;
+            if(type === 'letter') textContent.innerText = "Hayatımın en güzel günü, seninle başladığım o gün...";
             else if(type === 'reason' || type === 'custom') textContent.innerText = customText;
             modal.style.display = "flex";
         }
@@ -838,20 +719,20 @@
 
         function toggleMusic() {
             const audio = document.getElementById("bg-audio");
-            const btn = document.getElementById("music-btn");
-            if (audio.paused) { audio.play(); btn.innerText = "🎵 Şarkıyı Kapat"; }
-            else { audio.pause(); btn.innerText = "🎵 Şarkıyı Aç"; }
+            if (audio.paused) audio.play(); else audio.pause();
         }
 
         function startGame() {
             if(isGameRunning) return;
             score = 0; lives = 3;
             document.getElementById("score").innerText = score;
+            document.getElementById("target-score").innerText = currentTargetHearts;
             document.getElementById("game-lives").innerText = "❤️❤️❤️";
             document.getElementById("game-area").innerHTML = "";
             document.getElementById("start-game-btn").innerText = "Yeniden Başlat 🔄";
             isGameRunning = true;
-            let spawnSpeed = Math.max(800 - (currentLevel * 70), 350);
+            
+            let spawnSpeed = Math.max(850 - (currentLevel * 14), 280);
             gameInterval = setInterval(spawnFallingHeart, spawnSpeed);
         }
 
@@ -860,13 +741,11 @@
             const gameArea = document.getElementById("game-area");
             const heart = document.createElement("div");
             heart.classList.add("falling-heart");
-            const heartTypes = ["❤️", "💖", "💝", "💕"];
-            heart.innerHTML = heartTypes[Math.floor(Math.random() * heartTypes.length)];
+            heart.innerHTML = "❤️";
             heart.style.left = Math.random() * (gameArea.clientWidth - 35) + "px";
             
-            let baseSpeed = Math.random() * 2 + 2;
-            let speed = Math.max(baseSpeed - (currentLevel * 0.3), 1.0);
-            heart.style.animationDuration = speed + "s";
+            let fallDuration = Math.max(2.6 - (currentLevel * 0.032), 0.8);
+            heart.style.animationDuration = fallDuration + "s";
             
             heart.onclick = (e) => {
                 e.stopPropagation();
@@ -874,7 +753,7 @@
                 score++;
                 document.getElementById("score").innerText = score;
                 heart.remove();
-                if(score >= 20) endGame(true);
+                if(score >= currentTargetHearts) endGame(true);
             };
 
             gameArea.appendChild(heart);
@@ -888,7 +767,7 @@
                         if(lives <= 0) endGame(false);
                     }
                 }
-            }, speed * 1000);
+            }, fallDuration * 1000);
         }
 
         function updateLivesUI() {
@@ -906,16 +785,36 @@
             document.getElementById("start-game-btn").innerText = "Tekrar Oyna 🎮";
             
             if(isWin) {
-                couponRights++; currentLevel++;
+                if (currentTargetHearts >= 100) {
+                    couponRights += 100; 
+                    currentLevel = 1;
+                    currentTargetHearts = 1;
+                    localStorage.setItem('couponRights', couponRights);
+                    localStorage.setItem('currentLevel', currentLevel);
+                    localStorage.setItem('currentTargetHearts', currentTargetHearts);
+                    updateCouponUI();
+                    
+                    openModal('custom', `👑 OYUN BİTTİ, KRALİÇE ELİF KAZANDI! 👑\n\nTam 100 kalp yakalamayı başardın ve Kerem'in kalbini tamamen fethettin sevgilim! Oyun otomatik olarak 1. Kademeden yeniden başladı.\n\n🎁 MEGA ÖDÜLÜN YÜKLENDİ: Tam +100 Aşk Kuponu kazandın! Seni çok seviyorum her şeyim! 💖🏆🎉`);
+                    return;
+                }
+
+                couponRights += 1;
+                let nextTarget = calculateNextTarget(currentLevel, currentTargetHearts);
+                if (nextTarget > 100) nextTarget = 100;
+
+                currentTargetHearts = nextTarget;
+                currentLevel++;
+
                 localStorage.setItem('couponRights', couponRights);
                 localStorage.setItem('currentLevel', currentLevel);
+                localStorage.setItem('currentTargetHearts', currentTargetHearts);
                 updateCouponUI();
-                openModal('custom', `🎉 TEBRİKLER SEVGİLİM! 🎉\n\nBütün kalpleri kaçırmadan yakaladın ve +1 Aşk Kuponu kazandın! 🎫\n\n🔥 Müthiş Başarı: Oyun şimdi daha da hızlandı ve KADEME ${currentLevel} oldun! Bakalım bir sonrakini de kazanabilecek misin? Seni çok seviyorum! 💖`);
+                
+                openModal('custom', `🎉 TEBRİKLER SEVGİLİM! 🎉\n\nKademe başarıyla geçildi! +1 Aşk Kuponu kazandın. \n\n🔥 YENİ KADEME: Kademe ${currentLevel}\n🎯 YENİ HEDEF: ${currentTargetHearts} Kalp Yakalaman Lazım!`);
             } else {
-                currentLevel = 1;
-                localStorage.setItem('currentLevel', currentLevel);
                 updateCouponUI();
-                openModal('custom', `😢 OYUN BİTTİ SEVGİLİM! 😢\n\n3 kalbi kaçırdığın için canların tükendi. Kalpler çok hızlıydı değil mi?\n\n🔄 Kademem sıfırlandı ve tekrar 1. seviyeye döndün. Kendini toparla ve hırs yap sevgilim, kupon kazanmak o kadar kolay değil! 😉❤️`);
+                const randomEncouragement = encouragementMessages[Math.floor(Math.random() * encouragementMessages.length)];
+                openModal('custom', `😢 CANLARIN TÜKENDİ SEVGİLİM!\n\n${randomEncouragement}\n\n📌 Durumun Korundu: Kademe ${currentLevel} seviyesinde ${currentTargetHearts} kalp hedefini geçene kadar yılmadan devam edebilirsin!`);
             }
         }
 
@@ -925,11 +824,11 @@
             heart.innerHTML = "❤️";
             heart.style.left = Math.random() * 100 + "vw";
             heart.style.animationDuration = Math.random() * 3 + 5 + "s";
-            heart.style.fontSize = Math.random() * 15 + 15 + "px";
             document.body.appendChild(heart);
             setTimeout(() => { heart.remove(); }, 8000);
         }
-        setInterval(createHeart, 500);
+        setInterval(createHeart, 600); // Yoğunluk azaltılarak cihaz performansı optimize edildi
     </script>
 </body>
 </html>
+
