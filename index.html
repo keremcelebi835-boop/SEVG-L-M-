@@ -588,7 +588,7 @@
         ];
 
         const encouragementMessages = [
-            "Uf küçük bir kaza oldu sevgilim! Aber unutma, benim kalbimi de tek seferde yakalamamıştın, denemeye devam et! 💖",
+            "Uf küçük bir kaza oldu sevgilim! Ama unutma, benim kalbimi de tek seferde yakalamamıştın, denemeye devam et! 💖",
             "Canlar bitti ama Kerem'in sana olan aşkı asla bitmez! Derin bir nefes al ve bu kademeyi darmadağın et sevgilim! ✨",
             "Kalpler biraz hızlı kaçtı galiba? Sorun değil aşkım, senin o güzel parmaklarının hızına hiçbir şey yetişemez, tekrar dene! 🔥",
             "Pes etmek benim güzel sevgilime hiç yakışmaz! Kademeni korudun, şimdi hırs yapma ve o kuponları toplama zamanı! 🥰",
@@ -622,24 +622,33 @@
             checkAndSet('cp-mega', 1000);
         }
 
+        // TAMAMEN GÜVENLİ HALE GETİRİLEN LİSTE YÜKLEME MOTORU
         function loadBucketList() {
             const savedList = JSON.parse(localStorage.getItem('bucketListState')) || {};
+            // Sabit 5 maddeyi de kaybolma ihtimaline karşı her durumda kontrol eder
             for (let i = 1; i <= 5; i++) {
                 const checkbox = document.getElementById(`todo-${i}`);
                 if (checkbox) {
-                    checkbox.checked = savedList[`todo-${i}`] || false;
+                    checkbox.checked = !!savedList[`todo-${i}`];
                     const parentLabel = checkbox.parentElement;
-                    if (checkbox.checked) parentLabel.classList.add("checked-item");
-                    else parentLabel.classList.remove("checked-item");
+                    if (checkbox.checked) {
+                        parentLabel.classList.add("checked-item");
+                    } else {
+                        parentLabel.classList.remove("checked-item");
+                    }
                 }
             }
         }
 
         function handleCheck(checkbox) {
             const parentLabel = checkbox.parentElement;
-            if (checkbox.checked) parentLabel.classList.add("checked-item");
-            else parentLabel.classList.remove("checked-item");
+            if (checkbox.checked) {
+                parentLabel.classList.add("checked-item");
+            } else {
+                parentLabel.classList.remove("checked-item");
+            }
             
+            // Tüm maddelerin güncel halini anlık yedekler
             const savedList = JSON.parse(localStorage.getItem('bucketListState')) || {};
             savedList[checkbox.id] = checkbox.checked;
             localStorage.setItem('bucketListState', JSON.stringify(savedList));
@@ -666,12 +675,11 @@
                 updateCouponUI();
                 loadBucketList();
                 
-                // Müzik çalma kilitlenme hatası burada çözüldü
                 const audio = document.getElementById("bg-audio");
                 audio.play().then(() => {
                     document.getElementById("music-btn").innerText = "🎵 Şarkıyı Kapat";
                 }).catch(e => {
-                    console.log("Kullanıcı etkileşimi bekleniyor, şarkı hazır.");
+                    console.log("Müzik için etkileşim bekleniyor.");
                 });
             } else {
                 alert("Küçük bir hata yaptın sevgilim, tekrar dene! 💖");
