@@ -184,7 +184,7 @@
             transition: all 0.3s ease;
         }
 
-        /* Dilek Listesi Sabitlendi */
+        /* Dilek Listesi */
         .bucket-list {
             text-align: left;
             padding: 5px 10px;
@@ -325,8 +325,6 @@
             cursor: pointer;
             font-weight: bold;
         }
-
-        #music-container { display: none; }
     </style>
 </head>
 <body>
@@ -370,7 +368,7 @@
         </div>
 
         <div class="btn-group">
-            <button class="btn" onclick="toggleMusic()">🎵 Şarkıyı Aç / Kapat</button>
+            <button class="btn" id="music-btn" onclick="toggleMusic()">🎵 Şarkıyı Aç</button>
             <button class="btn" onclick="openModal('letter')">💌 Sürpriz Mektup</button>
         </div>
 
@@ -401,7 +399,7 @@
                 <label class="bucket-item"><input type="checkbox" onchange="handleCheck(this)"> Pazar sabahı birbirimize kahvaltı hazırlamak</label>
                 
                 <div class="bucket-category">💖 Geleceğe Not</div>
-                <label class="bucket-item"><input type="checkbox" onchange="changeBackgroundAnimation()"> Sadece ikimizin bildiği bir zaman kapsülü gömmek</label>
+                <label class="bucket-item"><input type="checkbox" onchange="handleCheck(this)"> Sadece ikimizin bildiği bir zaman kapsülü gömmek</label>
                 <label class="bucket-item"><input type="checkbox" onchange="handleCheck(this)"> Birlikte ilk konserimize bilet almak</label>
                 <label class="bucket-item"><input type="checkbox" onchange="handleCheck(this)"> Yıllar sonra bu siteye bakıp gülümsemek</label>
             </div>
@@ -434,9 +432,7 @@
         </div>
     </div>
 
-    <div id="music-container">
-        <iframe id="youtube-player" width="100" height="100" src="https://www.youtube.com/embed/z3S7pbeLwGk?enablejsapi=1&loop=1&playlist=z3S7pbeLwGk" allow="autoplay"></iframe>
-    </div>
+    <audio id="bg-audio" src="sarki.mp3" loop></audio>
 
     <script>
         let loginDone = false;
@@ -448,7 +444,13 @@
                 document.getElementById("main-content").style.display = "block";
                 loginDone = true;
                 
-                // Ani Sürpriz: Giriş yaptıktan 10 saniye sonra ekrana dev mektup gelsin!
+                // Şifreyi girince müziği otomatik başlatmayı dene (Tarayıcı izin verirse)
+                const audio = document.getElementById("bg-audio");
+                audio.play().then(() => {
+                    document.getElementById("music-btn").innerText = "🎵 Şarkıyı Kapat";
+                }).catch(e => console.log("Otomatik oynatma engellendi, butona basılması gerekiyor."));
+
+                // Giriş yaptıktan 10 saniye sonra ekrana dev mektup gelsin
                 setTimeout(() => {
                     if(loginDone) openModal('surpriseLetter');
                 }, 10000);
@@ -478,7 +480,6 @@
             if(mood === 'love') { b.style.background = "linear-gradient(135deg, #33001a, #660033)"; alert("Ben sana her gün, her saniye daha çok aşık oluyorum iyi ki varsın! 🥰💕"); }
         }
 
-        // Dilek listesi tıklama fonksiyonu (Hata Çözücü)
         function handleCheck(checkbox) {
             const parentLabel = checkbox.parentElement;
             if (checkbox.checked) {
@@ -514,11 +515,17 @@
         }
         function closeModal() { document.getElementById("appModal").style.display = "none"; }
 
-        let musicPlaying = false;
+        // Yeni Müzik Kontrol Fonksiyonu
         function toggleMusic() {
-            const player = document.getElementById("youtube-player");
-            if (!musicPlaying) { player.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*'); musicPlaying = true; }
-            else { player.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*'); musicPlaying = false; }
+            const audio = document.getElementById("bg-audio");
+            const btn = document.getElementById("music-btn");
+            if (audio.paused) {
+                audio.play();
+                btn.innerText = "🎵 Şarkıyı Kapat";
+            } else {
+                audio.pause();
+                btn.innerText = "🎵 Şarkıyı Aç";
+            }
         }
 
         let score = 0, gameInterval, isGameRunning = false;
