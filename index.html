@@ -24,6 +24,51 @@
             padding-bottom: 50px;
         }
 
+        /* Şifre Giriş Ekranı */
+        #login-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, #1a001a, #2a002a);
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .login-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid #ff3366;
+            padding: 30px 20px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 0 25px rgba(255, 51, 102, 0.4);
+        }
+
+        .riddle-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #ffe6ee;
+            margin-bottom: 25px;
+            font-style: italic;
+            white-space: pre-line;
+        }
+
+        .login-box input {
+            width: 80%;
+            padding: 12px;
+            border-radius: 25px;
+            border: 1px solid rgba(255, 51, 102, 0.5);
+            background: rgba(0, 0, 0, 0.4);
+            color: #fff;
+            text-align: center;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            outline: none;
+        }
+
         /* Arka Plan Kalp Animasyonu */
         .heart-bg {
             position: fixed;
@@ -46,6 +91,7 @@
             padding: 20px;
             text-align: center;
             z-index: 1;
+            display: none; /* Şifre girilene kadar gizli */
         }
 
         h1 {
@@ -59,7 +105,6 @@
             gap: 10px;
         }
 
-        /* Sayaç Alanı */
         .counter-box {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 51, 102, 0.3);
@@ -85,7 +130,6 @@
             line-height: 1.6;
         }
 
-        /* Butonlar */
         .btn-group {
             display: flex;
             flex-direction: column;
@@ -103,19 +147,13 @@
             border-radius: 50px;
             cursor: pointer;
             box-shadow: 0 5px 15px rgba(255, 0, 127, 0.4);
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: transform 0.2s;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
-            text-decoration: none;
         }
 
-        .btn:active {
-            transform: scale(0.98);
-        }
-
-        /* Fotoğraf Galerisi (8 Fotoğraf) */
         .gallery-title {
             font-size: 1.3rem;
             color: #ff99bb;
@@ -138,7 +176,6 @@
             overflow: hidden;
             border: 2px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-            position: relative;
         }
 
         .photo-card img {
@@ -147,7 +184,6 @@
             object-fit: cover;
         }
 
-        /* Mektup Pop-up (Açılır Kutu) */
         .modal {
             display: none;
             position: fixed;
@@ -167,14 +203,7 @@
             max-width: 400px;
             width: 100%;
             text-align: center;
-            position: relative;
             box-shadow: 0 0 25px rgba(255, 51, 102, 0.5);
-            animation: zoomIn 0.3s ease;
-        }
-
-        @keyframes zoomIn {
-            from { transform: scale(0.7); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
         }
 
         .modal-text {
@@ -195,15 +224,26 @@
             font-weight: bold;
         }
 
-        /* Gizli Müzik Kutusu */
-        #music-container {
-            display: none;
-        }
+        #music-container { display: none; }
     </style>
 </head>
 <body>
 
-    <div class="container">
+    <div id="login-screen">
+        <div class="login-box">
+            <div class="riddle-text">
+                "Kalpten kalbe giden bir yol var,
+                Bizim için başladı o güzel anlar.
+                Tarihini yaz, kilidi çöz sevgilim,
+                Seni içeride büyük bir sürpriz bekler!"
+            </div>
+            <input type="password" id="password-input" placeholder="GGAAYYYY formatında yaz...">
+            <br>
+            <button class="btn" style="margin: 0 auto; width: 60%; padding: 10px;" onclick="checkPassword()">Giriş Yap 💖</button>
+        </div>
+    </div>
+
+    <div class="container" id="main-content">
         <h1>Elif 💖 Kerem</h1>
 
         <div class="counter-box">
@@ -243,29 +283,34 @@
     </div>
 
     <script>
-        // Saniye saniye ileri sayan sayaç (21 Ekim 2025)
-        const startDate = new Date("2025-10-21T00:00:00").getTime();
+        // Şifre Kontrolü
+        function checkPassword() {
+            const input = document.getElementById("password-input").value;
+            if (input === "21102025") {
+                document.getElementById("login-screen").style.display = "none";
+                document.getElementById("main-content").style.display = "block";
+            } else {
+                alert("Küçük bir hata yaptın sevgilim, tekrar dene! 💖");
+            }
+        }
 
+        // Sayaç
+        const startDate = new Date("2025-10-21T00:00:00").getTime();
         function updateTimer() {
             const now = new Date().getTime();
             const difference = now - startDate;
-
             const days = Math.floor(difference / (1000 * 60 * 60 * 24));
             const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-            document.getElementById("timer").innerHTML = 
-                `${days} Gün ${hours} Saat<br>${minutes} Dakika ${seconds} Saniye`;
+            document.getElementById("timer").innerHTML = `${days} Gün ${hours} Saat<br>${minutes} Dakika ${seconds} Saniye`;
         }
         setInterval(updateTimer, 1000);
         updateTimer();
 
-        // Mektup Fonksiyonları
         function openModal() { document.getElementById("letterModal").style.display = "flex"; }
         function closeModal() { document.getElementById("letterModal").style.display = "none"; }
 
-        // Müzik Aç/Kapat Fonksiyonu
         let musicPlaying = false;
         function toggleMusic() {
             const player = document.getElementById("youtube-player");
@@ -278,7 +323,6 @@
             }
         }
 
-        // Yağan Kalpler Oluşturma
         function createHeart() {
             const heart = document.createElement("div");
             heart.classList.add("heart-bg");
