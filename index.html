@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Elif ❤️ Kerem</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+    margin:0;
+    font-family: Arial;
+    background: radial-gradient(circle,#2a002f,#0a0010);
+    color:white;
+    overflow-x:hidden;
+}
+
+/* LOGIN */
+#login {
+    position:fixed;
+    width:100%;
+    height:100vh;
+    background:#0a0010;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+}
+input {
+    padding:10px;
+    border-radius:10px;
+    border:none;
+    text-align:center;
+}
+button {
+    margin-top:10px;
+    padding:10px 20px;
+    border:none;
+    border-radius:20px;
+    background:#ff4fd8;
+    color:white;
+    cursor:pointer;
+}
+
+/* MAIN */
+header {
+    text-align:center;
+    padding:30px;
+}
+
+h1 { color:#ff4fd8; }
+
+.countdown {
+    font-size:20px;
+    color:#ffd1f7;
+}
+
+/* GALLERY */
+.gallery {
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(100px,1fr));
+    gap:10px;
+    padding:20px;
+}
+
+.gallery img {
+    width:100%;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+/* LIGHTBOX */
+#lightbox {
+    position:fixed;
+    top:0;left:0;
+    width:100%;height:100%;
+    background:rgba(0,0,0,0.9);
+    display:none;
+    justify-content:center;
+    align-items:center;
+}
+#lightbox img {
+    max-width:90%;
+    max-height:80%;
+}
+
+/* HEART */
+.heart {
+    position:fixed;
+    top:-10px;
+    color:pink;
+    animation:fall 5s linear infinite;
+}
+@keyframes fall {
+    to { transform:translateY(100vh); opacity:0; }
+}
+
+/* LETTER */
+#letter {
+    display:none;
+    text-align:center;
+    padding:20px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div id="login">
+    <h2>Şifreyi Gir 💖</h2>
+    <input type="password" id="pass">
+    <button onclick="enter()">Giriş</button>
+</div>
+
+<!-- MAIN -->
+<div id="site" style="display:none;">
+
+<header>
+    <h1>Elif ❤️ Kerem</h1>
+    <div class="countdown" id="countdown"></div>
+</header>
+
+<div style="text-align:center;">
+    <button onclick="openMusic()">🎵 Şarkıyı Aç</button>
+</div>
+
+<div style="text-align:center;margin-top:10px;">
+    <button onclick="openLetter()">💌 Sürpriz Mektup</button>
+</div>
+
+<div id="letter">
+    <h3>💖 Sana küçük bir şey...</h3>
+    <p>Bu sayfa sadece bir site değil, bir anı.</p>
+</div>
+
+<!-- GALLERY -->
+<div class="gallery">
+    <img src="https://picsum.photos/200/200?1">
+    <img src="https://picsum.photos/200/200?2">
+    <img src="https://picsum.photos/200/200?3">
+    <img src="https://picsum.photos/200/200?4">
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" onclick="closeLB()">
+    <img id="lbimg">
+</div>
+
+</div>
+
+<script>
+// LOGIN
+function enter(){
+    let pass=document.getElementById("pass").value;
+    if(pass==="ELIF"){
+        document.getElementById("login").style.display="none";
+        document.getElementById("site").style.display="block";
+    }else{
+        alert("Yanlış şifre 💔");
+    }
+}
+
+// COUNTDOWN
+let target=new Date("2025-10-21").getTime();
+setInterval(()=>{
+    let now=new Date().getTime();
+    let diff=target-now;
+    let days=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("countdown").innerHTML=
+    "21 Ekim'e: "+days+" gün";
+},1000);
+
+// HEARTS
+setInterval(()=>{
+    let h=document.createElement("div");
+    h.className="heart";
+    h.innerHTML="❤️";
+    h.style.left=Math.random()*100+"vw";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),5000);
+},300);
+
+// MUSIC
+function openMusic(){
+    window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+}
+
+// LETTER
+function openLetter(){
+    document.getElementById("letter").style.display="block";
+}
+
+// LIGHTBOX
+document.querySelectorAll(".gallery img").forEach(img=>{
+    img.onclick=()=>{
+        document.getElementById("lightbox").style.display="flex";
+        document.getElementById("lbimg").src=img.src;
+    }
+});
+function closeLB(){
+    document.getElementById("lightbox").style.display="none";
+}
+</script>
+
+</body>
+</html>
