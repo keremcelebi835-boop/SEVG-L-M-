@@ -564,6 +564,84 @@
     margin-top: 15px;
     display: none;
 }
+/* Güvenli 30 Günlük Patlama Efektli Aşk Ağacı */
+.agac-alani {
+    max-width: 360px;
+    margin: 40px auto;
+    padding: 25px;
+    background: rgba(20, 20, 25, 0.85);
+    border-radius: 20px;
+    border: 2px solid #ff758f;
+    text-align: center;
+    box-sizing: border-box;
+    font-family: 'Courier New', Courier, monospace;
+    position: relative;
+    overflow: hidden;
+}
+.agac-baslik {
+    color: #ff758f;
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+.agac-gosterge {
+    width: 120px;
+    height: 120px;
+    margin: 15px auto;
+    font-size: 80px;
+    line-height: 120px;
+    transition: transform 0.3s ease;
+}
+.agac-gosterge.canlanma {
+    transform: scale(1.2) rotate(5deg);
+}
+.agac-buton {
+    background: #ff758f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+.agac-buton:hover {
+    background: #fd3a69;
+}
+.agac-skor {
+    color: #fff;
+    font-size: 14px;
+    margin: 10px 0;
+}
+.agac-odul {
+    display: none;
+    margin-top: 15px;
+    padding: 15px;
+    background: rgba(46, 213, 115, 0.2);
+    border: 2px dashed #2ed573;
+    color: #2ed573;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    animation: patlamaEfekt 0.5s ease-in-out infinite alternate;
+}
+@keyframes patlamaEfekt {
+    from { transform: scale(1); }
+    to { transform: scale(1.03); }
+}
+/* Patlama parçacıkları için efekt */
+.parcacik {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    animation: firlat 1s ease-out forwards;
+}
+@keyframes firlat {
+    0% { transform: translate(0, 0) scale(1); opacity: 1; }
+    100% { transform: translate(var(--x), var(--y)) scale(0); opacity: 0; }
+}
 
     </style>
 </head>
@@ -715,6 +793,99 @@
     <div id="puzzle-grid"></div>
     <div id="puzzle-mesaj">Harikasın sevgilim, 16 parçayı da doğru birleştirdin! ❤️</div>
 </div>
+<div class="agac-alani" id="agac-konteyner">
+    <div class="agac-baslik">🌱 30 Günlük Aşk Ağacımız 🌱</div>
+    <div class="agac-skor">Ağacın Yaşı: <span id="agac-seviye-yazi">0</span>/30 Gün</div>
+    <div id="agac-box" class="agac-gosterge">🌱</div>
+    <button class="agac-buton" onclick="agaciSula()">❤️ Sevgiyle Sula</button>
+    
+    <div id="agac-odul-kutusu" class="agac-odul">
+        🎉 TEBRİKLER SEVGİLİM! 🎉<br>
+        30 gün boyunca aşkımızı sabırla büyüttün. <br><br>
+        🎫 KAZANDIĞIN ÖDÜL: <br>
+        <span style="font-size: 20px; color: #fff;">✨ 500 ÖDÜL KUPONU ✨</span><br><br>
+        Kerem bey hazretlerinden dilediğin hediyeleri almak için kuponlarını kullanabilirsin! ❤️
+    </div>
+</div>
+
+<script>
+let agacPuani = parseInt(localStorage.getItem('askAgacPuani30')) || 0;
+
+// 30 günlük süreçteki ağaç evrimi emojileri
+function getAgacEmoji(puan) {
+    if (puan === 0) return '🌱';
+    if (puan < 5) return '🌿';
+    if (puan < 10) return '☘️';
+    if (puan < 15) return '🪴';
+    if (puan < 20) return '🌳';
+    if (puan < 25) return '🍃';
+    if (puan < 30) return '🌸';
+    return '💖'; // 30. gün tam büyüme hali
+}
+
+function agacArayuzGuncelle() {
+    document.getElementById('agac-seviye-yazi').innerText = agacPuani;
+    const agacBox = document.getElementById('agac-box');
+    
+    agacBox.innerText = getAgacEmoji(agacPuani);
+    
+    if (agacPuani >= 30) {
+        document.getElementById('agac-odul-kutusu').style.display = 'block';
+        document.querySelector('.agac-buton').style.display = 'none';
+    }
+}
+
+// Ekranda konfeti/havai fişek patlama efekti yaratan fonksiyon
+function efektPatlat() {
+    const konteyner = document.getElementById('agac-konteyner');
+    const renkler = ['#ff758f', '#fd3a69', '#2ed573', '#1e90ff', '#ffa500', '#f5f6fa'];
+    
+    for (let i = 0; i < 50; i++) {
+        const parcacik = document.createElement('div');
+        parcacik.className = 'parcacik';
+        
+        // Rastgele fırlama yönleri hesapla
+        const x = (Math.random() - 0.5) * 300 + 'px';
+        const y = (Math.random() - 0.5) * 300 + 'px';
+        
+        parcacik.style.setProperty('--x', x);
+        parcacik.style.setProperty('--y', y);
+        parcacik.style.backgroundColor = renkler[Math.floor(Math.random() * renkler.length)];
+        
+        // Kutunun merkezinden fırlat
+        parcacik.style.left = '50%';
+        parcacik.style.top = '50%';
+        
+        konteyner.appendChild(parcacik);
+        
+        // Animasyon bitince temizle
+        setTimeout(() => parcacik.remove(), 1000);
+    }
+}
+
+function agaciSula() {
+    if (agacPuani < 30) {
+        agacPuani++;
+        localStorage.setItem('askAgacPuani30', agacPuani);
+        
+        const agacBox = document.getElementById('agac-box');
+        agacBox.classList.add('canlanma');
+        setTimeout(() => agacBox.classList.remove('canlanma'), 300);
+        
+        agacArayuzGuncelle();
+        
+        // Tam 30. güne ulaştığı an patlama efektini tetikle
+        if (agacPuani === 30) {
+            efektPatlat();
+            // Eğlenceyi artırmak için 3 kez arka arkaya patlatıyoruz
+            setTimeout(efektPatlat, 400);
+            setTimeout(efektPatlat, 800);
+        }
+    }
+}
+
+window.addEventListener('DOMContentLoaded', agacArayuzGuncelle);
+</script>
 
 <script>
 // YAPBOZ AYARLARI
