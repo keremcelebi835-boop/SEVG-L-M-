@@ -547,7 +547,7 @@
             <div class="bucket-list">
                 <div class="bucket-category">🚀 Geleceğe Doğru Büyük Adımlar</div>
                 <label class="bucket-item"><input type="checkbox" id="todo-1" onchange="handleCheck(this)"> 🎓 Aynı üniversiteye gitmek / birlikte mezun olmak</label>
-                <label class="bucket-item"><input type="checkbox" id="todo-2" onchange="handleCheck(this)"> 🔑 Sadece ikimize ait ortak bir eve çıkmak</label>
+                <label class="bucket-item"><input type="checkbox" id="todo-2" onchange="change="handleCheck(this)"> 🔑 Sadece ikimize ait ortak bir eve çıkmak</label>
                 <label class="bucket-item"><input type="checkbox" id="todo-3" onchange="handleCheck(this)"> 🐈 Evimizi neşelendirecek tatlı bir kedi sahiplenmek</label>
                 <label class="bucket-item"><input type="checkbox" id="todo-4" onchange="handleCheck(this)"> 🦮 Birlikte yürüyüşlere çıkaracağımız bir köpek almak</label>
                 <label class="bucket-item"><input type="checkbox" id="todo-5" onchange="handleCheck(this)"> 💍 Hayatımızı birleştirmek, sonsuza dek evlenmek</label>
@@ -588,9 +588,9 @@
         let gameInterval;
         let isGameRunning = false;
 
-        // Hedef Kapsül Tarihleri (Buradan Değiştirebilirsin)
-        const uniDate = new Date("2026-09-01T09:00:00").getTime(); 
-        const homeDate = new Date("2027-06-01T12:00:00").getTime();
+        // Hedef Kapsül Tarihleri (Güncellendi: 21 Ekim 2027 ve 21 Ekim 2030)
+        const uniDate = new Date("2027-10-21T09:00:00").getTime(); 
+        const homeDate = new Date("2030-10-21T12:00:00").getTime();
 
         const sadMessages = [
             "Canımın içi, sen dünyadaki her şeyden daha değerlisin. Derin bir nefes al, ben her zaman yanındayım.",
@@ -709,7 +709,6 @@
             }
         }
 
-        // ZAMAN KAPSÜLLERİ GERİ SAYIM MOTORU (DÜZELTİLDİ)
         function startCapsuleCountdowns() {
             function updateCountdowns() {
                 const now = new Date().getTime();
@@ -742,11 +741,10 @@
                     homeSub.style.color = "#ff99bb";
                 }
             }
-            setInterval(updateCountdowns, 60000); // Her dakikada bir günceller
+            setInterval(updateCountdowns, 60000);
             updateCountdowns();
         }
 
-        // ZAMAN KAPSÜLÜ İÇERİK TETİKLEYİCİSİ (DÜZELTİLDİ)
         function openCapsule(type) {
             const now = new Date().getTime();
             if (type === 'sad') {
@@ -776,14 +774,22 @@
             }
         }
 
+        // Saniye Saniye Canlı Sayan Aşk Sayacı (Güncellendi)
         const startDate = new Date("2025-10-21T00:00:00").getTime();
+
         function updateTimer() {
             const now = new Date().getTime();
             const difference = now - startDate;
+
             const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-            document.getElementById("timer").innerHTML = `${days} Gün geçti sevgilim...`;
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            document.getElementById("timer").innerHTML = `${days} Gün, ${hours} Saat, ${minutes} Dakika, ${seconds} Saniye geçti sevgilim...`;
         }
-        setInterval(updateTimer, 1000); updateTimer();
+        setInterval(updateTimer, 1000); 
+        updateTimer();
 
         function setMood(mood) { 
             document.body.classList.remove('theme-happy', 'theme-tired', 'theme-miss', 'theme-love');
@@ -793,7 +799,7 @@
                 message = "Senin mutlu olduğunu bilmek benim de günümü harika yapıyor sevgilim! Bu neşeni kutlayalım! 🎉🌟";
             } else if (mood === 'tired') {
                 document.body.classList.add('theme-tired');
-                message = "Çok yorucu bir gün müydü aşkım? Dinlenmeyi hak ettin, kafanı dinle ben hep buradayım. 💤🛋️";
+                message = "Çok yorucu bir gün müydü aşkım? Dinlenmeyi hak ettin, kafanı dinle ben hep burayanım. 💤🛋️";
             } else if (mood === 'miss') {
                 document.body.classList.add('theme-miss');
                 message = "Ben de seni çok ama çok özledim sevgilim. Mesafeler bizim sevgimize engel olamaz! 🥺❤️";
@@ -809,13 +815,12 @@
             openModal('reason', `🫙 GÜNÜN SEBEBİ 🫙\n\n"${loveReasons[randomIndex]}"`); 
         }
 
-        // SÜRPRİZ MEKTUP İÇERİĞİ VE MODAL MOTORU (DÜZELTİLDİ)
         function openModal(type, customText) {
             const modal = document.getElementById("appModal");
             const textContent = document.getElementById("modal-text-content");
             
             if(type === 'letter') {
-                textContent.innerText = "💌 BİR TANECİK ELİF'İME 💌\n\nHayatımın en güzel günü, seninle başladığım o büyülü gün sevgilim. Sen benim hayatıma girdiğin andan itibaren her şeyi güzelleştirdin, dünyamı baştan aşağı neşeyle ve aşkla boyadın. \n\nİyi ki varsın, iyi ki benim sevgilimsin. Gelecekteki tüm güzel adımlarımızı beraber atmak, tüm hayallerimizi tek tek gerçekleştirmek için sabırsızlanıyorum. Seni dünyadaki her şeyden daha çok seviyorum her şeyim! 💖✨";
+                textContent.innerText = "💌 BİR TANECİK ELİF'İME 💌\n\nHayatımın en güzel günü, seninle başladığım o büyülü gün sevgilim. Sen benim hayatıma girdiğin andan itibaren her şeyi güzelleştirdin, dünyamı baştan aşağı neşeyle ve aşkla boyadın. \n\nİyi ki varsın, iyi ki benim sevgilimsin. Gelecekteki tüm güzel adımlarimizi beraber atmak, tüm hayallerimizi tek tek gerçekleştirmek için sabırsızlanıyorum. Seni dünyadaki her şeyden daha çok seviyorum her şeyim! 💖✨";
             }
             else if(type === 'reason' || type === 'custom') {
                 textContent.innerText = customText;
@@ -945,3 +950,4 @@
     </script>
 </body>
 </html>
+
