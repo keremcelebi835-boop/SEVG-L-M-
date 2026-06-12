@@ -420,191 +420,211 @@
             border-radius: 20px;
             cursor: pointer;
             font-weight: bold;
-        }/* Tıklama Efekti Kalpleri */
-.click-heart {
-    position: fixed;
-    font-size: 24px;
-    pointer-events: none;
-    z-index: 9999;
-    user-select: none;
-    animation: clickFloat 0.8s ease-out forwards;
-}
+        }
 
-@keyframes clickFloat {
-    0% {
-        transform: translate(-50%, -50%) scale(0.5) translateY(0);
-        opacity: 1;
-    }
-    100% {
-        transform: translate(-50%, -50%) scale(1.4) translateY(-60px);
-        opacity: 0;
-    }
-}
+        /* Tıklama Efekti Kalpleri */
+        .click-heart {
+            position: fixed;
+            font-size: 24px;
+            pointer-events: none;
+            z-index: 9999;
+            user-select: none;
+            animation: clickFloat 0.8s ease-out forwards;
+        }
 
-   /* Sinyal Butonu Tasarımı */
-.sinyal-konteyner {
-    text-align: center;
-    margin: 30px auto;
-}
-#sinyalButon {
-    background: linear-gradient(135deg, #ff6b81, #ff4757);
-    color: white;
-    border: none;
-    padding: 15px 30px;
-    font-size: 16px;
-    font-weight: bold;
-    border-radius: 50px;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(255, 107, 129, 0.4);
-    transition: all 0.3s ease;
-}
-#sinyalButon:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 20px rgba(255, 107, 129, 0.6);
-}
+        @keyframes clickFloat {
+            0% { transform: translate(-50%, -50%) scale(0.5) translateY(0); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(1.4) translateY(-60px); opacity: 0; }
+        }
 
-/* Canlı Bildirim Penceresi (Modal) */
-.sinyal-modal {
-    display: none;
-    position: fixed;
-    z-index: 9999;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(5px);
-    justify-content: center;
-    align-items: center;
-}
-.sinyal-modal-icerik {
-    background: #fff0f2;
-    padding: 30px;
-    border-radius: 20px;
-    text-align: center;
-    max-width: 400px;
-    width: 85%;
-    border: 3px solid #ff6b81;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    animation: acilisAnimasyonu 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-.sinyal-modal-icerik h2 {
-    color: #ff4757;
-    margin-bottom: 10px;
-}
-.sinyal-modal-icerik p {
-    color: #57606f;
-    font-size: 16px;
-    line-height: 1.5;
-}
-.sinyal-modal-icerik button {
-    background-color: #ff4757;
-    color: white;
-    border: none;
-    padding: 10px 25px;
-    border-radius: 20px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 20px;
-}
+        /* Sinyal Butonu Tasarımı */
+        .sinyal-konteyner {
+            text-align: center;
+            margin: 30px auto;
+        }
+        #sinyalButon {
+            background: linear-gradient(135deg, #ff6b81, #ff4757);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 107, 129, 0.4);
+            transition: all 0.3s ease;
+        }
+        #sinyalButon:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(255, 107, 129, 0.6);
+        }
 
-/* Kalp Atma Animasyonu */
-.kalp-animasyon {
-    font-size: 50px;
-    animation: kalpAtis 0.8s infinite alternate;
-}
-@keyframes kalpAtis {
-    from { transform: scale(1); }
-    to { transform: scale(1.2); }
-}
-@keyframes acilisAnimasyonu {
-    from { transform: scale(0.7); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
-}
+        /* Canlı Bildirim Penceresi (Modal) */
+        .sinyal-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+        }
+        .sinyal-modal-icerik {
+            background: #fff0f2;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 400px;
+            width: 85%;
+            border: 3px solid #ff6b81;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            animation: acilisAnimasyonu 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .sinyal-modal-icerik h2 { color: #ff4757; margin-bottom: 10px; }
+        .sinyal-modal-icerik p { color: #57606f; font-size: 16px; line-height: 1.5; }
+        .sinyal-modal-icerik button {
+            background-color: #ff4757;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+        }
 
-/* Güvenli Patlama Efektli Aşk Ağacı - Güncel */
-.agac-alani {
-    max-width: 360px;
-    margin: 40px auto;
-    padding: 25px;
-    background: rgba(20, 20, 25, 0.85);
-    border-radius: 20px;
-    border: 2px solid #ff758f;
-    text-align: center;
-    box-sizing: border-box;
-    font-family: 'Courier New', Courier, monospace;
-    position: relative;
-    overflow: hidden;
-}
-.agac-baslik {
-    color: #ff758f;
-    font-size: 18px;
-    margin-bottom: 10px;
-    font-weight: bold;
-}
-.agac-gosterge {
-    width: 120px;
-    height: 120px;
-    margin: 15px auto;
-    font-size: 80px;
-    line-height: 120px;
-    transition: transform 0.3s ease;
-}
-.agac-gosterge.canlanma {
-    transform: scale(1.2) rotate(5deg);
-}
-.agac-buton {
-    background: #ff758f;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 14px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background 0.2s;
-}
-.agac-buton:hover:not(:disabled) {
-    background: #fd3a69;
-}
-.agac-buton:disabled {
-    background: #555;
-    color: #aaa;
-    cursor: not-allowed;
-}
-.agac-skor {
-    color: #fff;
-    font-size: 14px;
-    margin: 10px 0;
-}
-.agac-odul {
-    display: none;
-    margin-top: 15px;
-    padding: 15px;
-    background: rgba(46, 213, 115, 0.2);
-    border: 2px dashed #2ed573;
-    color: #2ed573;
-    border-radius: 10px;
-    font-size: 14px;
-    font-weight: bold;
-    animation: patlamaEfekt 0.5s ease-in-out infinite alternate;
-}
-@keyframes patlamaEfekt {
-    from { transform: scale(1); }
-    to { transform: scale(1.03); }
-}
-.parcacik {
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    animation: firlat 1s ease-out forwards;
-}
-@keyframes firlat {
-    0% { transform: translate(0, 0) scale(1); opacity: 1; }
-    100% { transform: translate(var(--x), var(--y)) scale(0); opacity: 0; }
-}
+        /* Kalp Atma Animasyonu */
+        .kalp-animasyon {
+            font-size: 50px;
+            animation: kalpAtis 0.8s infinite alternate;
+        }
+        @keyframes kalpAtis { from { transform: scale(1); } to { transform: scale(1.2); } }
+        @keyframes acilisAnimasyonu { from { transform: scale(0.7); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
+        /* GÜNCELLENEN YAPBOZ CSS TASARIMLARI (EKSİKTİ, EKLENDİ) */
+        .puzzle-alani {
+            width: 100%;
+            max-width: 500px;
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 51, 102, 0.3);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            box-sizing: border-box;
+        }
+        .puzzle-baslik {
+            font-size: 0.9rem;
+            color: #ff99bb;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        #puzzle-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 5px;
+            width: 280px;
+            height: 280px;
+            margin: 0 auto;
+        }
+        .puzzle-parca {
+            width: 66px;
+            height: 66px;
+            border: 1px solid rgba(255,255,255,0.2);
+            box-sizing: border-box;
+            cursor: pointer;
+            transition: transform 0.2s;
+            background-size: 280px 280px;
+            border-radius: 4px;
+        }
+        .puzzle-parca:hover { transform: scale(0.95); }
+
+        /* GÜNLÜK KİLİTLENEN AŞK AĞACI TASARIMLARI */
+        .agac-alani {
+            width: 100%;
+            max-width: 500px;
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 51, 102, 0.3);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            box-sizing: border-box;
+            position: relative;
+            overflow: hidden;
+        }
+        .agac-baslik {
+            font-size: 0.9rem;
+            color: #ff99bb;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .agac-gosterge {
+            width: 100px;
+            height: 100px;
+            margin: 10px auto;
+            font-size: 70px;
+            line-height: 100px;
+            transition: transform 0.3s ease;
+            user-select: none;
+        }
+        .agac-gosterge.canlanma { transform: scale(1.2) rotate(5deg); }
+        .agac-buton {
+            background: linear-gradient(45deg, #ff3366, #ff007f);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 0.95rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(255, 0, 127, 0.3);
+            transition: all 0.2s;
+        }
+        .agac-buton:hover:not(:disabled) { transform: scale(1.03); }
+        .agac-buton:disabled {
+            background: #444 !important;
+            color: #888 !important;
+            box-shadow: none !important;
+            cursor: not-allowed;
+        }
+        .agac-skor { color: #fff; font-size: 1.1rem; margin: 5px 0; font-weight: bold; }
+        .agac-odul {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(46, 213, 115, 0.15);
+            border: 2px dashed #2ed573;
+            color: #2ed573;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            animation: patlamaEfekt 0.5s ease-in-out infinite alternate;
+        }
+        @keyframes patlamaEfekt { from { transform: scale(1); } to { transform: scale(1.02); } }
+        .parcacik {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            animation: firlat 1s ease-out forwards;
+        }
+        @keyframes firlat {
+            0% { transform: translate(0, 0) scale(1); opacity: 1; }
+            100% { transform: translate(var(--x), var(--y)) scale(0); opacity: 0; }
+        }
     </style>
 </head>
 <body>
@@ -731,7 +751,7 @@
             <div class="bucket-list">
                 <div class="bucket-category">🚀 Geleceğe Doğru Büyük Adımlar</div>
                 <label class="bucket-item"><input type="checkbox" id="todo-1" onchange="handleCheck(this)"> 🎓 Aynı üniversiteye gitmek / birlikte mezun olmak</label>
-                <label class="bucket-item"><input type="checkbox" id="todo-2" onchange="change="handleCheck(this)"> 🔑 Sadece ikimize ait ortak bir eve çıkmak</label>
+                <label class="bucket-item"><input type="checkbox" id="todo-2" onchange="handleCheck(this)"> 🔑 Sadece ikimize ait ortak bir eve çıkmak</label>
                 <label class="bucket-item"><input type="checkbox" id="todo-3" onchange="handleCheck(this)"> 🐈 Evimizi neşelendirecek tatlı bir kedi sahiplenmek</label>
                 <label class="bucket-item"><input type="checkbox" id="todo-4" onchange="handleCheck(this)"> 🦮 Birlikte yürüyüşlere çıkaracağımız bir köpek almak</label>
                 <label class="bucket-item"><input type="checkbox" id="todo-5" onchange="handleCheck(this)"> 💍 Hayatımızı birleştirmek, sonsuza dek evlenmek</label>
@@ -749,208 +769,213 @@
             <div class="photo-card"><img src="foto7.jpg" alt="Anı 7"></div>
             <div class="photo-card"><img src="foto8.jpg" alt="Anı 8"></div>
         </div>
-    </div>
-    <div class="puzzle-alani">
-    <div class="puzzle-baslik">🧩 Aşk Yapbozumuz (16 Parça) 🧩</div>
-    <div id="puzzle-grid"></div>
-    <div id="puzzle-mesaj" style="color: #2ed573; font-weight: bold; margin-top: 15px; display: none; text-align: center;">
-        Harikasın sevgilim, 16 parçayı da doğru birleştirdin! ❤️ <br>
-        <span style="color: #ffd700;">✨ 500 Kupon Hesabına Eklendi! ✨</span>
-    </div>
-</div>
 
-<div class="agac-alani" id="agac-konteyner">
-    <div class="agac-baslik">🌱 30 Günlük Aşk Ağacımız 🌱</div>
-    <div class="agac-skor">Ağacın Yaşı: <span id="agac-seviye-yazi">0</span>/30 Gün</div>
-    <div id="agac-box" class="agac-gosterge">🌱</div>
-    <button id="sula-btn" class="agac-buton" onclick="agaciSula()">❤️ Sevgiyle Sula</button>
-    
-    <div id="agac-odul-kutusu" class="agac-odul">
-        🎉 TEBRİKLER SEVGİLİM! 🎉<br>
-        30 gün boyunca aşkımızı sabırla büyüttün. <br><br>
-        🎫 KAZANDIĞIN ÖDÜL: <br>
-        <span style="font-size: 20px; color: #fff;">✨ 500 ÖDÜL KUPONU ✨</span><br><br>
-        Kuponlar market hesabına başarıyla yüklendi! Dilediğince harcayabilirsin. ❤️
-    </div>
-</div>
+        <div class="puzzle-alani">
+            <div class="puzzle-baslik">🧩 Aşk Yapbozumuz (16 Parça) 🧩</div>
+            <div id="puzzle-grid"></div>
+            <div id="puzzle-mesaj" style="color: #2ed573; font-weight: bold; margin-top: 15px; display: none; text-align: center;">
+                Harikasın sevgilim, 16 parçayı da doğru birleştirdin! ❤️ <br>
+                <span style="color: #ffd700;">✨ 500 Kupon Hesabına Eklendi! ✨</span>
+            </div>
+        </div>
 
-<script>
-// ==========================================
-// 1. YAPBOZ OYUNU MANTIĞI
-// ==========================================
-const puzzleResmi = 'puzzle-resim.jpg';
-const doruSira = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-let suAnkiSira = [...doruSira].sort(() => Math.random() - 0.5);
-let secilenParca = null;
-let yapbozBittiMi = localStorage.getItem('puzzleBitti') === 'true';
-
-function puzzleOlustur() {
-    const grid = document.getElementById('puzzle-grid');
-    if(!grid) return;
-    grid.innerHTML = '';
-    
-    suAnkiSira.forEach((parcaNo, indeks) => {
-        const satir = Math.floor(parcaNo / 4);
-        const sutun = parcaNo % 4;
-        
-        const parca = document.createElement('div');
-        parca.className = 'puzzle-parca';
-        parca.style.backgroundImage = `url('${puzzleResmi}')`;
-        parca.style.backgroundPosition = `-${sutun * 75}px -${satir * 75}px`;
-        parca.dataset.indeks = indeks;
-        
-        if (!yapbozBittiMi) {
-            parca.addEventListener('click', parcaTiklama);
-        }
-        grid.appendChild(parca);
-    });
-
-    if (yapbozBittiMi) {
-        document.getElementById('puzzle-mesaj').style.display = 'block';
-    }
-}
-
-function parcaTiklama(e) {
-    if(yapbozBittiMi) return;
-    const tiklananIndeks = parseInt(e.target.dataset.indeks);
-    
-    if (secilenParca === null) {
-        secilenParca = tiklananIndeks;
-        document.getElementById('puzzle-grid').children[secilenParca].style.border = '2px solid #ff4757';
-    } else {
-        let gecici = suAnkiSira[secilenParca];
-        suAnkiSira[secilenParca] = suAnkiSira[tiklananIndeks];
-        suAnkiSira[tiklananIndeks] = gecici;
-        
-        document.getElementById('puzzle-grid').children[secilenParca].style.border = '1px solid rgba(255,255,255,0.2)';
-        secilenParca = null;
-        puzzleOlustur();
-        puzzleKontrolEt();
-    }
-}
-
-function puzzleKontrolEt() {
-    const bitti = suAnkiSira.every((val, i) => val === doruSira[i]);
-    if (bitti && !yapbozBittiMi) {
-        yapbozBittiMi = true;
-        localStorage.setItem('puzzleBitti', 'true');
-        document.getElementById('puzzle-mesaj').style.display = 'block';
-        
-        // Market cüzdanına 500 ticket otomatik ekleniyor
-        let mevcutKuponlar = parseInt(localStorage.getItem('couponRights')) || 0;
-        mevcutKuponlar += 500;
-        localStorage.setItem('couponRights', mevcutKuponlar);
-        
-        if(typeof kuponArayuzunuGuncelle === "function") kuponArayuzunuGuncelle();
-    }
-}
-
-// ==========================================
-// 2. 30 GÜNLÜK AŞK AĞACI MANTIĞI (GÜNLÜK 1 KERE)
-// ==========================================
-let agacPuani = parseInt(localStorage.getItem('askAgacPuani30')) || 0;
-
-function getAgacEmoji(puan) {
-    if (puan === 0) return '🌱';
-    if (puan < 5) return '🌿';
-    if (puan < 10) return '☘️';
-    if (puan < 15) return '🪴';
-    if (puan < 20) return '🌳';
-    if (puan < 25) return '🍃';
-    if (puan < 30) return '🌸';
-    return '💖';
-}
-
-function agacArayuzGuncelle() {
-    const seviyeYazi = document.getElementById('agac-seviye-yazi');
-    const agacBox = document.getElementById('agac-box');
-    const sulaBtn = document.getElementById('sula-btn');
-    
-    if(!seviyeYazi || !agacBox) return;
-
-    seviyeYazi.innerText = agacPuani;
-    agacBox.innerText = getAgacEmoji(agacPuani);
-    
-    if (agacPuani >= 30) {
-        document.getElementById('agac-odul-kutusu').style.display = 'block';
-        if(sulaBtn) sulaBtn.style.display = 'none';
-        return;
-    }
-
-    const bugun = new Date().toDateString();
-    const sonSulamaTarihi = localStorage.getItem('sonSulamaTarihi');
-
-    if (sonSulamaTarihi === bugun) {
-        if(sulaBtn) {
-            sulaBtn.disabled = true;
-            sulaBtn.innerText = '🔒 Bugün Sulandı (Gece 12\'de Açılır)';
-        }
-    } else {
-        if(sulaBtn) {
-            sulaBtn.disabled = false;
-            sulaBtn.innerText = '❤️ Sevgiyle Sula';
-        }
-    }
-}
-
-function efektPatlat() {
-    const konteyner = document.getElementById('agac-konteyner');
-    if(!konteyner) return;
-    const renkler = ['#ff758f', '#fd3a69', '#2ed573', '#1e90ff', '#ffa500', '#f5f6fa'];
-    
-    for (let i = 0; i < 50; i++) {
-        const parcacik = document.createElement('div');
-        parcacik.className = 'parcacik';
-        const x = (Math.random() - 0.5) * 300 + 'px';
-        const y = (Math.random() - 0.5) * 300 + 'px';
-        parcacik.style.setProperty('--x', x);
-        parcacik.style.setProperty('--y', y);
-        parcacik.style.backgroundColor = renkler[Math.floor(Math.random() * renkler.length)];
-        parcacik.style.left = '50%';
-        parcacik.style.top = '50%';
-        konteyner.appendChild(parcacik);
-        setTimeout(() => parcacik.remove(), 1000);
-    }
-}
-
-function agaciSula() {
-    const bugun = new Date().toDateString();
-    const sonSulamaTarihi = localStorage.getItem('sonSulamaTarihi');
-
-    if (sonSulamaTarihi === bugun) return;
-
-    if (agacPuani < 30) {
-        agacPuani++;
-        localStorage.setItem('askAgacPuani30', agacPuani);
-        localStorage.setItem('sonSulamaTarihi', bugun);
-        
-        const agacBox = document.getElementById('agac-box');
-        if(agacBox) {
-            agacBox.classList.add('canlanma');
-            setTimeout(() => agacBox.classList.remove('canlanma'), 300);
-        }
-        
-        agacArayuzGuncelle();
-        
-        if (agacPuani === 30) {
-            efektPatlat();
-            setTimeout(efektPatlat, 400);
-            setTimeout(efektPatlat, 800);
+        <div class="agac-alani" id="agac-konteyner">
+            <div class="agac-baslik">🌱 30 Günlük Aşk Ağacımız 🌱</div>
+            <div class="agac-skor">Ağacın Yaşı: <span id="agac-seviye-yazi">0</span>/30 Gün</div>
+            <div id="agac-box" class="agac-gosterge">🌱</div>
+            <button id="sula-btn" class="agac-buton" onclick="agaciSula()">❤️ Sevgiyle Sula</button>
             
-            // Ağaç bitince market cüzdanına 500 ticket otomatik ekleniyor
-            let mevcutKuponlar = parseInt(localStorage.getItem('couponRights')) || 0;
-            mevcutKuponlar += 500;
-            localStorage.setItem('couponRights', mevcutKuponlar);
-            if(typeof kuponArayuzunuGuncelle === "function") kuponArayuzunuGuncelle();
-        }
-    }
-}
+            <div id="agac-odul-kutusu" class="agac-odul">
+                🎉 TEBRİKLER SEVGİLİM! 🎉<br>
+                30 gün boyunca aşkımızı sabırla büyüttün. <br><br>
+                🎫 KAZANDIĞIN ÖDÜL: <br>
+                <span style="font-size: 20px; color: #fff;">✨ 500 ÖDÜL KUPONU ✨</span><br><br>
+                Kuponlar market hesabına başarıyla yüklendi! Dilediğince harcayabilirsin. ❤️
+            </div>
+        </div>
 
-window.addEventListener('DOMContentLoaded', () => {
-    puzzleOlustur();
-    agacArayuzGuncelle();
-});
-</script>
+        <div class="sinyal-konteyner">
+            <button id="sinyalButon" onclick="sinyalGonder()">Sevgilime Sinyal Gönder ⚡</button>
+        </div>
+    </div>
+
+    <script>
+        // HAFIZAYI TEK SEFERLİK SIFIRLAMA GÜVENLİĞİ (Ağaç hatasını çözen kısım)
+        if(localStorage.getItem('agacSifirlandiV2') !== 'true') {
+            localStorage.setItem('askAgacPuani30', '0');
+            localStorage.removeItem('sonSulamaTarihi');
+            localStorage.setItem('agacSifirlandiV2', 'true'); 
+        }
+
+        // ==========================================
+        // 1. YAPBOZ OYUNU MANTIĞI
+        // ==========================================
+        const puzzleResmi = 'puzzle-resim.jpg';
+        const doruSira = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+        let suAnkiSira = [...doruSira].sort(() => Math.random() - 0.5);
+        let secilenParca = null;
+        let yapbozBittiMi = localStorage.getItem('puzzleBitti') === 'true';
+
+        function puzzleOlustur() {
+            const grid = document.getElementById('puzzle-grid');
+            if(!grid) return;
+            grid.innerHTML = '';
+            
+            suAnkiSira.forEach((parcaNo, indeks) => {
+                const satir = Math.floor(parcaNo / 4);
+                const sutun = parcaNo % 4;
+                
+                const parca = document.createElement('div');
+                parca.className = 'puzzle-parca';
+                parca.style.backgroundImage = `url('${puzzleResmi}')`;
+                parca.style.backgroundPosition = `-${sutun * 66}px -${satir * 66}px`;
+                parca.dataset.indeks = indeks;
+                
+                if (!yapbozBittiMi) {
+                    parca.addEventListener('click', parcaTiklama);
+                }
+                grid.appendChild(parca);
+            });
+
+            if (yapbozBittiMi) {
+                document.getElementById('puzzle-mesaj').style.display = 'block';
+            }
+        }
+
+        function parcaTiklama(e) {
+            if(yapbozBittiMi) return;
+            const tiklananIndeks = parseInt(e.target.dataset.indeks);
+            
+            if (secilenParca === null) {
+                secilenParca = tiklananIndeks;
+                document.getElementById('puzzle-grid').children[secilenParca].style.border = '2px solid #ff4757';
+            } else {
+                let gecici = suAnkiSira[secilenParca];
+                suAnkiSira[secilenParca] = suAnkiSira[tiklananIndeks];
+                suAnkiSira[tiklananIndeks] = gecici;
+                
+                document.getElementById('puzzle-grid').children[secilenParca].style.border = '1px solid rgba(255,255,255,0.2)';
+                secilenParca = null;
+                puzzleOlustur();
+                puzzleKontrolEt();
+            }
+        }
+
+        function puzzleKontrolEt() {
+            const bitti = suAnkiSira.every((val, i) => val === doruSira[i]);
+            if (bitti && !yapbozBittiMi) {
+                yapbozBittiMi = true;
+                localStorage.setItem('puzzleBitti', 'true');
+                document.getElementById('puzzle-mesaj').style.display = 'block';
+                
+                let mevcutKuponlar = parseInt(localStorage.getItem('couponRights')) || 0;
+                mevcutKuponlar += 500;
+                localStorage.setItem('couponRights', mevcutKuponlar);
+                
+                if(typeof updateCouponUI === "function") updateCouponUI();
+            }
+        }
+
+        // ==========================================
+        // 2. 30 GÜNLÜK AŞK AĞACI MANTIĞI (GÜNLÜK Sınır)
+        // ==========================================
+        let agacPuani = parseInt(localStorage.getItem('askAgacPuani30')) || 0;
+
+        function getAgacEmoji(puan) {
+            if (puan === 0) return '🌱';
+            if (puan < 5) return '🌿';
+            if (puan < 10) return '☘️';
+            if (puan < 15) return '🪴';
+            if (puan < 20) return '🌳';
+            if (puan < 25) return '🍃';
+            if (puan < 30) return '🌸';
+            return '💖';
+        }
+
+        function agacArayuzGuncelle() {
+            const seviyeYazi = document.getElementById('agac-seviye-yazi');
+            const agacBox = document.getElementById('agac-box');
+            const sulaBtn = document.getElementById('sula-btn');
+            
+            if(!seviyeYazi || !agacBox) return;
+
+            seviyeYazi.innerText = agacPuani;
+            agacBox.innerText = getAgacEmoji(agacPuani);
+            
+            if (agacPuani >= 30) {
+                document.getElementById('agac-odul-kutusu').style.display = 'block';
+                if(sulaBtn) sulaBtn.style.display = 'none';
+                return;
+            }
+
+            const bugun = new Date().toDateString();
+            const sonSulamaTarihi = localStorage.getItem('sonSulamaTarihi');
+
+            if (sonSulamaTarihi === bugun) {
+                if(sulaBtn) {
+                    sulaBtn.disabled = true;
+                    sulaBtn.innerText = '🔒 Bugün Sulandı (Gece 12\'de Açılır)';
+                }
+            } else {
+                if(sulaBtn) {
+                    sulaBtn.disabled = false;
+                    sulaBtn.innerText = '❤️ Sevgiyle Sula';
+                }
+            }
+        }
+
+        function efektPatlat() {
+            const konteyner = document.getElementById('agac-konteyner');
+            if(!konteyner) return;
+            const renkler = ['#ff758f', '#fd3a69', '#2ed573', '#1e90ff', '#ffa500', '#f5f6fa'];
+            
+            for (let i = 0; i < 50; i++) {
+                const parcacik = document.createElement('div');
+                parcacik.className = 'parcacik';
+                const x = (Math.random() - 0.5) * 300 + 'px';
+                const y = (Math.random() - 0.5) * 300 + 'px';
+                parcacik.style.setProperty('--x', x);
+                parcacik.style.setProperty('--y', y);
+                parcacik.style.backgroundColor = renkler[Math.floor(Math.random() * renkler.length)];
+                parcacik.style.left = '50%';
+                parcacik.style.top = '50%';
+                konteyner.appendChild(parcacik);
+                setTimeout(() => parcacik.remove(), 1000);
+            }
+        }
+
+        function agaciSula() {
+            const bugun = new Date().toDateString();
+            const sonSulamaTarihi = localStorage.getItem('sonSulamaTarihi');
+
+            if (sonSulamaTarihi === bugun) return;
+
+            if (agacPuani < 30) {
+                agacPuani++;
+                localStorage.setItem('askAgacPuani30', agacPuani);
+                localStorage.setItem('sonSulamaTarihi', bugun);
+                
+                const agacBox = document.getElementById('agac-box');
+                if(agacBox) {
+                    agacBox.classList.add('canlanma');
+                    setTimeout(() => agacBox.classList.remove('canlanma'), 300);
+                }
+                
+                agacArayuzGuncelle();
+                
+                if (agacPuani === 30) {
+                    efektPatlat();
+                    setTimeout(efektPatlat, 400);
+                    setTimeout(efektPatlat, 800);
+                    
+                    let mevcutKuponlar = parseInt(localStorage.getItem('couponRights')) || 0;
+                    mevcutKuponlar += 500;
+                    localStorage.setItem('couponRights', mevcutKuponlar);
+                    if(typeof updateCouponUI === "function") updateCouponUI();
+                }
+            }
+        }
+    </script>
 
     <div id="appModal" class="modal">
         <div class="modal-content">
@@ -959,7 +984,17 @@ window.addEventListener('DOMContentLoaded', () => {
         </div>
     </div>
 
+    <div id="sinyalModal" class="sinyal-modal">
+        <div class="sinyal-modal-icerik">
+            <div class="kalp-animasyon">💖</div>
+            <h2>Aklımdasın Sevgilim!</h2>
+            <p>Şu an seni düşünüyor ve sana kocaman bir aşk sinyali gönderiyor!</p>
+            <button onclick="modalKapat()">Seni Seviyorum 💕</button>
+        </div>
+    </div>
+
     <audio id="bg-audio" src="sarki.mp3" loop preload="auto"></audio>
+    <audio id="sinyalSesi" src="https://assets.mixkit.co/active_storage/sfx/2869/2869-84.wav" preload="auto"></audio>
 
     <script>
         let loginDone = false;
@@ -973,7 +1008,7 @@ window.addEventListener('DOMContentLoaded', () => {
         let gameInterval;
         let isGameRunning = false;
 
-        // Hedef Kapsül Tarihleri (Güncellendi: 21 Ekim 2027 ve 21 Ekim 2030)
+        // Hedef Kapsül Tarihleri (21 Ekim 2027 ve 21 Ekim 2030)
         const uniDate = new Date("2027-10-21T09:00:00").getTime(); 
         const homeDate = new Date("2030-10-21T12:00:00").getTime();
 
@@ -991,7 +1026,7 @@ window.addEventListener('DOMContentLoaded', () => {
             "Sadece sesini duyduğumda bile kalbimin ritmini tamamen değiştirmeyi başarabildiğin için.",
             "Bana dünyadaki en özel ve en şanslı insan olduğumu her an hissettirdiğin için.",
             "Geleceğe dair kurduğum her güzel hayalin tam merkezinde sen olduğun için.",
-            "Karakterin, temiz kalbin ve bana kattığın o güzel enerjin için.",
+            "Karakterin, temiz kalbinและ bana kattığın o güzel enerjin için.",
             "Elini tuttuğumda dünyadaki tüm karmaşanın bir anda yok olup gittiğini hissettirdiğin için.",
             "Seninle geçirilen en sade, en sıradan dakikaların bile benim için birer ömre bedel olması yüzünden.",
             "Farkında olmadan yaptığın o minik, aşırı tatlı jestlerinle beni kendine tekrar tekrar aşık ettiğin için."
@@ -1050,11 +1085,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
         function handleCheck(checkbox) {
             const parentLabel = checkbox.parentElement;
-            if (checkbox.checked) {
-                parentLabel.classList.add("checked-item");
-            } else {
-                parentLabel.classList.remove("checked-item");
-            }
+            if (checkbox.checked) { parentLabel.classList.add("checked-item"); } 
+            else { parentLabel.classList.remove("checked-item"); }
             
             const savedList = JSON.parse(localStorage.getItem('bucketListState')) || {};
             savedList[checkbox.id] = checkbox.checked;
@@ -1082,13 +1114,13 @@ window.addEventListener('DOMContentLoaded', () => {
                 updateCouponUI();
                 loadBucketList();
                 startCapsuleCountdowns();
+                puzzleOlustur();
+                agacArayuzGuncelle();
                 
                 const audio = document.getElementById("bg-audio");
                 audio.play().then(() => {
                     document.getElementById("music-btn").innerText = "🎵 Şarkıyı Kapat";
-                }).catch(e => {
-                    console.log("Müzik için etkileşim bekleniyor.");
-                });
+                }).catch(e => { console.log("Müzik etkileşim bekliyor."); });
             } else {
                 alert("Küçük bir hata yaptın sevgilim, tekrar dene! 💖");
             }
@@ -1098,7 +1130,6 @@ window.addEventListener('DOMContentLoaded', () => {
             function updateCountdowns() {
                 const now = new Date().getTime();
 
-                // Üni Kapsülü Geri Sayımı
                 const uniDiff = uniDate - now;
                 const uniSub = document.getElementById("uni-countdown");
                 if (uniDiff <= 0) {
@@ -1112,7 +1143,6 @@ window.addEventListener('DOMContentLoaded', () => {
                     uniSub.style.color = "#ff99bb";
                 }
 
-                // Ortak Ev Kapsülü Geri Sayımı
                 const homeDiff = homeDate - now;
                 const homeSub = document.getElementById("home-countdown");
                 if (homeDiff <= 0) {
@@ -1136,17 +1166,11 @@ window.addEventListener('DOMContentLoaded', () => {
                 const randomIndex = Math.floor(Math.random() * sadMessages.length);
                 openModal('custom', `💖 MORAL NOTU 💖\n\n"${sadMessages[randomIndex]}"`);
             } else if (type === 'uni') {
-                if (uniDate - now > 0) {
-                    alert("Bu zaman kapsülü henüz kilitli sevgilim! Geri sayımın bitmesini beklemelisin. ⏳🔒");
-                } else {
-                    openModal('custom', `🎓 ÜNİVERSİTENİN İLK GÜNÜ MEKTUBU 🎓\n\nBaşardın bir tanem, yeni bir başlangıçtasın! Bu büyük adımında da kalbim tamamen seninle. Sana inanıyorum, her anında yanındayım! ✨`);
-                }
+                if (uniDate - now > 0) { alert("Bu zaman kapsülü henüz kilitli sevgilim! ⏳🔒"); } 
+                else { openModal('custom', `🎓 ÜNİVERSİTENİN İLK GÜNÜ MEKTUBU 🎓\n\nBaşardın bir tanem, yeni bir başlangıçtasın! Bu büyük adımında da kalbim tamamen seninle. Sana inanıyorum! ✨`); }
             } else if (type === 'home') {
-                if (homeDate - now > 0) {
-                    alert("Bu zaman kapsülü henüz kilitli sevgilim! Geri sayımın bitmesini beklemelisin. ⏳🔒");
-                } else {
-                    openModal('custom', `🔑 ORTAK EVE ÇIKTIĞIMIZ GÜN MEKTUBU 🔑\n\nİşte nihayet sadece ikimize ait o harika çatı altındayız sevgilim! Her sabah seninle uyanmak ve her gece sana sarılarak uyumak hayallerimizin en büyüğüydü. Evimize, geleceğimize hoş geldin aşkım! 🏡💖`);
-                }
+                if (homeDate - now > 0) { alert("Bu zaman kapsülü henüz kilitli sevgilim! ⏳🔒"); } 
+                else { openModal('custom', `🔑 ORTAK EVE ÇIKTIĞIMIZ GÜN MEKTUBU 🔑\n\nİşte nihayet sadece ikimize ait o harika çatı altındayız sevgilim! Evimize, geleceğimize hoş geldin aşkım! 🏡💖`); }
             }
         }
 
@@ -1159,18 +1183,14 @@ window.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Saniye Saniye Canlı Sayan Aşk Sayacı (Güncellendi)
         const startDate = new Date("2025-10-21T00:00:00").getTime();
-
         function updateTimer() {
             const now = new Date().getTime();
             const difference = now - startDate;
-
             const days = Math.floor(difference / (1000 * 60 * 60 * 24));
             const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
             document.getElementById("timer").innerHTML = `${days} Gün, ${hours} Saat, ${minutes} Dakika, ${seconds} Saniye geçti sevgilim...`;
         }
         setInterval(updateTimer, 1000); 
@@ -1179,19 +1199,10 @@ window.addEventListener('DOMContentLoaded', () => {
         function setMood(mood) { 
             document.body.classList.remove('theme-happy', 'theme-tired', 'theme-miss', 'theme-love');
             let message = "";
-            if (mood === 'happy') {
-                document.body.classList.add('theme-happy');
-                message = "Senin mutlu olduğunu bilmek benim de günümü harika yapıyor sevgilim! Bu neşeni kutlayalım! 🎉🌟";
-            } else if (mood === 'tired') {
-                document.body.classList.add('theme-tired');
-                message = "Çok yorucu bir gün müydü aşkım? Dinlenmeyi hak ettin, kafanı dinle ben hep burayanım. 💤🛋️";
-            } else if (mood === 'miss') {
-                document.body.classList.add('theme-miss');
-                message = "Ben de seni çok ama çok özledim sevgilim. Mesafeler bizim sevgimize engel olamaz! 🥺❤️";
-            } else if (mood === 'love') {
-                document.body.classList.add('theme-love');
-                message = "Aşkımız göklere sığmıyor! Seni deliler gibi çok seviyorum bir tanem! 🥰✨";
-            }
+            if (mood === 'happy') { document.body.classList.add('theme-happy'); message = "Senin mutlu olduğunu bilmek benim de günümü harika yapıyor sevgilim! 🎉🌟"; } 
+            else if (mood === 'tired') { document.body.classList.add('theme-tired'); message = "Çok yorucu bir gün müydü aşkım? Dinlenmeyi hak ettin, ben hep buradayım. 2026"; } 
+            else if (mood === 'miss') { document.body.classList.add('theme-miss'); message = "Ben de seni çok ama çok özledim sevgilim. ❤️"; } 
+            else if (mood === 'love') { document.body.classList.add('theme-love'); message = "Aşkımız göklere sığmıyor! Seni deliler gibi çok seviyorum bir tanem! 🥰✨"; }
             openModal('custom', `🧠 RUH HALİ GÜNCELLENDİ\n\n${message}`);
         }
 
@@ -1203,13 +1214,8 @@ window.addEventListener('DOMContentLoaded', () => {
         function openModal(type, customText) {
             const modal = document.getElementById("appModal");
             const textContent = document.getElementById("modal-text-content");
-            
-            if(type === 'letter') {
-                textContent.innerText = "💌 BİR TANECİK ELİF'İME 💌\n\nHayatımın en güzel günü, seninle başladığım o büyülü gün sevgilim. Sen benim hayatıma girdiğin andan itibaren her şeyi güzelleştirdin, dünyamı baştan aşağı neşeyle ve aşkla boyadın. \n\nİyi ki varsın, iyi ki benim sevgilimsin. Gelecekteki tüm güzel adımlarimizi beraber atmak, tüm hayallerimizi tek tek gerçekleştirmek için sabırsızlanıyorum. Seni dünyadaki her şeyden daha çok seviyorum her şeyim! 💖✨";
-            }
-            else if(type === 'reason' || type === 'custom') {
-                textContent.innerText = customText;
-            }
+            if(type === 'letter') { textContent.innerText = "💌 BİR TANECİK ELİF'İME 💌\n\nHayatımın en güzel günü, seninle başladığım o büyülü gün sevgilim. İyi ki varsın, iyi ki benim sevgilimsin. Seni çok seviyorum! 💖✨"; }
+            else if(type === 'reason' || type === 'custom') { textContent.innerText = customText; }
             modal.style.display = "flex";
         }
         function closeModal() { document.getElementById("appModal").style.display = "none"; }
@@ -1217,13 +1223,8 @@ window.addEventListener('DOMContentLoaded', () => {
         function toggleMusic() {
             const audio = document.getElementById("bg-audio");
             const btn = document.getElementById("music-btn");
-            if (audio.paused) {
-                audio.play();
-                btn.innerText = "🎵 Şarkıyı Kapat";
-            } else {
-                audio.pause();
-                btn.innerText = "🎵 Şarkıyı Aç";
-            }
+            if (audio.paused) { audio.play(); btn.innerText = "🎵 Şarkıyı Kapat"; } 
+            else { audio.pause(); btn.innerText = "🎵 Şarkıyı Aç"; }
         }
 
         function startGame() {
@@ -1235,7 +1236,6 @@ window.addEventListener('DOMContentLoaded', () => {
             document.getElementById("game-area").innerHTML = "";
             document.getElementById("start-game-btn").innerText = "Yeniden Başlat 🔄";
             isGameRunning = true;
-            
             let spawnSpeed = Math.max(850 - (currentLevel * 14), 280);
             gameInterval = setInterval(spawnFallingHeart, spawnSpeed);
         }
@@ -1247,7 +1247,6 @@ window.addEventListener('DOMContentLoaded', () => {
             heart.classList.add("falling-heart");
             heart.innerHTML = "❤️";
             heart.style.left = Math.random() * (gameArea.clientWidth - 35) + "px";
-            
             let fallDuration = Math.max(2.6 - (currentLevel * 0.032), 0.8);
             heart.style.animationDuration = fallDuration + "s";
             
@@ -1259,7 +1258,6 @@ window.addEventListener('DOMContentLoaded', () => {
                 heart.remove();
                 if(score >= currentTargetHearts) endGame(true);
             };
-
             gameArea.appendChild(heart);
 
             setTimeout(() => {
@@ -1290,35 +1288,28 @@ window.addEventListener('DOMContentLoaded', () => {
             
             if(isWin) {
                 if (currentTargetHearts >= 100) {
-                    couponRights += 100; 
-                    currentLevel = 1;
-                    currentTargetHearts = 1;
+                    couponRights += 100; currentLevel = 1; currentTargetHearts = 1;
                     localStorage.setItem('couponRights', couponRights);
                     localStorage.setItem('currentLevel', currentLevel);
                     localStorage.setItem('currentTargetHearts', currentTargetHearts);
                     updateCouponUI();
-                    
-                    openModal('custom', `👑 OYUN BİTTİ, KRALİÇE ELİF KAZANDI! 👑\n\nTam 100 kalp yakalamayı başardın ve Kerem'in kalbini tamamen fethettin sevgilim! Oyun otomatik olarak 1. Kademeden yeniden başladı.\n\n🎁 MEGA ÖDÜLÜN YÜKLENDİ: Tam +100 Aşk Kuponu kazandın! Seni çok seviyorum her şeyim! 💖🏆🎉`);
+                    openModal('custom', `👑 KAZANDIN SEVGİLİM! 👑\n\n+100 Aşk Kuponu kazandın! 💖🏆🎉`);
                     return;
                 }
-
                 couponRights += 1;
                 let nextTarget = calculateNextTarget(currentLevel, currentTargetHearts);
                 if (nextTarget > 100) nextTarget = 100;
-
                 currentTargetHearts = nextTarget;
                 currentLevel++;
-
                 localStorage.setItem('couponRights', couponRights);
                 localStorage.setItem('currentLevel', currentLevel);
                 localStorage.setItem('currentTargetHearts', currentTargetHearts);
                 updateCouponUI();
-                
-                openModal('custom', `🎉 TEBRİKLER SEVGİLİM! 🎉\n\nKademe başarıyla geçildi! +1 Aşk Kuponu kazandın. \n\n🔥 YENİ KADEME: Kademe ${currentLevel}\n🎯 YENİ HEDEF: ${currentTargetHearts} Kalp Yakalaman Lazım!`);
+                openModal('custom', `🎉 TEBRİKLER SEVGİLİM! 🎉\n\n+1 Aşk Kuponu kazandın! \n\n🔥 YENİ KADEME: Kademe ${currentLevel}`);
             } else {
                 updateCouponUI();
                 const randomEncouragement = encouragementMessages[Math.floor(Math.random() * encouragementMessages.length)];
-                openModal('custom', `😢 CANLARIN TÜKENDİ SEVGİLİM!\n\n${randomEncouragement}\n\n📌 Durumun Korundu: Kademe ${currentLevel} seviyesinde ${currentTargetHearts} kalp hedefini geçene kadar yılmadan devam edebilirsin!`);
+                openModal('custom', `😢 CANLARIN TÜKENDİ SEVGİLİM!\n\n${randomEncouragement}`);
             }
         }
 
@@ -1332,101 +1323,68 @@ window.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => { heart.remove(); }, 8000);
         }
         setInterval(createHeart, 600);
-    // Tıklama Efekti Dinleyicisi
-document.addEventListener('click', function(e) {
-    const heart = document.createElement('div');
-    heart.classList.add('click-heart');
-    heart.innerHTML = '💖';
-    
-    heart.style.left = e.clientX + 'px';
-    heart.style.top = e.clientY + 'px';
-    
-    document.body.appendChild(heart);
-    
-    setTimeout(() => {
-        heart.remove();
-    }, 800);
-});
-   // Firebase Kütüphanelerini Web Modülleri Yerine Doğrudan Script ile Bağlıyoruz (Kolaylık İçin)
-const script1 = document.createElement('script');
-script1.src = "https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js";
-document.head.appendChild(script1);
 
-const script2 = document.createElement('script');
-script2.src = "https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js";
-document.head.appendChild(script2);
-
-// Kütüphaneler yüklenince Firebase'i başlatıyoruz
-script2.onload = function() {
-    // Senin Firebase Bilgilerin
-    const firebaseConfig = {
-        apiKey: "AIzaSyA65bt8suWmhquoTieC5B30R20KwpdyoVc",
-        authDomain: "ask-sinyali.firebaseapp.com",
-        databaseURL: "https://ask-sinyali-default-rtdb.firebaseio.com",
-        projectId: "ask-sinyali",
-        storageBucket: "ask-sinyali.appspot.com",
-        messagingSenderId: "194081214382",
-        appId: "1:19408214382:web:309c0499b16c83caa4097f"
-    };
-
-    // Firebase Başlatma
-    firebase.initializeApp(firebaseConfig);
-    const database = firebase.database();
-    const sinyalRef = database.ref('sonSinyal');
-
-    // CANLI DİNLEME: Veri tabanında sinyal değiştiği an karşı tarafta pencere açılır
-    sinyalRef.on('value', (snapshot) => {
-        const veri = snapshot.val();
-        if (veri && veri.timestamp) {
-            // Sayfa ilk açıldığında eski sinyallerin patlamaması için son 5 saniyeyi kontrol et
-            const simdikiZaman = Date.now();
-            if (simdikiZaman - veri.timestamp < 5000) {
-                // Pencereyi aç ve sesi çal
-                document.getElementById("sinyalModal").style.display = "flex";
-                const ses = document.getElementById("sinyalSesi");
-                if(ses) ses.play().catch(e => console.log("Ses çalma izni bekleniyor..."));
-            }
-        }
-    });
-
-    // SİNYAL GÖNDERME FONKSİYONU
-    window.sinyalGonder = function() {
-        const buton = document.getElementById("sinyalButon");
-        buton.disabled = true;
-        buton.innerText = "Sinyal Uçtu... 🚀";
-
-        // Veri tabanına zaman damgası göndererek tetikliyoruz
-        sinyalRef.set({
-            timestamp: firebase.database.ServerValue.TIMESTAMP
-        }).then(() => {
-            // Butonu 3 saniye sonra tekrar aktif et (arka arkaya basılmasın diye)
-            setTimeout(() => {
-                buton.disabled = false;
-                buton.innerText = "Sevgilime Sinyal Gönder ⚡";
-            }, 3000);
+        document.addEventListener('click', function(e) {
+            const heart = document.createElement('div');
+            heart.classList.add('click-heart');
+            heart.innerHTML = '💖';
+            heart.style.left = e.clientX + 'px';
+            heart.style.top = e.clientY + 'px';
+            document.body.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 800);
         });
-    }
-};
 
-// Pencereyi Kapatma Fonksiyonu
-function modalKapat() {
-    document.getElementById("sinyalModal").style.display = "none";
-}
+        // Firebase Bağlantıları
+        const script1 = document.createElement('script');
+        script1.src = "https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js";
+        document.head.appendChild(script1);
+
+        const script2 = document.createElement('script');
+        script2.src = "https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js";
+        document.head.appendChild(script2);
+
+        script2.onload = function() {
+            const firebaseConfig = {
+                apiKey: "AIzaSyA65bt8suWmhquoTieC5B30R20KwpdyoVc",
+                authDomain: "ask-sinyali.firebaseapp.com",
+                databaseURL: "https://ask-sinyali-default-rtdb.firebaseio.com",
+                projectId: "ask-sinyali",
+                storageBucket: "ask-sinyali.appspot.com",
+                messagingSenderId: "194081214382",
+                appId: "1:19408214382:web:309c0499b16c83caa4097f"
+            };
+
+            firebase.initializeApp(firebaseConfig);
+            const database = firebase.database();
+            const sinyalRef = database.ref('sonSinyal');
+
+            sinyalRef.on('value', (snapshot) => {
+                const veri = snapshot.val();
+                if (veri && veri.timestamp) {
+                    const simdikiZaman = Date.now();
+                    if (simdikiZaman - veri.timestamp < 5000) {
+                        document.getElementById("sinyalModal").style.display = "flex";
+                        const ses = document.getElementById("sinyalSesi");
+                        if(ses) ses.play().catch(e => console.log("Ses çalma izni beklendi."));
+                    }
+                }
+            });
+
+            window.sinyalGonder = function() {
+                const buton = document.getElementById("sinyalButon");
+                buton.disabled = true;
+                buton.innerText = "Sinyal Uçtu... 🚀";
+                sinyalRef.set({ timestamp: firebase.database.ServerValue.TIMESTAMP }).then(() => {
+                    setTimeout(() => {
+                        buton.disabled = false;
+                        buton.innerText = "Sevgilime Sinyal Gönder ⚡";
+                    }, 3000);
+                });
+            }
+        };
+
+        function modalKapat() { document.getElementById("sinyalModal").style.display = "none"; }
     </script>
-<div class="sinyal-konteyner">
-    <button id="sinyalButon" onclick="sinyalGonder()">Sevgilime Sinyal Gönder ⚡</button>
-</div>
-
-<div id="sinyalModal" class="sinyal-modal">
-    <div class="sinyal-modal-icerik">
-        <div class="kalp-animasyon">💖</div>
-        <h2>Aklımdasın Sevgilim!</h2>
-        <p>Şu an seni düşünüyor ve sana kocaman bir aşk sinyali gönderiyor!</p>
-        <button onclick="modalKapat()">Seni Seviyorum 💕</button>
-    </div>
-</div>
-
-<audio id="sinyalSesi" src="https://assets.mixkit.co/active_storage/sfx/2869/2869-84.wav" preload="auto"></audio>
 </body>
 </html>
 
