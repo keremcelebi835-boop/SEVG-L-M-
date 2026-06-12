@@ -521,50 +521,8 @@
     from { transform: scale(0.7); opacity: 0; }
     to { transform: scale(1); opacity: 1; }
 }
-/* Güvenli 16 Parçalı Yapboz Tasarımı */
-.puzzle-alani {
-    max-width: 360px;
-    margin: 40px auto;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 20px;
-    border: 2px solid #ff4757;
-    text-align: center;
-    box-sizing: border-box;
-}
-.puzzle-baslik {
-    color: #ff4757;
-    font-size: 20px;
-    margin-bottom: 15px;
-    font-family: sans-serif;
-}
-#puzzle-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 sütun */
-    grid-gap: 4px;
-    width: 300px;
-    height: 300px;
-    margin: 0 auto;
-}
-.puzzle-parca {
-    width: 72px;
-    height: 72px;
-    border: 1px solid rgba(255,255,255,0.2);
-    box-sizing: border-box;
-    cursor: pointer;
-    transition: transform 0.2s;
-    background-size: 300px 300px; /* Resim boyutunu sabit tutuyoruz */
-}
-.puzzle-parca:hover {
-    transform: scale(0.96);
-}
-#puzzle-mesaj {
-    color: #2ed573;
-    font-weight: bold;
-    margin-top: 15px;
-    display: none;
-}
-/* Güvenli 30 Günlük Patlama Efektli Aşk Ağacı */
+
+/* Güvenli Patlama Efektli Aşk Ağacı - Güncel */
 .agac-alani {
     max-width: 360px;
     margin: 40px auto;
@@ -606,8 +564,13 @@
     font-weight: bold;
     transition: background 0.2s;
 }
-.agac-buton:hover {
+.agac-buton:hover:not(:disabled) {
     background: #fd3a69;
+}
+.agac-buton:disabled {
+    background: #555;
+    color: #aaa;
+    cursor: not-allowed;
 }
 .agac-skor {
     color: #fff;
@@ -630,7 +593,6 @@
     from { transform: scale(1); }
     to { transform: scale(1.03); }
 }
-/* Patlama parçacıkları için efekt */
 .parcacik {
     position: absolute;
     width: 8px;
@@ -788,116 +750,43 @@
             <div class="photo-card"><img src="foto8.jpg" alt="Anı 8"></div>
         </div>
     </div>
-<div class="puzzle-alani">
+    <div class="puzzle-alani">
     <div class="puzzle-baslik">🧩 Aşk Yapbozumuz (16 Parça) 🧩</div>
     <div id="puzzle-grid"></div>
-    <div id="puzzle-mesaj">Harikasın sevgilim, 16 parçayı da doğru birleştirdin! ❤️</div>
+    <div id="puzzle-mesaj" style="color: #2ed573; font-weight: bold; margin-top: 15px; display: none; text-align: center;">
+        Harikasın sevgilim, 16 parçayı da doğru birleştirdin! ❤️ <br>
+        <span style="color: #ffd700;">✨ 500 Kupon Hesabına Eklendi! ✨</span>
+    </div>
 </div>
+
 <div class="agac-alani" id="agac-konteyner">
     <div class="agac-baslik">🌱 30 Günlük Aşk Ağacımız 🌱</div>
     <div class="agac-skor">Ağacın Yaşı: <span id="agac-seviye-yazi">0</span>/30 Gün</div>
     <div id="agac-box" class="agac-gosterge">🌱</div>
-    <button class="agac-buton" onclick="agaciSula()">❤️ Sevgiyle Sula</button>
+    <button id="sula-btn" class="agac-buton" onclick="agaciSula()">❤️ Sevgiyle Sula</button>
     
     <div id="agac-odul-kutusu" class="agac-odul">
         🎉 TEBRİKLER SEVGİLİM! 🎉<br>
         30 gün boyunca aşkımızı sabırla büyüttün. <br><br>
         🎫 KAZANDIĞIN ÖDÜL: <br>
         <span style="font-size: 20px; color: #fff;">✨ 500 ÖDÜL KUPONU ✨</span><br><br>
-        Kerem bey hazretlerinden dilediğin hediyeleri almak için kuponlarını kullanabilirsin! ❤️
+        Kuponlar market hesabına başarıyla yüklendi! Dilediğince harcayabilirsin. ❤️
     </div>
 </div>
 
 <script>
-let agacPuani = parseInt(localStorage.getItem('askAgacPuani30')) || 0;
-
-// 30 günlük süreçteki ağaç evrimi emojileri
-function getAgacEmoji(puan) {
-    if (puan === 0) return '🌱';
-    if (puan < 5) return '🌿';
-    if (puan < 10) return '☘️';
-    if (puan < 15) return '🪴';
-    if (puan < 20) return '🌳';
-    if (puan < 25) return '🍃';
-    if (puan < 30) return '🌸';
-    return '💖'; // 30. gün tam büyüme hali
-}
-
-function agacArayuzGuncelle() {
-    document.getElementById('agac-seviye-yazi').innerText = agacPuani;
-    const agacBox = document.getElementById('agac-box');
-    
-    agacBox.innerText = getAgacEmoji(agacPuani);
-    
-    if (agacPuani >= 30) {
-        document.getElementById('agac-odul-kutusu').style.display = 'block';
-        document.querySelector('.agac-buton').style.display = 'none';
-    }
-}
-
-// Ekranda konfeti/havai fişek patlama efekti yaratan fonksiyon
-function efektPatlat() {
-    const konteyner = document.getElementById('agac-konteyner');
-    const renkler = ['#ff758f', '#fd3a69', '#2ed573', '#1e90ff', '#ffa500', '#f5f6fa'];
-    
-    for (let i = 0; i < 50; i++) {
-        const parcacik = document.createElement('div');
-        parcacik.className = 'parcacik';
-        
-        // Rastgele fırlama yönleri hesapla
-        const x = (Math.random() - 0.5) * 300 + 'px';
-        const y = (Math.random() - 0.5) * 300 + 'px';
-        
-        parcacik.style.setProperty('--x', x);
-        parcacik.style.setProperty('--y', y);
-        parcacik.style.backgroundColor = renkler[Math.floor(Math.random() * renkler.length)];
-        
-        // Kutunun merkezinden fırlat
-        parcacik.style.left = '50%';
-        parcacik.style.top = '50%';
-        
-        konteyner.appendChild(parcacik);
-        
-        // Animasyon bitince temizle
-        setTimeout(() => parcacik.remove(), 1000);
-    }
-}
-
-function agaciSula() {
-    if (agacPuani < 30) {
-        agacPuani++;
-        localStorage.setItem('askAgacPuani30', agacPuani);
-        
-        const agacBox = document.getElementById('agac-box');
-        agacBox.classList.add('canlanma');
-        setTimeout(() => agacBox.classList.remove('canlanma'), 300);
-        
-        agacArayuzGuncelle();
-        
-        // Tam 30. güne ulaştığı an patlama efektini tetikle
-        if (agacPuani === 30) {
-            efektPatlat();
-            // Eğlenceyi artırmak için 3 kez arka arkaya patlatıyoruz
-            setTimeout(efektPatlat, 400);
-            setTimeout(efektPatlat, 800);
-        }
-    }
-}
-
-window.addEventListener('DOMContentLoaded', agacArayuzGuncelle);
-</script>
-
-<script>
-// YAPBOZ AYARLARI
-// 'puzzle-resim.jpg' yerine klasöründeki gerçek fotoğraf adını yazmayı unutma!
-const puzzleResmi = 'puzzle-resim.jpg'; 
-
+// ==========================================
+// 1. YAPBOZ OYUNU MANTIĞI
+// ==========================================
+const puzzleResmi = 'puzzle-resim.jpg';
 const doruSira = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 let suAnkiSira = [...doruSira].sort(() => Math.random() - 0.5);
 let secilenParca = null;
+let yapbozBittiMi = localStorage.getItem('puzzleBitti') === 'true';
 
 function puzzleOlustur() {
     const grid = document.getElementById('puzzle-grid');
+    if(!grid) return;
     grid.innerHTML = '';
     
     suAnkiSira.forEach((parcaNo, indeks) => {
@@ -910,12 +799,19 @@ function puzzleOlustur() {
         parca.style.backgroundPosition = `-${sutun * 75}px -${satir * 75}px`;
         parca.dataset.indeks = indeks;
         
-        parca.addEventListener('click', parcaTiklama);
+        if (!yapbozBittiMi) {
+            parca.addEventListener('click', parcaTiklama);
+        }
         grid.appendChild(parca);
     });
+
+    if (yapbozBittiMi) {
+        document.getElementById('puzzle-mesaj').style.display = 'block';
+    }
 }
 
 function parcaTiklama(e) {
+    if(yapbozBittiMi) return;
     const tiklananIndeks = parseInt(e.target.dataset.indeks);
     
     if (secilenParca === null) {
@@ -926,21 +822,134 @@ function parcaTiklama(e) {
         suAnkiSira[secilenParca] = suAnkiSira[tiklananIndeks];
         suAnkiSira[tiklananIndeks] = gecici;
         
+        document.getElementById('puzzle-grid').children[secilenParca].style.border = '1px solid rgba(255,255,255,0.2)';
         secilenParca = null;
         puzzleOlustur();
-        kontrolEt();
+        puzzleKontrolEt();
     }
 }
 
-function kontrolEt() {
-    const bittiMi = suAnkiSira.every((val, i) => val === doruSira[i]);
-    if (bittiMi) {
+function puzzleKontrolEt() {
+    const bitti = suAnkiSira.every((val, i) => val === doruSira[i]);
+    if (bitti && !yapbozBittiMi) {
+        yapbozBittiMi = true;
+        localStorage.setItem('puzzleBitti', 'true');
         document.getElementById('puzzle-mesaj').style.display = 'block';
+        
+        // Market cüzdanına 500 ticket otomatik ekleniyor
+        let mevcutKuponlar = parseInt(localStorage.getItem('couponRights')) || 0;
+        mevcutKuponlar += 500;
+        localStorage.setItem('couponRights', mevcutKuponlar);
+        
+        if(typeof kuponArayuzunuGuncelle === "function") kuponArayuzunuGuncelle();
     }
 }
 
-// Oyunu Başlat
-window.addEventListener('DOMContentLoaded', puzzleOlustur);
+// ==========================================
+// 2. 30 GÜNLÜK AŞK AĞACI MANTIĞI (GÜNLÜK 1 KERE)
+// ==========================================
+let agacPuani = parseInt(localStorage.getItem('askAgacPuani30')) || 0;
+
+function getAgacEmoji(puan) {
+    if (puan === 0) return '🌱';
+    if (puan < 5) return '🌿';
+    if (puan < 10) return '☘️';
+    if (puan < 15) return '🪴';
+    if (puan < 20) return '🌳';
+    if (puan < 25) return '🍃';
+    if (puan < 30) return '🌸';
+    return '💖';
+}
+
+function agacArayuzGuncelle() {
+    const seviyeYazi = document.getElementById('agac-seviye-yazi');
+    const agacBox = document.getElementById('agac-box');
+    const sulaBtn = document.getElementById('sula-btn');
+    
+    if(!seviyeYazi || !agacBox) return;
+
+    seviyeYazi.innerText = agacPuani;
+    agacBox.innerText = getAgacEmoji(agacPuani);
+    
+    if (agacPuani >= 30) {
+        document.getElementById('agac-odul-kutusu').style.display = 'block';
+        if(sulaBtn) sulaBtn.style.display = 'none';
+        return;
+    }
+
+    const bugun = new Date().toDateString();
+    const sonSulamaTarihi = localStorage.getItem('sonSulamaTarihi');
+
+    if (sonSulamaTarihi === bugun) {
+        if(sulaBtn) {
+            sulaBtn.disabled = true;
+            sulaBtn.innerText = '🔒 Bugün Sulandı (Gece 12\'de Açılır)';
+        }
+    } else {
+        if(sulaBtn) {
+            sulaBtn.disabled = false;
+            sulaBtn.innerText = '❤️ Sevgiyle Sula';
+        }
+    }
+}
+
+function efektPatlat() {
+    const konteyner = document.getElementById('agac-konteyner');
+    if(!konteyner) return;
+    const renkler = ['#ff758f', '#fd3a69', '#2ed573', '#1e90ff', '#ffa500', '#f5f6fa'];
+    
+    for (let i = 0; i < 50; i++) {
+        const parcacik = document.createElement('div');
+        parcacik.className = 'parcacik';
+        const x = (Math.random() - 0.5) * 300 + 'px';
+        const y = (Math.random() - 0.5) * 300 + 'px';
+        parcacik.style.setProperty('--x', x);
+        parcacik.style.setProperty('--y', y);
+        parcacik.style.backgroundColor = renkler[Math.floor(Math.random() * renkler.length)];
+        parcacik.style.left = '50%';
+        parcacik.style.top = '50%';
+        konteyner.appendChild(parcacik);
+        setTimeout(() => parcacik.remove(), 1000);
+    }
+}
+
+function agaciSula() {
+    const bugun = new Date().toDateString();
+    const sonSulamaTarihi = localStorage.getItem('sonSulamaTarihi');
+
+    if (sonSulamaTarihi === bugun) return;
+
+    if (agacPuani < 30) {
+        agacPuani++;
+        localStorage.setItem('askAgacPuani30', agacPuani);
+        localStorage.setItem('sonSulamaTarihi', bugun);
+        
+        const agacBox = document.getElementById('agac-box');
+        if(agacBox) {
+            agacBox.classList.add('canlanma');
+            setTimeout(() => agacBox.classList.remove('canlanma'), 300);
+        }
+        
+        agacArayuzGuncelle();
+        
+        if (agacPuani === 30) {
+            efektPatlat();
+            setTimeout(efektPatlat, 400);
+            setTimeout(efektPatlat, 800);
+            
+            // Ağaç bitince market cüzdanına 500 ticket otomatik ekleniyor
+            let mevcutKuponlar = parseInt(localStorage.getItem('couponRights')) || 0;
+            mevcutKuponlar += 500;
+            localStorage.setItem('couponRights', mevcutKuponlar);
+            if(typeof kuponArayuzunuGuncelle === "function") kuponArayuzunuGuncelle();
+        }
+    }
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    puzzleOlustur();
+    agacArayuzGuncelle();
+});
 </script>
 
     <div id="appModal" class="modal">
