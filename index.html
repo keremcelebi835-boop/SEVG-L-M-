@@ -505,7 +505,7 @@
         @keyframes kalpAtis { from { transform: scale(1); } to { transform: scale(1.2); } }
         @keyframes acilisAnimasyonu { from { transform: scale(0.7); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
-        /* GÜNCELLENEN YAPBOZ CSS TASARIMLARI (EKSİKTİ, EKLENDİ) */
+        /* GÜNCELLENEN YAPBOZ CSS TASARIMLARI */
         .puzzle-alani {
             width: 100%;
             max-width: 500px;
@@ -544,6 +544,15 @@
             transition: transform 0.2s;
             background-size: 280px 280px;
             border-radius: 4px;
+            /* DÜZELTME: Görüntü bozulursa kutuların içi güzel görünsün ve numaralar okunsun diye eklendi */
+            background-color: rgba(255, 51, 102, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
         }
         .puzzle-parca:hover { transform: scale(0.95); }
 
@@ -800,7 +809,7 @@
     </div>
 
     <script>
-        // HAFIZAYI TEK SEFERLİK SIFIRLAMA GÜVENLİĞİ (Ağaç hatasını çözen kısım)
+        // HAFIZAYI TEK SEFERLİK SIFIRLAMA GÜVENLİĞİ 
         if(localStorage.getItem('agacSifirlandiV2') !== 'true') {
             localStorage.setItem('askAgacPuani30', '0');
             localStorage.removeItem('sonSulamaTarihi');
@@ -808,7 +817,7 @@
         }
 
         // ==========================================
-        // 1. YAPBOZ OYUNU MANTIĞI
+        // 1. YAPBOZ OYUNU MANTIĞI (DÜZELTİLDİ)
         // ==========================================
         const puzzleResmi = 'puzzle-resim.jpg';
         const doruSira = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
@@ -830,6 +839,9 @@
                 parca.style.backgroundImage = `url('${puzzleResmi}')`;
                 parca.style.backgroundPosition = `-${sutun * 66}px -${satir * 66}px`;
                 parca.dataset.indeks = indeks;
+                
+                // DÜZELTME: Resim bozulursa karışmasın diye numaralar eklendi
+                parca.innerText = parcaNo + 1; 
                 
                 if (!yapbozBittiMi) {
                     parca.addEventListener('click', parcaTiklama);
@@ -877,7 +889,7 @@
         }
 
         // ==========================================
-        // 2. 30 GÜNLÜK AŞK AĞACI MANTIĞI (GÜNLÜK Sınır)
+        // 2. 30 GÜNLÜK AŞK AĞACI MANTIĞI
         // ==========================================
         let agacPuani = parseInt(localStorage.getItem('askAgacPuani30')) || 0;
 
@@ -1008,7 +1020,6 @@
         let gameInterval;
         let isGameRunning = false;
 
-        // Hedef Kapsül Tarihleri (21 Ekim 2027 ve 21 Ekim 2030)
         const uniDate = new Date("2027-10-21T09:00:00").getTime(); 
         const homeDate = new Date("2030-10-21T12:00:00").getTime();
 
@@ -1026,7 +1037,7 @@
             "Sadece sesini duyduğumda bile kalbimin ritmini tamamen değiştirmeyi başarabildiğin için.",
             "Bana dünyadaki en özel ve en şanslı insan olduğumu her an hissettirdiğin için.",
             "Geleceğe dair kurduğum her güzel hayalin tam merkezinde sen olduğun için.",
-            "Karakterin, temiz kalbinและ bana kattığın o güzel enerjin için.",
+            "Karakterin, temiz kalbin ve bana kattığın o güzel enerjin için.",
             "Elini tuttuğumda dünyadaki tüm karmaşanın bir anda yok olup gittiğini hissettirdiğin için.",
             "Seninle geçirilen en sade, en sıradan dakikaların bile benim için birer ömre bedel olması yüzünden.",
             "Farkında olmadan yaptığın o minik, aşırı tatlı jestlerinle beni kendine tekrar tekrar aşık ettiğin için."
@@ -1200,7 +1211,7 @@
             document.body.classList.remove('theme-happy', 'theme-tired', 'theme-miss', 'theme-love');
             let message = "";
             if (mood === 'happy') { document.body.classList.add('theme-happy'); message = "Senin mutlu olduğunu bilmek benim de günümü harika yapıyor sevgilim! 🎉🌟"; } 
-            else if (mood === 'tired') { document.body.classList.add('theme-tired'); message = "Çok yorucu bir gün müydü aşkım? Dinlenmeyi hak ettin, ben hep buradayım. 2026"; } 
+            else if (mood === 'tired') { document.body.classList.add('theme-tired'); message = "Çok yorucu bir gün müydü aşkım? Dinlenmeyi hak ettin, ben hep buradayım. ❤️"; } 
             else if (mood === 'miss') { document.body.classList.add('theme-miss'); message = "Ben de seni çok ama çok özledim sevgilim. ❤️"; } 
             else if (mood === 'love') { document.body.classList.add('theme-love'); message = "Aşkımız göklere sığmıyor! Seni deliler gibi çok seviyorum bir tanem! 🥰✨"; }
             openModal('custom', `🧠 RUH HALİ GÜNCELLENDİ\n\n${message}`);
@@ -1334,7 +1345,25 @@
             setTimeout(() => { heart.remove(); }, 800);
         });
 
-        // Firebase Bağlantıları
+        window.modalKapat = function() { 
+            document.getElementById("sinyalModal").style.display = "none"; 
+        };
+
+        // ==========================================
+        // 3. YENİLENMİŞ SİNYAL SİSTEMİ (DÜZELTİLDİ)
+        // ==========================================
+        
+        // Güvence: Firebase çökse bile sistem kendi cihazında çalışır
+        window.sinyalGonder = function() {
+            if ("Notification" in window && Notification.permission !== "granted") {
+                Notification.requestPermission();
+            }
+            document.getElementById("sinyalModal").style.display = "flex";
+            const ses = document.getElementById("sinyalSesi");
+            if(ses) ses.play().catch(e => console.log("Ses çalınamadı."));
+            setTimeout(() => { document.getElementById("sinyalModal").style.display = "none"; }, 3000);
+        };
+
         const script1 = document.createElement('script');
         script1.src = "https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js";
         document.head.appendChild(script1);
@@ -1354,18 +1383,25 @@
                 appId: "1:19408214382:web:309c0499b16c83caa4097f"
             };
 
-            firebase.initializeApp(firebaseConfig);
+            if (!firebase.apps.length) {
+                firebase.initializeApp(firebaseConfig);
+            }
             const database = firebase.database();
             const sinyalRef = database.ref('sonSinyal');
+            const appLoadZamani = Date.now(); // Sadece sayfa açıldıktan sonrakileri yakala
 
             sinyalRef.on('value', (snapshot) => {
                 const veri = snapshot.val();
-                if (veri && veri.timestamp) {
-                    const simdikiZaman = Date.now();
-                    if (simdikiZaman - veri.timestamp < 5000) {
-                        document.getElementById("sinyalModal").style.display = "flex";
-                        const ses = document.getElementById("sinyalSesi");
-                        if(ses) ses.play().catch(e => console.log("Ses çalma izni beklendi."));
+                
+                // Saat farkı hatasını çözdüm: Sadece yeni tıklananları algılar
+                if (veri && veri.timestamp && veri.timestamp > appLoadZamani) {
+                    document.getElementById("sinyalModal").style.display = "flex";
+                    const ses = document.getElementById("sinyalSesi");
+                    if(ses) ses.play().catch(e => console.log("Ses çalma izni beklendi."));
+
+                    // Gerçek bildirim gönder
+                    if ("Notification" in window && Notification.permission === "granted") {
+                        new Notification("Sevgilinden Mesaj Var! ❤️", { body: "Şu an seni çok özledi ve sana aşk sinyali gönderdi!" });
                     }
                 }
             });
@@ -1374,7 +1410,23 @@
                 const buton = document.getElementById("sinyalButon");
                 buton.disabled = true;
                 buton.innerText = "Sinyal Uçtu... 🚀";
+                
+                if ("Notification" in window && Notification.permission !== "granted") {
+                    Notification.requestPermission();
+                }
+
+                // Ekranda göster
+                document.getElementById("sinyalModal").style.display = "flex";
+                const ses = document.getElementById("sinyalSesi");
+                if(ses) ses.play().catch(e => console.log("Ses hatası."));
+                
+                // Karşı cihaza ilet
                 sinyalRef.set({ timestamp: firebase.database.ServerValue.TIMESTAMP }).then(() => {
+                    setTimeout(() => {
+                        buton.disabled = false;
+                        buton.innerText = "Sevgilime Sinyal Gönder ⚡";
+                    }, 3000);
+                }).catch(err => {
                     setTimeout(() => {
                         buton.disabled = false;
                         buton.innerText = "Sevgilime Sinyal Gönder ⚡";
@@ -1382,9 +1434,6 @@
                 });
             }
         };
-
-        function modalKapat() { document.getElementById("sinyalModal").style.display = "none"; }
     </script>
 </body>
 </html>
-
