@@ -441,6 +441,87 @@
     }
 }
 
+   /* Sinyal Butonu Tasarımı */
+.sinyal-konteyner {
+    text-align: center;
+    margin: 30px auto;
+}
+#sinyalButon {
+    background: linear-gradient(135deg, #ff6b81, #ff4757);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(255, 107, 129, 0.4);
+    transition: all 0.3s ease;
+}
+#sinyalButon:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(255, 107, 129, 0.6);
+}
+
+/* Canlı Bildirim Penceresi (Modal) */
+.sinyal-modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    justify-content: center;
+    align-items: center;
+}
+.sinyal-modal-icerik {
+    background: #fff0f2;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    max-width: 400px;
+    width: 85%;
+    border: 3px solid #ff6b81;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    animation: acilisAnimasyonu 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.sinyal-modal-icerik h2 {
+    color: #ff4757;
+    margin-bottom: 10px;
+}
+.sinyal-modal-icerik p {
+    color: #57606f;
+    font-size: 16px;
+    line-height: 1.5;
+}
+.sinyal-modal-icerik button {
+    background-color: #ff4757;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+/* Kalp Atma Animasyonu */
+.kalp-animasyon {
+    font-size: 50px;
+    animation: kalpAtis 0.8s infinite alternate;
+}
+@keyframes kalpAtis {
+    from { transform: scale(1); }
+    to { transform: scale(1.2); }
+}
+@keyframes acilisAnimasyonu {
+    from { transform: scale(0.7); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
     </style>
 </head>
 <body>
@@ -982,7 +1063,86 @@ document.addEventListener('click', function(e) {
         heart.remove();
     }, 800);
 });
+   // Firebase Kütüphanelerini Web Modülleri Yerine Doğrudan Script ile Bağlıyoruz (Kolaylık İçin)
+const script1 = document.createElement('script');
+script1.src = "https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js";
+document.head.appendChild(script1);
+
+const script2 = document.createElement('script');
+script2.src = "https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js";
+document.head.appendChild(script2);
+
+// Kütüphaneler yüklenince Firebase'i başlatıyoruz
+script2.onload = function() {
+    // Senin Firebase Bilgilerin
+    const firebaseConfig = {
+        apiKey: "AIzaSyA65bt8suWmhquoTieC5B30R20KwpdyoVc",
+        authDomain: "ask-sinyali.firebaseapp.com",
+        databaseURL: "https://ask-sinyali-default-rtdb.firebaseio.com",
+        projectId: "ask-sinyali",
+        storageBucket: "ask-sinyali.appspot.com",
+        messagingSenderId: "194081214382",
+        appId: "1:19408214382:web:309c0499b16c83caa4097f"
+    };
+
+    // Firebase Başlatma
+    firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+    const sinyalRef = database.ref('sonSinyal');
+
+    // CANLI DİNLEME: Veri tabanında sinyal değiştiği an karşı tarafta pencere açılır
+    sinyalRef.on('value', (snapshot) => {
+        const veri = snapshot.val();
+        if (veri && veri.timestamp) {
+            // Sayfa ilk açıldığında eski sinyallerin patlamaması için son 5 saniyeyi kontrol et
+            const simdikiZaman = Date.now();
+            if (simdikiZaman - veri.timestamp < 5000) {
+                // Pencereyi aç ve sesi çal
+                document.getElementById("sinyalModal").style.display = "flex";
+                const ses = document.getElementById("sinyalSesi");
+                if(ses) ses.play().catch(e => console.log("Ses çalma izni bekleniyor..."));
+            }
+        }
+    });
+
+    // SİNYAL GÖNDERME FONKSİYONU
+    window.sinyalGonder = function() {
+        const buton = document.getElementById("sinyalButon");
+        buton.disabled = true;
+        buton.innerText = "Sinyal Uçtu... 🚀";
+
+        // Veri tabanına zaman damgası göndererek tetikliyoruz
+        sinyalRef.set({
+            timestamp: firebase.database.ServerValue.TIMESTAMP
+        }).then(() => {
+            // Butonu 3 saniye sonra tekrar aktif et (arka arkaya basılmasın diye)
+            setTimeout(() => {
+                buton.disabled = false;
+                buton.innerText = "Sevgilime Sinyal Gönder ⚡";
+            }, 3000);
+        });
+    }
+};
+
+// Pencereyi Kapatma Fonksiyonu
+function modalKapat() {
+    document.getElementById("sinyalModal").style.display = "none";
+}
     </script>
+<div class="sinyal-konteyner">
+    <button id="sinyalButon" onclick="sinyalGonder()">Sevgilime Sinyal Gönder ⚡</button>
+</div>
+
+<div id="sinyalModal" class="sinyal-modal">
+    <div class="sinyal-modal-icerik">
+        <div class="kalp-animasyon">💖</div>
+        <h2>Aklımdasın Sevgilim!</h2>
+        <p>Şu an seni düşünüyor ve sana kocaman bir aşk sinyali gönderiyor!</p>
+        <button onclick="modalKapat()">Seni Seviyorum 💕</button>
+    </div>
+</div>
+
+<audio id="sinyalSesi" src="https://assets.mixkit.co/active_storage/sfx/2869/2869-84.wav" preload="auto"></audio>
 </body>
 </html>
 
