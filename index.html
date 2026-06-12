@@ -542,17 +542,11 @@
             box-sizing: border-box;
             cursor: pointer;
             transition: transform 0.2s;
-            background-size: 280px 280px;
+            /* DÜZELTME: Görüntü tam otursun diye boyut güncellendi (4 * 66px = 264px) */
+            background-size: 264px 264px; 
             border-radius: 4px;
-            /* DÜZELTME: Görüntü bozulursa kutuların içi güzel görünsün ve numaralar okunsun diye eklendi */
             background-color: rgba(255, 51, 102, 0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            font-weight: bold;
-            color: white;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+            /* DÜZELTME: İçindeki sayılara ait tüm css özelliklerini sildim */
         }
         .puzzle-parca:hover { transform: scale(0.95); }
 
@@ -782,9 +776,12 @@
         <div class="puzzle-alani">
             <div class="puzzle-baslik">🧩 Aşk Yapbozumuz (16 Parça) 🧩</div>
             <div id="puzzle-grid"></div>
+            
+            <button class="btn" style="padding: 6px 12px; font-size: 0.85rem; margin: 15px auto 0; width: auto; background: linear-gradient(45deg, #444, #222); box-shadow: none; border: 1px solid #666;" onclick="puzzleSifirla()">Yapbozu Yeniden Karıştır 🔄</button>
+            
             <div id="puzzle-mesaj" style="color: #2ed573; font-weight: bold; margin-top: 15px; display: none; text-align: center;">
                 Harikasın sevgilim, 16 parçayı da doğru birleştirdin! ❤️ <br>
-                <span style="color: #ffd700;">✨ 500 Kupon Hesabına Eklendi! ✨</span>
+                <span style="color: #ffd700;">✨ 5 Kupon Hesabına Eklendi! ✨</span>
             </div>
         </div>
 
@@ -840,8 +837,7 @@
                 parca.style.backgroundPosition = `-${sutun * 66}px -${satir * 66}px`;
                 parca.dataset.indeks = indeks;
                 
-                // DÜZELTME: Resim bozulursa karışmasın diye numaralar eklendi
-                parca.innerText = parcaNo + 1; 
+                // DÜZELTME: Sayılar tamamen kaldırıldı
                 
                 if (!yapbozBittiMi) {
                     parca.addEventListener('click', parcaTiklama);
@@ -862,11 +858,17 @@
                 secilenParca = tiklananIndeks;
                 document.getElementById('puzzle-grid').children[secilenParca].style.border = '2px solid #ff4757';
             } else {
+                // DÜZELTME: Aynı parçaya tekrar tıklanırsa seçimi kaldırır (bug önlendi)
+                if (secilenParca === tiklananIndeks) {
+                    document.getElementById('puzzle-grid').children[secilenParca].style.border = '1px solid rgba(255,255,255,0.2)';
+                    secilenParca = null;
+                    return;
+                }
+
                 let gecici = suAnkiSira[secilenParca];
                 suAnkiSira[secilenParca] = suAnkiSira[tiklananIndeks];
                 suAnkiSira[tiklananIndeks] = gecici;
                 
-                document.getElementById('puzzle-grid').children[secilenParca].style.border = '1px solid rgba(255,255,255,0.2)';
                 secilenParca = null;
                 puzzleOlustur();
                 puzzleKontrolEt();
@@ -881,11 +883,21 @@
                 document.getElementById('puzzle-mesaj').style.display = 'block';
                 
                 let mevcutKuponlar = parseInt(localStorage.getItem('couponRights')) || 0;
-                mevcutKuponlar += 500;
+                mevcutKuponlar += 5; // Arka planda tam olarak 5 kupon ekler
                 localStorage.setItem('couponRights', mevcutKuponlar);
                 
                 if(typeof updateCouponUI === "function") updateCouponUI();
             }
+        }
+
+        // DÜZELTME: Kullanıcının oyunu istediği zaman yeniden karıştırabilmesi için eklendi.
+        function puzzleSifirla() {
+            yapbozBittiMi = false;
+            localStorage.setItem('puzzleBitti', 'false');
+            suAnkiSira = [...doruSira].sort(() => Math.random() - 0.5);
+            secilenParca = null;
+            document.getElementById('puzzle-mesaj').style.display = 'none';
+            puzzleOlustur();
         }
 
         // ==========================================
@@ -1353,7 +1365,6 @@
         // 3. YENİLENMİŞ SİNYAL SİSTEMİ (DÜZELTİLDİ)
         // ==========================================
         
-        // Güvence: Firebase çökse bile sistem kendi cihazında çalışır
         window.sinyalGonder = function() {
             if ("Notification" in window && Notification.permission !== "granted") {
                 Notification.requestPermission();
@@ -1388,18 +1399,16 @@
             }
             const database = firebase.database();
             const sinyalRef = database.ref('sonSinyal');
-            const appLoadZamani = Date.now(); // Sadece sayfa açıldıktan sonrakileri yakala
+            const appLoadZamani = Date.now(); 
 
             sinyalRef.on('value', (snapshot) => {
                 const veri = snapshot.val();
                 
-                // Saat farkı hatasını çözdüm: Sadece yeni tıklananları algılar
                 if (veri && veri.timestamp && veri.timestamp > appLoadZamani) {
                     document.getElementById("sinyalModal").style.display = "flex";
                     const ses = document.getElementById("sinyalSesi");
                     if(ses) ses.play().catch(e => console.log("Ses çalma izni beklendi."));
 
-                    // Gerçek bildirim gönder
                     if ("Notification" in window && Notification.permission === "granted") {
                         new Notification("Sevgilinden Mesaj Var! ❤️", { body: "Şu an seni çok özledi ve sana aşk sinyali gönderdi!" });
                     }
@@ -1415,12 +1424,10 @@
                     Notification.requestPermission();
                 }
 
-                // Ekranda göster
                 document.getElementById("sinyalModal").style.display = "flex";
                 const ses = document.getElementById("sinyalSesi");
                 if(ses) ses.play().catch(e => console.log("Ses hatası."));
                 
-                // Karşı cihaza ilet
                 sinyalRef.set({ timestamp: firebase.database.ServerValue.TIMESTAMP }).then(() => {
                     setTimeout(() => {
                         buton.disabled = false;
@@ -1437,3 +1444,4 @@
     </script>
 </body>
 </html>
+
