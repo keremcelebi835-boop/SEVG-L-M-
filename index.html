@@ -420,7 +420,27 @@
             border-radius: 20px;
             cursor: pointer;
             font-weight: bold;
-        }
+        }/* Tıklama Efekti Kalpleri */
+.click-heart {
+    position: fixed;
+    font-size: 24px;
+    pointer-events: none;
+    z-index: 9999;
+    user-select: none;
+    animation: clickFloat 0.8s ease-out forwards;
+}
+
+@keyframes clickFloat {
+    0% {
+        transform: translate(-50%, -50%) scale(0.5) translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1.4) translateY(-60px);
+        opacity: 0;
+    }
+}
+
     </style>
 </head>
 <body>
@@ -947,6 +967,21 @@
             setTimeout(() => { heart.remove(); }, 8000);
         }
         setInterval(createHeart, 600);
+    // Tıklama Efekti Dinleyicisi
+document.addEventListener('click', function(e) {
+    const heart = document.createElement('div');
+    heart.classList.add('click-heart');
+    heart.innerHTML = '💖';
+    
+    heart.style.left = e.clientX + 'px';
+    heart.style.top = e.clientY + 'px';
+    
+    document.body.appendChild(heart);
+    
+    setTimeout(() => {
+        heart.remove();
+    }, 800);
+});
     </script>
 </body>
 </html>
