@@ -521,6 +521,49 @@
     from { transform: scale(0.7); opacity: 0; }
     to { transform: scale(1); opacity: 1; }
 }
+/* Güvenli 16 Parçalı Yapboz Tasarımı */
+.puzzle-alani {
+    max-width: 360px;
+    margin: 40px auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    border: 2px solid #ff4757;
+    text-align: center;
+    box-sizing: border-box;
+}
+.puzzle-baslik {
+    color: #ff4757;
+    font-size: 20px;
+    margin-bottom: 15px;
+    font-family: sans-serif;
+}
+#puzzle-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 sütun */
+    grid-gap: 4px;
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+}
+.puzzle-parca {
+    width: 72px;
+    height: 72px;
+    border: 1px solid rgba(255,255,255,0.2);
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: transform 0.2s;
+    background-size: 300px 300px; /* Resim boyutunu sabit tutuyoruz */
+}
+.puzzle-parca:hover {
+    transform: scale(0.96);
+}
+#puzzle-mesaj {
+    color: #2ed573;
+    font-weight: bold;
+    margin-top: 15px;
+    display: none;
+}
 
     </style>
 </head>
@@ -667,6 +710,67 @@
             <div class="photo-card"><img src="foto8.jpg" alt="Anı 8"></div>
         </div>
     </div>
+<div class="puzzle-alani">
+    <div class="puzzle-baslik">🧩 Aşk Yapbozumuz (16 Parça) 🧩</div>
+    <div id="puzzle-grid"></div>
+    <div id="puzzle-mesaj">Harikasın sevgilim, 16 parçayı da doğru birleştirdin! ❤️</div>
+</div>
+
+<script>
+// YAPBOZ AYARLARI
+// 'puzzle-resim.jpg' yerine klasöründeki gerçek fotoğraf adını yazmayı unutma!
+const puzzleResmi = 'puzzle-resim.jpg'; 
+
+const doruSira = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+let suAnkiSira = [...doruSira].sort(() => Math.random() - 0.5);
+let secilenParca = null;
+
+function puzzleOlustur() {
+    const grid = document.getElementById('puzzle-grid');
+    grid.innerHTML = '';
+    
+    suAnkiSira.forEach((parcaNo, indeks) => {
+        const satir = Math.floor(parcaNo / 4);
+        const sutun = parcaNo % 4;
+        
+        const parca = document.createElement('div');
+        parca.className = 'puzzle-parca';
+        parca.style.backgroundImage = `url('${puzzleResmi}')`;
+        parca.style.backgroundPosition = `-${sutun * 75}px -${satir * 75}px`;
+        parca.dataset.indeks = indeks;
+        
+        parca.addEventListener('click', parcaTiklama);
+        grid.appendChild(parca);
+    });
+}
+
+function parcaTiklama(e) {
+    const tiklananIndeks = parseInt(e.target.dataset.indeks);
+    
+    if (secilenParca === null) {
+        secilenParca = tiklananIndeks;
+        document.getElementById('puzzle-grid').children[secilenParca].style.border = '2px solid #ff4757';
+    } else {
+        let gecici = suAnkiSira[secilenParca];
+        suAnkiSira[secilenParca] = suAnkiSira[tiklananIndeks];
+        suAnkiSira[tiklananIndeks] = gecici;
+        
+        secilenParca = null;
+        puzzleOlustur();
+        kontrolEt();
+    }
+}
+
+function kontrolEt() {
+    const bittiMi = suAnkiSira.every((val, i) => val === doruSira[i]);
+    if (bittiMi) {
+        document.getElementById('puzzle-mesaj').style.display = 'block';
+    }
+}
+
+// Oyunu Başlat
+window.addEventListener('DOMContentLoaded', puzzleOlustur);
+</script>
 
     <div id="appModal" class="modal">
         <div class="modal-content">
